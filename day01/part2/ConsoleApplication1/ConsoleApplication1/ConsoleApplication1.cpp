@@ -5,10 +5,13 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include "../AdventOfCode2018/Day01.h"
+
+using namespace std;
 
 int main()
 {
-	std::vector<int> v{ -19,
+	vector<int> v{ -19,
 +2,
 +18,
 +14,
@@ -962,8 +965,8 @@ int main()
 +14,
 +20,
 -73375 };
-	int sum = 0;
-	std::map<int, int> seenValues;
+	/*int sum = 0;
+	map<int, int> seenValues;
 	seenValues[sum] = sum;
 	bool foundDuplicate = false;
 	do
@@ -971,7 +974,7 @@ int main()
 		for (auto const& value : v) {
 			sum += value;
 			if (seenValues.count(sum) == 1) {
-				std::cout << "found " << sum << " a second time";
+				cout << "found " << sum << " a second time";
 				foundDuplicate = true;
 				break;
 			}
@@ -979,9 +982,12 @@ int main()
 				seenValues[sum] = sum;
 			}
 		}
-	} while (!foundDuplicate);
+	} while (!foundDuplicate);*/
 
-	std::cout << sum;
+	//cout << sum;
+
+	Day01 day1;
+	cout << "Day 01 part 2: " << day1.Part2();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
