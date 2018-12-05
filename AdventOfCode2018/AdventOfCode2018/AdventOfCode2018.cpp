@@ -3,11 +3,18 @@
 
 #include "pch.h"
 #include <iostream>
+#include "../AdventOfCode2018Lib/Day01.h"
+
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n"; 
+	Day01 day01;
+	auto day01input = day01.ReadInput();
+	cout << "Day 01 part 1: " << day01.Part1(day01input) << endl;
+	cout << "Day 01 part 2: " << day01.Part2(day01input) << endl;
 }
+	
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
