@@ -2,6 +2,7 @@
 #include <fstream>
 #include "Day02.h"
 #include <algorithm>
+#include <iostream>
 
 Day02::Day02()
 {
@@ -32,9 +33,37 @@ int Day02::Part1(vector<string> boxIds)
 	return countOfTwoCharaters * countOfThreeCharacters;
 }
 
-int Day02::Part2(vector<string> boxIds)
+string Day02::Part2(vector<string> boxIds)
 {
-	return 43;
+	for (auto const& curr : boxIds)
+	{
+		for (auto const& other : boxIds)
+		{
+			int totalDiffs = 0;
+			int lastDiffPosition = 0;
+			if (curr != other)
+			{
+				for (int i = 0; i < curr.length(); i++)
+				{
+					if (curr[i] != other[i])
+					{
+						totalDiffs++;
+						lastDiffPosition = i;
+					}
+				}
+
+				if (totalDiffs == 1)
+				{
+					string commonLetters;
+					commonLetters.append(curr.substr(0, lastDiffPosition));
+					commonLetters.append(curr.substr(lastDiffPosition + 1));
+					return commonLetters;
+				}
+			}
+		}
+	}
+
+	return "";
 }
 
 vector<string> Day02::ReadInput()

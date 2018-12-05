@@ -86,6 +86,15 @@ namespace MsUnitTest
 			}
 		}
 
+		TEST_METHOD(ReadInput)
+		{
+			Day02 day2;
+			vector<string> vals(day2.ReadInput());
+			Assert::AreEqual(string("wxlnjevbfozadyiqpuzkrhstkg"), vals.front());
+			Assert::AreEqual(string("wxxnjevufodamyiqruzcrhstkg"), vals.back());
+			Assert::AreEqual(size_t(250), vals.size());
+		}
+
 		TEST_METHOD(Part1)
 		{
 			map<vector<string>, int> tests({
@@ -101,13 +110,27 @@ namespace MsUnitTest
 			}
 		}
 
-		TEST_METHOD(ReadInput)
+		TEST_METHOD(Part2)
 		{
+			map<vector<string>, string> tests({
+				{ { 
+						"abcde", 
+						"fghij", 
+						"klmno", 
+						"pqrst", 
+						"fguij", 
+						"axcye", 
+						"wvxyz" 
+					}, "fgij" },
+				});
+
 			Day02 day2;
-			vector<string> vals(day2.ReadInput());
-			Assert::AreEqual(string("wxlnjevbfozadyiqpuzkrhstkg"), vals.front());
-			Assert::AreEqual(string("wxxnjevufodamyiqruzcrhstkg"), vals.back());
-			Assert::AreEqual(size_t(250), vals.size());
+			string actual;
+			for (auto const& m : tests)
+			{
+				actual = day2.Part2(m.first);
+				Assert::AreEqual(m.second, actual);
+			}
 		}
 	};
 }
