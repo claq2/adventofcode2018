@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "../AdventOfCode2018Lib/DayRunner.h"
-#include "../AdventOfCode2018Lib/Day01Runner.h"
+#include "../AdventOfCode2018Lib/Day01/Day01Runner.h"
 
 using namespace std;
 

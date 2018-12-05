@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <map>
 #include "CppUnitTest.h"
-#include "../AdventOfCode2018Lib/Day01.h"
+#include "../AdventOfCode2018Lib/Day01/Day01.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
@@ -21,6 +21,7 @@ namespace MsUnitTest
 				{ { 1, 1, -2 }, 0 },
 				{ { -1, -2, -3 }, -6 },
 				});
+
 			Day01 day1;
 			int actual;
 			for (auto const& m : tests)
@@ -51,7 +52,6 @@ namespace MsUnitTest
 		{
 			Day01 day1;
 			vector<int> vals(day1.ReadInput());
-			vector<int> expected({ 4, 5, 6 });
 			Assert::AreEqual(-19, vals.front());
 			Assert::AreEqual(-73375, vals.back());
 			Assert::AreEqual(size_t(954), vals.size());

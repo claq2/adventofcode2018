@@ -77,6 +77,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>ADVENTOFCODE2018LIB</TargetName>
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <TargetName>ADVENTOFCODE2018LIB</TargetName>
@@ -149,16 +150,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AdventOfCode2018Lib.h" />
-    <ClInclude Include="Day01.h" />
-    <ClInclude Include="Day01Runner.h" />
+    <ClInclude Include="Day01\Day01.h" />
+    <ClInclude Include="Day01\Day01Runner.h" />
+    <ClInclude Include="Day02\Day02.h" />
+    <ClInclude Include="Day02\Day02Runner.h" />
     <ClInclude Include="DayRunner.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdventOfCode2018Lib.cpp" />
-    <ClCompile Include="Day01.cpp" />
-    <ClCompile Include="Day01Runner.cpp" />
+    <ClCompile Include="Day01\Day01.cpp" />
+    <ClCompile Include="Day01\Day01Runner.cpp" />
+    <ClCompile Include="Day02\Day02.cpp" />
+    <ClCompile Include="Day02\Day02Runner.cpp" />
     <ClCompile Include="DayRunner.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="stdafx.cpp">

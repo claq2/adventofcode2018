@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Day01">
+      <UniqueIdentifier>{bdfe9bfe-acbd-4e3b-a25c-04518224e83c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Day02">
+      <UniqueIdentifier>{03c924cf-05ab-49b0-ac7a-140740047a04}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -24,14 +30,20 @@
     <ClInclude Include="AdventOfCode2018Lib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Day01.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DayRunner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Day01Runner.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Day01\Day01.h">
+      <Filter>Day01</Filter>
+    </ClInclude>
+    <ClInclude Include="Day01\Day01Runner.h">
+      <Filter>Day01</Filter>
+    </ClInclude>
+    <ClInclude Include="Day02\Day02.h">
+      <Filter>Day02</Filter>
+    </ClInclude>
+    <ClInclude Include="Day02\Day02Runner.h">
+      <Filter>Day02</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -44,14 +56,20 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Day01.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DayRunner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Day01Runner.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Day01\Day01.cpp">
+      <Filter>Day01</Filter>
+    </ClCompile>
+    <ClCompile Include="Day01\Day01Runner.cpp">
+      <Filter>Day01</Filter>
+    </ClCompile>
+    <ClCompile Include="Day02\Day02.cpp">
+      <Filter>Day02</Filter>
+    </ClCompile>
+    <ClCompile Include="Day02\Day02Runner.cpp">
+      <Filter>Day02</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

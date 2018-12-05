@@ -1,11 +1,8 @@
-#include "stdafx.h"
-#include <filesystem>
+#include <stdafx.h>
 #include <fstream>
 #include <sstream> 
 #include <map>
 #include "Day01.h"
-
-namespace fs = std::filesystem;
 
 Day01::Day01()
 {
@@ -55,12 +52,6 @@ vector<int> Day01::ReadInput()
 	ifstream file;
 	string currentNumberStringWithSign;
 	vector<int> numbers;
-	vector<fs::directory_entry> des;
-
-	for (auto const& p : fs::directory_iterator(""))
-	{
-		des.push_back(p);
-	}
 
 	file.open("Day01.txt");
 	if (!file)
@@ -71,7 +62,6 @@ vector<int> Day01::ReadInput()
 
 	while (getline(file, currentNumberStringWithSign))
 	{
-		//cout << currentNumberStringWithSign << endl;
 		string currentNumberString = currentNumberStringWithSign.substr(1, currentNumberStringWithSign.length() - 1);
 		stringstream numberStream(currentNumberString);
 		int currentNumber = 0;

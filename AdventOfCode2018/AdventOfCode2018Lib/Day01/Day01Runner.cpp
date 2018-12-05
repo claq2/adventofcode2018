@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include <stdafx.h>
 #include <iostream>
 #include "Day01Runner.h"
 #include "Day01.h"
