@@ -29,7 +29,8 @@ namespace MsUnitTest
 			for (auto const& m : tests)
 			{
 				actual = day2.HasTwoRepeatedCharacters(m.first);
-				Assert::AreEqual(m.second, actual);
+				wstring wide(m.first.begin(), m.first.end());
+				Assert::AreEqual(m.second, actual, wide.c_str());
 			}
 		}
 

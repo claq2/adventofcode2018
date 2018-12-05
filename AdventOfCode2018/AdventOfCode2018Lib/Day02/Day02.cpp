@@ -48,27 +48,31 @@ vector<string> Day02::ReadInput()
 
 bool Day02::HasTwoRepeatedCharacters(string input)
 {
-	sort(input.begin(), input.end());
-	char previousChar = input[0];
+	string sortedInput = input;
+	sort(sortedInput.begin(), sortedInput.end());
+	char previousChar = sortedInput[0];
 	int countOfCurrentChar = 1;
-	for (auto const& c : input)
+	for (int i = 1; i < sortedInput.length(); i++)
 	{
+		char c = sortedInput[i];
 		if (previousChar == c)
 		{
 			countOfCurrentChar++;
 		}
+
 		else
 		{
-			if (countOfCurrentChar == 2)
-			{
-				return true;
-			}
-			else
-			{
 				previousChar = c;
 				countOfCurrentChar = 1;
-			}
+			
 		}
+
+		if (countOfCurrentChar == 2)
+		{
+			// TODO: keep going until end of string to see if there was exactly 2 of something
+			return true;
+		}
+
 	}
 
 	return false;
