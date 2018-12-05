@@ -150,12 +150,16 @@
   <ItemGroup>
     <ClInclude Include="AdventOfCode2018Lib.h" />
     <ClInclude Include="Day01.h" />
+    <ClInclude Include="Day01Runner.h" />
+    <ClInclude Include="DayRunner.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdventOfCode2018Lib.cpp" />
     <ClCompile Include="Day01.cpp" />
+    <ClCompile Include="Day01Runner.cpp" />
+    <ClCompile Include="DayRunner.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

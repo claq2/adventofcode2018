@@ -27,6 +27,12 @@
     <ClInclude Include="Day01.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DayRunner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Day01Runner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -39,6 +45,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Day01.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DayRunner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Day01Runner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

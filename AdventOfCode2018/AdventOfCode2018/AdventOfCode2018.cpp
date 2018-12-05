@@ -3,16 +3,23 @@
 
 #include "pch.h"
 #include <iostream>
-#include "../AdventOfCode2018Lib/Day01.h"
+#include <vector>
+#include "../AdventOfCode2018Lib/DayRunner.h"
+#include "../AdventOfCode2018Lib/Day01Runner.h"
 
 using namespace std;
 
 int main()
 {
-	Day01 day01;
-	auto day01input = day01.ReadInput();
-	cout << "Day 01 part 1: " << day01.Part1(day01input) << endl;
-	cout << "Day 01 part 2: " << day01.Part2(day01input) << endl;
+	Day01Runner day01Runner;
+	vector<shared_ptr<DayRunner>> runners{ 
+		make_shared<Day01Runner>(),
+	};
+
+	for (auto r : runners)
+	{
+		r->Run();
+	}
 }
 	
 
