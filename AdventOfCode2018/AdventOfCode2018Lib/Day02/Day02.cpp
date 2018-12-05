@@ -18,6 +18,11 @@ int Day02::Part1(vector<string> boxIds)
 	return 42;
 }
 
+int Day02::Part2(vector<string> boxIds)
+{
+	return 43;
+}
+
 vector<string> Day02::ReadInput()
 {
 	ifstream file;

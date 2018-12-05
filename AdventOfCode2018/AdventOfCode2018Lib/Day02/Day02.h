@@ -11,6 +11,7 @@ public:
 	Day02();
 	~Day02();
 	int Part1(vector<string> boxIds);
+	int Part2(vector<string> boxIds);
 	vector<string> ReadInput();
 	bool HasTwoRepeatedCharacters(string input);
 	bool HasThreeRepeatedCharacters(string input);
