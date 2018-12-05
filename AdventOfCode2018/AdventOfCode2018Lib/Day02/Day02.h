@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <map>
 #include "../AdventOfCode2018Lib.h"
 
 using namespace std;
@@ -15,4 +16,5 @@ public:
 	vector<string> ReadInput();
 	bool HasTwoRepeatedCharacters(string input);
 	bool HasThreeRepeatedCharacters(string input);
+	map<char, int> FindCharacterOccurrences(string input);
 };
