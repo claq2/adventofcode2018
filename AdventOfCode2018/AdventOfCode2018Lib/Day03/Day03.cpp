@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <iterator>
+#include <map>
 
 Day03::Day03()
 {
@@ -15,9 +16,13 @@ Day03::~Day03()
 
 int Day03::Part1(vector<FabricClaim> claims)
 {
-	vector<vector<int>> array(1000, vector<int>(1000, 0));
 	vector<tuple<int, int, int>> fabricClaimCounts;
-	
+	map<tuple<int, int>, int> claimsMap{ {{3,2}, 3} };
+	auto x = claimsMap[{3, 2}];
+	auto z = claimsMap.count({ 4,5 });
+	auto y = claimsMap[{4, 5}];
+	auto a = claimsMap.count({ 3,2 });
+
 
 	return 42;
 }

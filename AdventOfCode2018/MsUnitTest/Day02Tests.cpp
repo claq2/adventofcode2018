@@ -112,8 +112,10 @@ namespace MsUnitTest
 
 		TEST_METHOD(Part2)
 		{
-			map<vector<string>, string> tests({
-				{ { 
+			map<vector<string>, string> tests
+			{
+				{ 
+					{ 
 						"abcde", 
 						"fghij", 
 						"klmno", 
@@ -121,8 +123,9 @@ namespace MsUnitTest
 						"fguij", 
 						"axcye", 
 						"wvxyz" 
-					}, "fgij" },
-				});
+					}, "fgij" 
+				},
+			};
 
 			Day02 day2;
 			string actual;

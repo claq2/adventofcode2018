@@ -39,14 +39,24 @@ namespace MsUnitTest
 
 		TEST_METHOD(Part1)
 		{
-			map<vector<FabricClaim>, int> tests;
+			vector<pair<vector<FabricClaim>, int>> tests
+			{
+				{
+					{
+						{
+							FabricClaim("#1 @ 861,330: 20x10"),
+						}, 2
+					}
+				},
+			};
 
 			Day03 day3;
 			int actual;
-			for (auto const& m : tests)
+			
+			for(auto const& p: tests)
 			{
-				actual = day3.Part1(m.first);
-				Assert::AreEqual(m.second, actual);
+				actual = day3.Part1(p.first);
+				Assert::AreEqual(p.second, actual);
 			}
 		}
 
