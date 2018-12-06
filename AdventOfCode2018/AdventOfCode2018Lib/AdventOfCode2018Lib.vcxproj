@@ -169,6 +169,7 @@
     <ClCompile Include="Day02\Day02Runner.cpp" />
     <ClCompile Include="Day03\Day03.cpp" />
     <ClCompile Include="Day03\Day03Runner.cpp" />
+    <ClCompile Include="Day03\FabricClaim.cpp" />
     <ClCompile Include="DayRunner.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="stdafx.cpp">

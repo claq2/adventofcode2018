@@ -1,25 +1,18 @@
 #pragma once
 #include "../AdventOfCode2018Lib.h"
 #include <utility>
+#include <string>
 
 using namespace std;
 
 class ADVENTOFCODE2018LIB_API FabricClaim
 {
 public:
-	FabricClaim();
+	FabricClaim(string line);
 	~FabricClaim();
 	int Id;
-	pair<int, int> Coordinates;
+	int StartX;
+	int StartY;
+	int Width;
+	int Height;
 };
-
-
-
-FabricClaim::FabricClaim()
-{
-}
-
-
-FabricClaim::~FabricClaim()
-{
-}

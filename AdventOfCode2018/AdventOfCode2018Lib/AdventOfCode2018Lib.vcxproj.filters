@@ -89,5 +89,8 @@
     <ClCompile Include="Day03\Day03Runner.cpp">
       <Filter>Day03</Filter>
     </ClCompile>
+    <ClCompile Include="Day03\FabricClaim.cpp">
+      <Filter>Day03</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

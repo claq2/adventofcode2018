@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "../AdventOfCode2018Lib/Day03/Day03.h"
 #include <map>
+#include "../AdventOfCode2018Lib/Day03/FabricClaim.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
@@ -15,17 +16,30 @@ namespace MsUnitTest
 		TEST_METHOD(ReadInput)
 		{
 			Day03 day3;
-			vector<string> vals(day3.ReadInput());
-			Assert::AreEqual(string("#1 @ 861,330: 20x10"), vals.front());
-			Assert::AreEqual(string("#1317 @ 382,340: 28x29"), vals.back());
+			vector<FabricClaim> vals(day3.ReadInput());
+
 			Assert::AreEqual(size_t(1317), vals.size());
+
+			//#1 @ 861,330: 20x10
+			auto firstVal = vals.front();
+			Assert::AreEqual(1, firstVal.Id);
+			Assert::AreEqual(861, firstVal.StartX);
+			Assert::AreEqual(330, firstVal.StartY);
+			Assert::AreEqual(20, firstVal.Width);
+			Assert::AreEqual(10, firstVal.Height);
+
+			// #1317 @ 382,340: 28x29
+			auto lastVal = vals.back();
+			Assert::AreEqual(1317, lastVal.Id);
+			Assert::AreEqual(382, lastVal.StartX);
+			Assert::AreEqual(340, lastVal.StartY);
+			Assert::AreEqual(28, lastVal.Width);
+			Assert::AreEqual(29, lastVal.Height);
 		}
 
 		TEST_METHOD(Part1)
 		{
-			map<vector<string>, int> tests({
-				{ { "abcdef", "bababc", "abbcde", "abcccd", "aabcdd", "abcdee", "ababab" }, 12 },
-				});
+			map<vector<FabricClaim>, int> tests;
 
 			Day03 day3;
 			int actual;
@@ -38,17 +52,7 @@ namespace MsUnitTest
 
 		TEST_METHOD(Part2)
 		{
-			map<vector<string>, string> tests({
-				{ {
-						"abcde",
-						"fghij",
-						"klmno",
-						"pqrst",
-						"fguij",
-						"axcye",
-						"wvxyz"
-					}, "fgij" },
-				});
+			map<vector<FabricClaim>, string> tests;
 
 			Day03 day3;
 			string actual;
