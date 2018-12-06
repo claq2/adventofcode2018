@@ -19,6 +19,9 @@
     <Filter Include="Day02">
       <UniqueIdentifier>{03c924cf-05ab-49b0-ac7a-140740047a04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Day03">
+      <UniqueIdentifier>{b4d16aab-7470-41ee-8fd8-9ed7148b0525}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -45,6 +48,12 @@
     <ClInclude Include="Day02\Day02Runner.h">
       <Filter>Day02</Filter>
     </ClInclude>
+    <ClInclude Include="Day03\Day03.h">
+      <Filter>Day03</Filter>
+    </ClInclude>
+    <ClInclude Include="Day03\Day03Runner.h">
+      <Filter>Day03</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -70,6 +79,12 @@
     </ClCompile>
     <ClCompile Include="Day02\Day02Runner.cpp">
       <Filter>Day02</Filter>
+    </ClCompile>
+    <ClCompile Include="Day03\Day03.cpp">
+      <Filter>Day03</Filter>
+    </ClCompile>
+    <ClCompile Include="Day03\Day03Runner.cpp">
+      <Filter>Day03</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

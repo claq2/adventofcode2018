@@ -161,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Day02Tests.cpp" />
+    <ClCompile Include="Day03Tests.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -177,6 +178,7 @@
   <ItemGroup>
     <Text Include="Day01.txt" />
     <Text Include="Day02.txt" />
+    <Text Include="Day03.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

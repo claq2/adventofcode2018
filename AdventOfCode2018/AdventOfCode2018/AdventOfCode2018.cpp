@@ -7,6 +7,7 @@
 #include "../AdventOfCode2018Lib/DayRunner.h"
 #include "../AdventOfCode2018Lib/Day01/Day01Runner.h"
 #include "../AdventOfCode2018Lib/Day02/Day02Runner.h"
+#include "../AdventOfCode2018Lib/Day03/Day03Runner.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ int main()
 	vector<shared_ptr<DayRunner>> runners{ 
 		make_shared<Day01Runner>(),
 		make_shared<Day02Runner>(),
+		make_shared<Day03Runner>(),
 	};
 
 	for (auto r : runners)
