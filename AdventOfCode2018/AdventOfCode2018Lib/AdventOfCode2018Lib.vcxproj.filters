@@ -54,6 +54,9 @@
     <ClInclude Include="Day03\Day03Runner.h">
       <Filter>Day03</Filter>
     </ClInclude>
+    <ClInclude Include="Day03\FabricClaim.h">
+      <Filter>Day03</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

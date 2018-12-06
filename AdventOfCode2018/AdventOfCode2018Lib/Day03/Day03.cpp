@@ -13,6 +13,9 @@ Day03::~Day03()
 
 int Day03::Part1(vector<string> claims)
 {
+	vector<vector<int>> array(1000, vector<int>(1000, 0));
+	
+
 	return 42;
 }
 
