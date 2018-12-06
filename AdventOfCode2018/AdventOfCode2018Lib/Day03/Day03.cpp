@@ -41,7 +41,7 @@ int Day03::Part2(vector<FabricClaim> claims)
 		{
 			for (int y = 0; y < c.Height; y++)
 			{
-				if (claimsMap[{ x + c.StartX, y + c.StartX }] > 1)
+				if (claimsMap[{ x + c.StartX, y + c.StartY }] > 1)
 				{
 					foundOverlap = true;
 				}
