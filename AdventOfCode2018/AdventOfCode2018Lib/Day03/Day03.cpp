@@ -17,14 +17,36 @@ Day03::~Day03()
 int Day03::Part1(vector<FabricClaim> claims)
 {
 	vector<tuple<int, int, int>> fabricClaimCounts;
-	map<tuple<int, int>, int> claimsMap{ {{3,2}, 3} };
-	auto x = claimsMap[{3, 2}];
-	auto z = claimsMap.count({ 4,5 });
-	auto y = claimsMap[{4, 5}];
-	auto a = claimsMap.count({ 3,2 });
+	map<pair<int, int>, int> claimsMap;// { { {3, 2}, 3} };
 
+	for (auto const & c : claims)
+	{
+		vector<pair<int, int>> currentPairs;
+		// Build the list of pairs for the claim
+		for (int x = 0; x < c.Width; x++)
+		{
+			for (int y = 0; y < c.Height; y++)
+			{
+				currentPairs.push_back({ x + c.StartX, y + c.StartY });
+			}
+		}
 
-	return 42;
+		for (auto const& p : currentPairs)
+		{
+			claimsMap[p]++;
+		}
+	}
+
+	int countOfOverlapping = 0;
+	for (auto const& p: claimsMap)
+	{
+		if (p.second > 1)
+		{
+			countOfOverlapping++;
+		}
+	}
+
+	return countOfOverlapping;
 }
 
 string Day03::Part2(vector<FabricClaim> claims)
@@ -47,7 +69,7 @@ vector<FabricClaim> Day03::ReadInput()
 
 	while (getline(file, currentClaimLine))
 	{
-		
+
 		claims.push_back(FabricClaim(currentClaimLine));
 		//currentClaimLine
 		//claims.push_back(currentClaimLine);
