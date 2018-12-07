@@ -151,13 +151,9 @@
   <ItemGroup>
     <ClInclude Include="AdventOfCode2018Lib.h" />
     <ClInclude Include="Day01\Day01.h" />
-    <ClInclude Include="Day01\Day01Runner.h" />
     <ClInclude Include="Day02\Day02.h" />
-    <ClInclude Include="Day02\Day02Runner.h" />
     <ClInclude Include="Day03\Day03.h" />
-    <ClInclude Include="Day03\Day03Runner.h" />
     <ClInclude Include="Day03\FabricClaim.h" />
-    <ClInclude Include="Day04\Day04Runner.h" />
     <ClInclude Include="Day04\Day04.h" />
     <ClInclude Include="DayRunner.h" />
     <ClInclude Include="stdafx.h" />
@@ -166,13 +162,9 @@
   <ItemGroup>
     <ClCompile Include="AdventOfCode2018Lib.cpp" />
     <ClCompile Include="Day01\Day01.cpp" />
-    <ClCompile Include="Day01\Day01Runner.cpp" />
     <ClCompile Include="Day02\Day02.cpp" />
-    <ClCompile Include="Day02\Day02Runner.cpp" />
     <ClCompile Include="Day03\Day03.cpp" />
-    <ClCompile Include="Day03\Day03Runner.cpp" />
     <ClCompile Include="Day03\FabricClaim.cpp" />
-    <ClCompile Include="Day04\Day04Runner.cpp" />
     <ClCompile Include="Day04\Day04.cpp" />
     <ClCompile Include="DayRunner.cpp" />
     <ClCompile Include="dllmain.cpp" />

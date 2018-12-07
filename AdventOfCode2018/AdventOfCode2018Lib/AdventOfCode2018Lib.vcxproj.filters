@@ -42,28 +42,16 @@
     <ClInclude Include="Day01\Day01.h">
       <Filter>Day01</Filter>
     </ClInclude>
-    <ClInclude Include="Day01\Day01Runner.h">
-      <Filter>Day01</Filter>
-    </ClInclude>
     <ClInclude Include="Day02\Day02.h">
       <Filter>Day02</Filter>
     </ClInclude>
-    <ClInclude Include="Day02\Day02Runner.h">
-      <Filter>Day02</Filter>
-    </ClInclude>
     <ClInclude Include="Day03\Day03.h">
-      <Filter>Day03</Filter>
-    </ClInclude>
-    <ClInclude Include="Day03\Day03Runner.h">
       <Filter>Day03</Filter>
     </ClInclude>
     <ClInclude Include="Day03\FabricClaim.h">
       <Filter>Day03</Filter>
     </ClInclude>
     <ClInclude Include="Day04\Day04.h">
-      <Filter>Day04</Filter>
-    </ClInclude>
-    <ClInclude Include="Day04\Day04Runner.h">
       <Filter>Day04</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,28 +71,16 @@
     <ClCompile Include="Day01\Day01.cpp">
       <Filter>Day01</Filter>
     </ClCompile>
-    <ClCompile Include="Day01\Day01Runner.cpp">
-      <Filter>Day01</Filter>
-    </ClCompile>
     <ClCompile Include="Day02\Day02.cpp">
       <Filter>Day02</Filter>
     </ClCompile>
-    <ClCompile Include="Day02\Day02Runner.cpp">
-      <Filter>Day02</Filter>
-    </ClCompile>
     <ClCompile Include="Day03\Day03.cpp">
-      <Filter>Day03</Filter>
-    </ClCompile>
-    <ClCompile Include="Day03\Day03Runner.cpp">
       <Filter>Day03</Filter>
     </ClCompile>
     <ClCompile Include="Day03\FabricClaim.cpp">
       <Filter>Day03</Filter>
     </ClCompile>
     <ClCompile Include="Day04\Day04.cpp">
-      <Filter>Day04</Filter>
-    </ClCompile>
-    <ClCompile Include="Day04\Day04Runner.cpp">
       <Filter>Day04</Filter>
     </ClCompile>
   </ItemGroup>
