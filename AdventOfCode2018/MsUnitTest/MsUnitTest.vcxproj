@@ -180,6 +180,9 @@
     <Text Include="Day01.txt" />
     <Text Include="Day02.txt" />
     <Text Include="Day03.txt" />
+    <Text Include="Day04.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

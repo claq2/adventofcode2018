@@ -15,9 +15,9 @@ using namespace std;
 
 int main()
 {
-	Runner<Day01>().Run();
-	Runner<Day02>().Run();
-	Runner<Day03>().Run();
+	//Runner<Day01>().Run();
+	//Runner<Day02>().Run();
+	//Runner<Day03>().Run();
 	Runner<Day04>().Run();
 }
 	
