@@ -5,25 +5,20 @@
 #include <iostream>
 #include <vector>
 #include "../AdventOfCode2018Lib/DayRunner.h"
-#include "../AdventOfCode2018Lib/Day01/Day01Runner.h"
-#include "../AdventOfCode2018Lib/Day02/Day02Runner.h"
-#include "../AdventOfCode2018Lib/Day03/Day03Runner.h"
+#include "Runner.h"
+#include "../AdventOfCode2018Lib/Day01/Day01.h"
+#include "../AdventOfCode2018Lib/Day02/Day02.h"
+#include "../AdventOfCode2018Lib/Day03/Day03.h"
+#include "../AdventOfCode2018Lib/Day04/Day04.h"
 
 using namespace std;
 
 int main()
 {
-	Day01Runner day01Runner;
-	vector<shared_ptr<DayRunner>> runners{ 
-		make_shared<Day01Runner>(),
-		make_shared<Day02Runner>(),
-		make_shared<Day03Runner>(),
-	};
-
-	for (auto r : runners)
-	{
-		r->Run();
-	}
+	Runner<Day01>().Run();
+	Runner<Day02>().Run();
+	Runner<Day03>().Run();
+	Runner<Day04>().Run();
 }
 	
 
