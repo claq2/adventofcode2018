@@ -22,6 +22,9 @@
     <Filter Include="Day03">
       <UniqueIdentifier>{b4d16aab-7470-41ee-8fd8-9ed7148b0525}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Day04">
+      <UniqueIdentifier>{85cd38db-5a78-4267-b87d-131541224a5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -57,6 +60,12 @@
     <ClInclude Include="Day03\FabricClaim.h">
       <Filter>Day03</Filter>
     </ClInclude>
+    <ClInclude Include="Day04\Day04.h">
+      <Filter>Day04</Filter>
+    </ClInclude>
+    <ClInclude Include="Day04\Day04Runner.h">
+      <Filter>Day04</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -91,6 +100,12 @@
     </ClCompile>
     <ClCompile Include="Day03\FabricClaim.cpp">
       <Filter>Day03</Filter>
+    </ClCompile>
+    <ClCompile Include="Day04\Day04.cpp">
+      <Filter>Day04</Filter>
+    </ClCompile>
+    <ClCompile Include="Day04\Day04Runner.cpp">
+      <Filter>Day04</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
