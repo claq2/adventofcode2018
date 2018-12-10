@@ -6,7 +6,9 @@
 #include "Day04.h"
 #include <iomanip>
 #include <algorithm>
+#include <iterator>
 #include <map>
+#include <sstream>
 
 Day04::Day04()
 {
@@ -21,12 +23,20 @@ int Day04::Part1(vector<string> claims)
 {
 	// Guard ID, <total sleep min, <minute, total for that minute>>
 	map<int, pair<int, map<int, int>>> guardsTotalTimeAsleepAndMinutesAsleep;
-	auto guardLine = [](string line) { return line.find("Guard" >= 0); };
+	auto guardLine = [](string line) { return line.find("Guard") != string::npos; };
+	int currentGuardId = 0;
 	for (auto l : claims)
 	{
+		istringstream iss(l);
+		vector<string> tokens(istream_iterator<string>{iss}, istream_iterator<string>());
+
 		if (guardLine(l))
 		{
-
+			// [1518-11-06 00:02] Guard #3467 begins shift
+			string guardIdString(tokens[3].substr(1));
+			int guardId(stoi(guardIdString));
+			currentGuardId = guardId;
+			guardsTotalTimeAsleepAndMinutesAsleep[guardId] = {};
 		}
 	}
 
