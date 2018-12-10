@@ -23,8 +23,14 @@ int Day04::Part1(vector<string> claims)
 {
 	// Guard ID, <total sleep min, <minute, total for that minute>>
 	map<int, pair<int, map<int, int>>> guardsTotalTimeAsleepAndMinutesAsleep;
+
 	auto guardLine = [](string line) { return line.find("Guard") != string::npos; };
+	auto fellAsleepLine = [](string line) { return line.find("falls asleep") != string::npos; };
+	auto wokeUpLine = [](string line) { return line.find("wakes up") != string::npos; };
+
 	int currentGuardId(0);
+	int currentDay(0);
+	int currentMonth(0);
 	int currentHour(0);
 	int currentMinute(0);
 	bool awake = true;
@@ -33,6 +39,13 @@ int Day04::Part1(vector<string> claims)
 		istringstream iss(l);
 		vector<string> tokens(istream_iterator<string>{iss}, istream_iterator<string>());
 
+		// 01234567890 012345
+		// [1518-02-24 23:58] Guard #853 begins shift
+		currentMonth = stoi(tokens[0].substr(6, 2));
+		currentDay = stoi(tokens[0].substr(9, 2));
+		currentHour = stoi(tokens[1].substr(0, tokens[1].find(':')));
+		currentMinute = stoi(tokens[1].substr(tokens[1].find(':') + 1, 2));
+
 		if (guardLine(l))
 		{
 			// [1518-02-24 23:58] Guard #853 begins shift
@@ -40,6 +53,14 @@ int Day04::Part1(vector<string> claims)
 			int guardId(stoi(guardIdString));
 			currentGuardId = guardId;
 			guardsTotalTimeAsleepAndMinutesAsleep[guardId] = {};
+		}
+		else if (fellAsleepLine(l))
+		{
+			// [1518-02-25 00:20] falls asleep
+		}
+		else if (wokeUpLine(l))
+		{
+			// [1518-02-25 00:43] wakes up
 		}
 	}
 
