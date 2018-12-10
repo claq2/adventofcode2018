@@ -24,7 +24,10 @@ int Day04::Part1(vector<string> claims)
 	// Guard ID, <total sleep min, <minute, total for that minute>>
 	map<int, pair<int, map<int, int>>> guardsTotalTimeAsleepAndMinutesAsleep;
 	auto guardLine = [](string line) { return line.find("Guard") != string::npos; };
-	int currentGuardId = 0;
+	int currentGuardId(0);
+	int currentHour(0);
+	int currentMinute(0);
+	bool awake = true;
 	for (auto l : claims)
 	{
 		istringstream iss(l);
@@ -32,7 +35,7 @@ int Day04::Part1(vector<string> claims)
 
 		if (guardLine(l))
 		{
-			// [1518-11-06 00:02] Guard #3467 begins shift
+			// [1518-02-24 23:58] Guard #853 begins shift
 			string guardIdString(tokens[3].substr(1));
 			int guardId(stoi(guardIdString));
 			currentGuardId = guardId;
