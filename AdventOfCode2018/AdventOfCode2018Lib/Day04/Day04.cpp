@@ -21,6 +21,7 @@ Day04::~Day04()
 
 int Day04::Part1(vector<string> claims)
 {
+	map<int, int> monthMaxDays({ {2,28}, {3,31}, {4,30}, {5,31}, {6,30}, {7,31}, {8, 31}, {9,30}, {10, 31}, {11, 30} });
 	// Guard ID, <total sleep min, <minute, total for that minute>>
 	map<int, pair<int, map<int, int>>> guardsTotalTimeAsleepAndMinutesAsleep;
 
