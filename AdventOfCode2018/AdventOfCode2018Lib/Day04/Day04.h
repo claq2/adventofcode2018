@@ -15,4 +15,6 @@ public:
 	int Part2(vector<string> claims);
 	vector<string> ReadInput();
 	vector<string> ReadInputRaw();
+private:
+	vector<tuple<int, int, int, int, int>> AllDaysAndHours(string first, string last);
 };

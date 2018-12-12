@@ -9,6 +9,7 @@
 #include <iterator>
 #include <map>
 #include <sstream>
+#include <tuple>
 
 Day04::Day04()
 {
@@ -19,9 +20,62 @@ Day04::~Day04()
 {
 }
 
+vector<tuple<int, int, int, int, int>> Day04::AllDaysAndHours(string first, string last)
+{
+	vector<string> datesAndTimes;
+	vector<tuple<int, int, int, int, int>> datesAndHours;
+	map<int, int> monthMaxDays({ {2,28}, {3,31}, {4,30}, {5,31}, {6,30}, {7,31}, {8, 31}, {9,30}, {10, 31}, {11, 30} });
+
+	istringstream iss(first);
+	vector<string> tokens(istream_iterator<string>{iss}, istream_iterator<string>());
+	int firstMonth(stoi(tokens[0].substr(6, 2)));
+	int firstDay(stoi(tokens[0].substr(9, 2)));
+	int firstHour(stoi(tokens[1].substr(0, tokens[1].find(':'))));
+	int firstMinute(stoi(tokens[1].substr(tokens[1].find(':') + 1, 2)));
+
+	iss = istringstream(last);
+	tokens = vector<string>(istream_iterator<string>{iss}, istream_iterator<string>());
+	int lastMonth(stoi(tokens[0].substr(6, 2)));
+	int lastDay(stoi(tokens[0].substr(9, 2)));
+	int lastHour(stoi(tokens[1].substr(0, tokens[1].find(':'))));
+	int lastMinute(stoi(tokens[1].substr(tokens[1].find(':') + 1, 2)));
+
+	int currentDay(firstDay);
+	int currentMonth(firstMonth);
+	int currentHour(firstHour);
+	int currentMinute(firstMinute);
+	int year(1518);
+	while (currentMonth < lastMonth && currentDay < lastDay && currentHour < lastHour && currentDay < lastDay)
+	{
+		datesAndHours.push_back({ year, currentMonth, currentDay, currentHour, currentMinute });
+		currentMinute++;
+		if (currentMinute == 60)
+		{
+			currentMinute = 0;
+			currentHour++;
+			if (currentHour == 24)
+			{
+				currentHour = 0;
+				currentDay++;
+				if (currentDay == monthMaxDays[currentMonth] + 1)
+				{
+					currentDay = 1;
+					currentMonth++;
+				}
+			}
+		}
+	}
+
+	return datesAndHours;
+}
+
 int Day04::Part1(vector<string> claims)
 {
 	map<int, int> monthMaxDays({ {2,28}, {3,31}, {4,30}, {5,31}, {6,30}, {7,31}, {8, 31}, {9,30}, {10, 31}, {11, 30} });
+	vector<string> datesAndTimes;
+
+	auto d = AllDaysAndHours(claims.front(), claims.back());
+
 	// Guard ID, <total sleep min, <minute, total for that minute>>
 	map<int, pair<int, map<int, int>>> guardsTotalTimeAsleepAndMinutesAsleep;
 
