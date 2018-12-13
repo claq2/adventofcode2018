@@ -45,7 +45,25 @@ vector<tuple<int, int, int, int, int>> Day04::AllDaysAndHours(string first, stri
 	int currentHour(firstHour);
 	int currentMinute(firstMinute);
 	int year(1518);
-	while (currentMonth < lastMonth && currentDay < lastDay && currentHour < lastHour && currentDay < lastDay)
+
+	size_t totalDays(0);
+	for (size_t i = firstMonth; i <= lastMonth; i++)
+	{
+		if (i == firstMonth)
+		{
+			totalDays += monthMaxDays[i] - firstDay;
+		}
+		else if (i == lastMonth)
+		{
+			totalDays += lastDay;
+		}
+		else
+		{
+			totalDays += monthMaxDays[i];
+		}
+	}
+
+	for (size_t i = 0; i <= totalDays; i++);
 	{
 		datesAndHours.push_back({ year, currentMonth, currentDay, currentHour, currentMinute });
 		currentMinute++;
