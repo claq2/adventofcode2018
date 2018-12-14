@@ -24,45 +24,49 @@ vector<tuple<int, int, int, int, int>> Day04::AllDaysAndHours(string first, stri
 {
 	vector<string> datesAndTimes;
 	vector<tuple<int, int, int, int, int>> datesAndHours;
-	map<int, int> monthMaxDays({ {2,28}, {3,31}, {4,30}, {5,31}, {6,30}, {7,31}, {8, 31}, {9,30}, {10, 31}, {11, 30} });
+	map<UINT, UINT> monthMaxDays({ {2,28}, {3,31}, {4,30}, {5,31}, {6,30}, {7,31}, {8, 31}, {9,30}, {10, 31}, {11, 30} });
 
 	istringstream iss(first);
 	vector<string> tokens(istream_iterator<string>{iss}, istream_iterator<string>());
-	int firstMonth(stoi(tokens[0].substr(6, 2)));
-	int firstDay(stoi(tokens[0].substr(9, 2)));
-	int firstHour(stoi(tokens[1].substr(0, tokens[1].find(':'))));
-	int firstMinute(stoi(tokens[1].substr(tokens[1].find(':') + 1, 2)));
+	UINT firstMonth(stoi(tokens[0].substr(6, 2)));
+	UINT firstDay(stoi(tokens[0].substr(9, 2)));
+	UINT firstHour(stoi(tokens[1].substr(0, tokens[1].find(':'))));
+	UINT firstMinute(stoi(tokens[1].substr(tokens[1].find(':') + 1, 2)));
 
 	iss = istringstream(last);
 	tokens = vector<string>(istream_iterator<string>{iss}, istream_iterator<string>());
-	int lastMonth(stoi(tokens[0].substr(6, 2)));
-	int lastDay(stoi(tokens[0].substr(9, 2)));
-	int lastHour(stoi(tokens[1].substr(0, tokens[1].find(':'))));
-	int lastMinute(stoi(tokens[1].substr(tokens[1].find(':') + 1, 2)));
+	UINT lastMonth(stoi(tokens[0].substr(6, 2)));
+	UINT lastDay(stoi(tokens[0].substr(9, 2)));
+	UINT lastHour(stoi(tokens[1].substr(0, tokens[1].find(':'))));
+	UINT lastMinute(stoi(tokens[1].substr(tokens[1].find(':') + 1, 2)));
 
-	int currentDay(firstDay);
-	int currentMonth(firstMonth);
-	int currentHour(firstHour);
-	int currentMinute(firstMinute);
-	int year(1518);
+	UINT currentDay(firstDay);
+	UINT currentMonth(firstMonth);
+	UINT currentHour(firstHour);
+	UINT currentMinute(firstMinute);
+	UINT year(1518);
 
-	unsigned int totalSeconds(0);
-	int totalDays(0);
-	for (int i = firstMonth; i <= lastMonth; i++)
+	UINT totalSeconds(0);
+	UINT totalDays(0);
+	for (UINT i = firstMonth + 1; i < lastMonth; i++)
 	{
-		if (i == firstMonth)
-		{
-			totalDays += monthMaxDays[i] - firstDay;
-		}
-		else if (i == lastMonth)
-		{
-			totalDays += lastDay;
-		}
-		else
-		{
-			totalDays += monthMaxDays[i];
-		}
+		totalDays += monthMaxDays[i];
 	}
+
+	totalSeconds += totalDays * 24 * 60;
+
+	// Find total seconds from first month
+	// [1518-02-24 23:58] Guard #853 begins shift
+	UINT completeDaysInFirstMonth = monthMaxDays[firstMonth] - firstDay - 1;
+	UINT completeHoursInFirstDay = 24 - firstHour - 1;
+	UINT minutesInFirstHour = 60 - firstMinute;
+	totalSeconds += minutesInFirstHour * 60;
+	totalSeconds += completeHoursInFirstDay * 60 * 60;
+	totalSeconds += completeDaysInFirstMonth * 24 * 60 * 60;
+
+	// Find total seconds from last month
+	// [1518-11-23 00:48] wakes up
+
 
 	for (int i = 0; i <= totalDays; i++);
 	{
