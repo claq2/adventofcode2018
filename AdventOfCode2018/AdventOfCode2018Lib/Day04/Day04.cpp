@@ -46,6 +46,7 @@ vector<tuple<int, int, int, int, int>> Day04::AllDaysAndHours(string first, stri
 	int currentMinute(firstMinute);
 	int year(1518);
 
+	unsigned int totalSeconds(0);
 	size_t totalDays(0);
 	for (size_t i = firstMonth; i <= lastMonth; i++)
 	{
