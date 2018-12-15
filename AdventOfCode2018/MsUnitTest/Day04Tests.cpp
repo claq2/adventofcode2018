@@ -1,11 +1,6 @@
 ﻿#include "stdafx.h"
 #include "CppUnitTest.h"
 #include "../AdventOfCode2018Lib/Day04/Day04.h"
-#include <map>
-#include <chrono>
-#include <sstream>
-#include <time.h>
-#include <iomanip>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
