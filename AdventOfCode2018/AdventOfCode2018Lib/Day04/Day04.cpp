@@ -46,29 +46,34 @@ vector<tuple<int, int, int, int, int>> Day04::AllDaysAndHours(string first, stri
 	UINT currentMinute(firstMinute);
 	UINT year(1518);
 
-	UINT totalSeconds(0);
+	UINT totalMinutes(0);
 	UINT totalDays(0);
 	for (UINT i = firstMonth + 1; i < lastMonth; i++)
 	{
 		totalDays += monthMaxDays[i];
 	}
 
-	totalSeconds += totalDays * 24 * 60;
+	totalMinutes += totalDays * 24 * 60;
 
 	// Find total seconds from first month
 	// [1518-02-24 23:58] Guard #853 begins shift
 	UINT completeDaysInFirstMonth = monthMaxDays[firstMonth] - firstDay - 1;
 	UINT completeHoursInFirstDay = 24 - firstHour - 1;
-	UINT minutesInFirstHour = 60 - firstMinute;
-	totalSeconds += minutesInFirstHour * 60;
-	totalSeconds += completeHoursInFirstDay * 60 * 60;
-	totalSeconds += completeDaysInFirstMonth * 24 * 60 * 60;
+	UINT completeMinutesInFirstHour = 60 - firstMinute;
+	totalMinutes += completeMinutesInFirstHour;
+	totalMinutes += completeHoursInFirstDay * 60;
+	totalMinutes += completeDaysInFirstMonth * 24 * 60;
 
 	// Find total seconds from last month
 	// [1518-11-23 00:48] wakes up
+	UINT completeDaysInLastMonth = lastDay - 1;
+	UINT completeHoursInLastDay = lastHour;
+	UINT completeMinutesInLastHour = lastMinute + 1;
+	totalMinutes += completeMinutesInLastHour;
+	totalMinutes += completeHoursInLastDay * 60;
+	totalMinutes += completeDaysInLastMonth * 24 * 60;
 
-
-	for (int i = 0; i <= totalDays; i++);
+	for (UINT i = 0; i <= totalMinutes; i++);
 	{
 		datesAndHours.push_back({ year, currentMonth, currentDay, currentHour, currentMinute });
 		currentMinute++;
