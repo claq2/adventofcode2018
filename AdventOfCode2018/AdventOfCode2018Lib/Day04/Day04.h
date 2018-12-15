@@ -11,8 +11,8 @@ class ADVENTOFCODE2018LIB_API Day04
 public:
 	Day04();
 	~Day04();
-	int Part1(vector<string> claims);
-	int Part2(vector<string> claims);
+	int Part1(vector<string> guardEntries);
+	int Part2(vector<string> guardEntries);
 	vector<string> ReadInput();
 	vector<string> ReadInputRaw();
 private:
