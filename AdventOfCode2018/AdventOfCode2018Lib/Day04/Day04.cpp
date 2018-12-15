@@ -255,8 +255,6 @@ vector<string> Day04::ReadInput()
 	vector<string> result;
 	ifstream file;
 	string currentGuardLine;
-	//chrono::system_clock::time_point
-	//vector<chrono::system_clock::time_point> timePoints;
 
 	file.open("Day04.txt");
 	if (!file)
