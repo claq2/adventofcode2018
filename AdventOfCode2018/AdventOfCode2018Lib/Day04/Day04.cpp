@@ -20,7 +20,7 @@ Day04::~Day04()
 {
 }
 
-vector<tuple<int, int, int, int, int>> Day04::AllDaysAndHoursAndMinutes(string first, string last)
+vector<tuple<int, int, int, int, int>> Day04::AllMinutes(string first, string last)
 {
 	vector<string> datesAndTimes;
 	vector<tuple<int, int, int, int, int>> datesAndHours;
@@ -100,11 +100,11 @@ vector<tuple<int, int, int, int, int>> Day04::AllDaysAndHoursAndMinutes(string f
 int Day04::Part1(vector<string> guardEntries)
 {
 	// y, M, d, h, m
-	vector<tuple<int, int, int, int, int>> allMinutes = AllDaysAndHoursAndMinutes(guardEntries.front(), guardEntries.back());
+	vector<tuple<int, int, int, int, int>> allMinutes = AllMinutes(guardEntries.front(), guardEntries.back());
 	// map {y,M,d,h,m} to {guardId, state}
 	map<tuple<int, int, int, int, int>, pair<int, bool>> entriesVector;
 
-	// Guard ID, <total sleep min, <minute, total for that minute>>
+	// map Guard ID to {total sleep min, { map minute to total for that minute}}
 	map<int, pair<int, map<int, int>>> guardsTotalTimeAsleepAndMinutesAsleep;
 
 	auto guardLine = [](string line) { return line.find("Guard") != string::npos; };
@@ -155,7 +155,52 @@ int Day04::Part1(vector<string> guardEntries)
 		}
 	}
 
-	return 0;
+	int currentGuardId2(0);
+	bool currentState2(true);
+	for (auto m : allMinutes)
+	{
+		if (entriesVector.count(m) == 1)
+		{
+			currentGuardId2 = entriesVector[m].first;
+			currentState2 = entriesVector[m].second;
+		}
+
+		if (currentState2 == false)
+		{
+			// m = current minute
+			// entriesVector[m].first = guard ID
+			// entriesVector[m].second = gurard state
+
+			// add 1 minute to guard's total asleep time
+			guardsTotalTimeAsleepAndMinutesAsleep[currentGuardId2].first++;
+			// add 1 to the current minute for the current guard
+			guardsTotalTimeAsleepAndMinutesAsleep[currentGuardId2].second[get<4>(m)]++;
+		}
+	}
+
+	int maxMinutes(0);
+	int highestGuard(0);
+	for (auto x : guardsTotalTimeAsleepAndMinutesAsleep)
+	{
+		if (x.second.first > maxMinutes)
+		{
+			maxMinutes = x.second.first;
+			highestGuard = x.first;
+		}
+	}
+
+	int maxMinutes2(0);
+	int highestMinute;
+	for (auto x : guardsTotalTimeAsleepAndMinutesAsleep[highestGuard].second)
+	{
+		if (x.second > maxMinutes2)
+		{
+			maxMinutes2 = x.second;
+			highestMinute = x.first;
+		}
+	}
+
+	return highestGuard * highestMinute;
 }
 
 int Day04::Part2(vector<string> claims)

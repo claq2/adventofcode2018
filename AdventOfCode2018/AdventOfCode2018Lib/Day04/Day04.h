@@ -16,5 +16,5 @@ public:
 	vector<string> ReadInput();
 	vector<string> ReadInputRaw();
 private:
-	vector<tuple<int, int, int, int, int>> AllDaysAndHoursAndMinutes(string first, string last);
+	vector<tuple<int, int, int, int, int>> AllMinutes(string first, string last);
 };
