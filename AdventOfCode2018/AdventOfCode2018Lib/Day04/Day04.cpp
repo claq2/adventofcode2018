@@ -7,7 +7,6 @@
 #include <iomanip>
 #include <algorithm>
 #include <iterator>
-#include <map>
 #include <sstream>
 #include <tuple>
 
@@ -97,7 +96,7 @@ vector<tuple<int, int, int, int, int>> Day04::AllMinutes(string first, string la
 	return datesAndHours;
 }
 
-int Day04::Part1(vector<string> guardEntries)
+map<int, pair<int, map<int, int>>> Day04::GuardsTotalTimeAsleepAndMinutesAsleep(vector<string> guardEntries)
 {
 	// y, M, d, h, m
 	vector<tuple<int, int, int, int, int>> allMinutes = AllMinutes(guardEntries.front(), guardEntries.back());
@@ -178,6 +177,14 @@ int Day04::Part1(vector<string> guardEntries)
 		}
 	}
 
+	return guardsTotalTimeAsleepAndMinutesAsleep;
+}
+
+int Day04::Part1(vector<string> guardEntries)
+{
+	// map Guard ID to {total sleep min, { map minute to total for that minute}}
+	map<int, pair<int, map<int, int>>> guardsTotalTimeAsleepAndMinutesAsleep(GuardsTotalTimeAsleepAndMinutesAsleep(guardEntries));
+
 	int maxMinutes(0);
 	int highestGuard(0);
 	for (auto x : guardsTotalTimeAsleepAndMinutesAsleep)
@@ -203,9 +210,44 @@ int Day04::Part1(vector<string> guardEntries)
 	return highestGuard * highestMinute;
 }
 
-int Day04::Part2(vector<string> claims)
+int Day04::Part2(vector<string> guardEntries)
 {
-	return 0;
+	// map Guard ID to {total sleep min, { map minute to total for that minute}}
+	map<int, pair<int, map<int, int>>> guardsTotalTimeAsleepAndMinutesAsleep(GuardsTotalTimeAsleepAndMinutesAsleep(guardEntries));
+
+	// map guardid to {max min, max min count}
+	map<int, pair<int, int>> guardsAndMaxMinuteAsleepAndTheMinute;
+
+	for (auto x : guardsTotalTimeAsleepAndMinutesAsleep)
+	{
+		int countTimesAsleepAtMaxMinAsleep(0);
+		int maxMinAsleep(0);
+		for (auto y : x.second.second)
+		{
+			if (y.second > countTimesAsleepAtMaxMinAsleep)
+			{
+				countTimesAsleepAtMaxMinAsleep = y.second;
+				maxMinAsleep = y.first;
+			}
+		}
+
+		guardsAndMaxMinuteAsleepAndTheMinute[x.first] = { maxMinAsleep, countTimesAsleepAtMaxMinAsleep };
+	}
+
+	int guardWithMaxMinuteAsleep(0);
+	int maxCountSameMinAsleep(0);
+	int maxMinuteAsleep(0);
+	for (auto x : guardsAndMaxMinuteAsleepAndTheMinute)
+	{
+		if (x.second.second > maxCountSameMinAsleep)
+		{
+			maxMinuteAsleep = x.second.first;
+			maxCountSameMinAsleep = x.second.second;
+			guardWithMaxMinuteAsleep = x.first;
+		}
+	}
+
+	return guardWithMaxMinuteAsleep * maxMinuteAsleep;
 }
 
 vector<string> Day04::ReadInput()
@@ -227,26 +269,6 @@ vector<string> Day04::ReadInput()
 	while (getline(file, currentGuardLine))
 	{
 		result.push_back(currentGuardLine);
-		//string timeString(currentGuardLine.substr(1, currentGuardLine.find(']')));
-		//std::stringstream ss(timeString);
-		//ss >> std::get_time(&tm, "%Y-%m-%d %H:%M");
-		//tm.tm_year += 500;
-		////if (tm.tm_yday >= 70 && tm.tm_yday <= 308) // Mar 11 = 70 Nov 4 = 308
-		////{
-		////	tm.tm_isdst = 0;
-		////}
-		////else
-		////{
-		////	tm.tm_isdst = 1;
-		////}
-
-		//time_t timet = _mkgmtime(&tm);
-		//auto tp = std::chrono::system_clock::from_time_t(timet);
-		//result.push_back(tp);
-
-		//std::time_t t = chrono::system_clock::to_time_t(tp);
-		//std::cout << std::put_time(gmtime(&t), "%F %T") << std::endl;
-
 	}
 
 	file.close();

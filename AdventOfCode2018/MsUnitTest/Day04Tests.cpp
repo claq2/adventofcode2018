@@ -40,7 +40,8 @@ namespace MsUnitTest
 			Day04 day4;
 			int actual;
 
-			actual = day4.Part2({});
+			vector<string> valsStrings(day4.ReadInput());
+			actual = day4.Part2(valsStrings);
 		}
 	};
 }

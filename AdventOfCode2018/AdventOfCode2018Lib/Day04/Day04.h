@@ -2,7 +2,7 @@
 #include "../AdventOfCode2018Lib.h"
 #include <vector>
 #include <string>
-#include <chrono>
+#include <map>
 
 using namespace std;
 
@@ -17,4 +17,5 @@ public:
 	vector<string> ReadInputRaw();
 private:
 	vector<tuple<int, int, int, int, int>> AllMinutes(string first, string last);
+	map<int, pair<int, map<int, int>>> GuardsTotalTimeAsleepAndMinutesAsleep(vector<string> guardEntries);
 };
