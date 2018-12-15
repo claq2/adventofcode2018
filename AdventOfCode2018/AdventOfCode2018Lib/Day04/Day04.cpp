@@ -20,7 +20,7 @@ Day04::~Day04()
 {
 }
 
-vector<tuple<int, int, int, int, int>> Day04::AllDaysAndHours(string first, string last)
+vector<tuple<int, int, int, int, int>> Day04::AllDaysAndHoursAndMinutes(string first, string last)
 {
 	vector<string> datesAndTimes;
 	vector<tuple<int, int, int, int, int>> datesAndHours;
@@ -73,7 +73,7 @@ vector<tuple<int, int, int, int, int>> Day04::AllDaysAndHours(string first, stri
 	totalMinutes += completeHoursInLastDay * 60;
 	totalMinutes += completeDaysInLastMonth * 24 * 60;
 
-	for (UINT i = 0; i <= totalMinutes; i++);
+	for (UINT i = 0; i <= totalMinutes; i++)
 	{
 		datesAndHours.push_back({ year, currentMonth, currentDay, currentHour, currentMinute });
 		currentMinute++;
@@ -97,12 +97,12 @@ vector<tuple<int, int, int, int, int>> Day04::AllDaysAndHours(string first, stri
 	return datesAndHours;
 }
 
-int Day04::Part1(vector<string> claims)
+int Day04::Part1(vector<string> guardEntries)
 {
-	map<int, int> monthMaxDays({ {2,28}, {3,31}, {4,30}, {5,31}, {6,30}, {7,31}, {8, 31}, {9,30}, {10, 31}, {11, 30} });
-	vector<string> datesAndTimes;
-
-	auto d = AllDaysAndHours(claims.front(), claims.back());
+	// y, M, d, h, m
+	vector<tuple<int, int, int, int, int>> allMinutes = AllDaysAndHoursAndMinutes(guardEntries.front(), guardEntries.back());
+	// map {y,M,d,h,m} to {guardId, state}
+	map<tuple<int, int, int, int, int>, pair<int, bool>> entriesVector;
 
 	// Guard ID, <total sleep min, <minute, total for that minute>>
 	map<int, pair<int, map<int, int>>> guardsTotalTimeAsleepAndMinutesAsleep;
@@ -116,8 +116,13 @@ int Day04::Part1(vector<string> claims)
 	int currentMonth(0);
 	int currentHour(0);
 	int currentMinute(0);
+	int currentYear(1518);
 	bool awake = true;
-	for (auto l : claims)
+
+	// {y,M,d,h,m}, guardId, awake
+	vector<tuple<tuple<int, int, int, int, int>, int, bool>> dateAndGuardIdAndState;
+
+	for (auto l : guardEntries)
 	{
 		istringstream iss(l);
 		vector<string> tokens(istream_iterator<string>{iss}, istream_iterator<string>());
@@ -135,15 +140,18 @@ int Day04::Part1(vector<string> claims)
 			string guardIdString(tokens[3].substr(1));
 			int guardId(stoi(guardIdString));
 			currentGuardId = guardId;
-			guardsTotalTimeAsleepAndMinutesAsleep[guardId] = {};
+			entriesVector[{currentYear, currentMonth, currentDay, currentHour, currentMinute }] = { currentGuardId, true };
 		}
 		else if (fellAsleepLine(l))
 		{
 			// [1518-02-25 00:20] falls asleep
+			entriesVector[{currentYear, currentMonth, currentDay, currentHour, currentMinute }] = { currentGuardId, false };
+
 		}
 		else if (wokeUpLine(l))
 		{
 			// [1518-02-25 00:43] wakes up
+			entriesVector[{currentYear, currentMonth, currentDay, currentHour, currentMinute }] = { currentGuardId, true };
 		}
 	}
 
