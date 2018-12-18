@@ -8,7 +8,7 @@ public:
 	Day05();
 	~Day05();
 	size_t Part1(std::string polymer);
-	int Part2(std::string polymer);
+	size_t Part2(std::string polymer);
 	std::string ReadInput();
 	std::string ReactPolymer(std::string polymer);
 };

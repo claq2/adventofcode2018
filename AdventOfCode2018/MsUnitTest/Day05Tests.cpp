@@ -32,10 +32,11 @@ namespace MsUnitTest
 		TEST_METHOD(Part2)
 		{
 			Day05 day5;
-			int actual;
-
-			string polymer(day5.ReadInput());
-			actual = day5.Part2(polymer);
+			size_t actual;
+			string input("dabAcCaCBAcCcaDA");
+			size_t expected(4);
+			actual = day5.Part2(input);
+			Assert::AreEqual(expected, actual);
 		}
 	};
 }

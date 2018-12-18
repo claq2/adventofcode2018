@@ -20,9 +20,33 @@ size_t Day05::Part1(string polymer)
 	return ReactPolymer(polymer).size();
 }
 
-int Day05::Part2(string polymer)
+size_t Day05::Part2(string polymer)
 {
-	return 0;
+	size_t minSize(polymer.size());
+	string allLetters("abcdefghijklmnopqrstuvwxyz");
+	for (auto const& l : allLetters)
+	{
+		string copyOfPolymer(polymer);
+		for (auto pi = copyOfPolymer.begin(); pi != copyOfPolymer.end(); pi++)
+		{
+			if (*pi == l || *pi == l - 32)
+			{
+				copyOfPolymer.erase(pi);
+				if (pi != copyOfPolymer.begin())
+				{
+					pi--;
+				}
+			}
+		}
+
+		size_t sizeAfterReacting(ReactPolymer(copyOfPolymer).size());
+		if (sizeAfterReacting < minSize)
+		{
+			minSize = sizeAfterReacting;
+		}
+	}
+
+	return minSize;
 }
 
 std::string Day05::ReadInput()
