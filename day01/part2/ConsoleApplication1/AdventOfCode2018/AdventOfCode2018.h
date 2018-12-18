@@ -1,1 +1,0 @@
-﻿#define AdventOfCode2018Api __declspec(dllexport)
