@@ -10,5 +10,6 @@ public:
 	size_t Part1(std::string polymer);
 	int Part2(std::string polymer);
 	std::string ReadInput();
+	std::string ReactPolymer(std::string polymer);
 };
 

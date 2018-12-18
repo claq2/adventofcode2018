@@ -17,42 +17,7 @@ Day05::~Day05()
 
 size_t Day05::Part1(string polymer)
 {
-	string result;
-	list<char> polymerList;
-	for (auto const& p : polymer)
-	{
-		polymerList.push_back(p);
-	}
-
-	//auto it(polymerList.begin());
-	char previousChar = *polymerList.begin();
-	for (auto it = ++polymerList.begin(); it != polymerList.end(); it++)
-	{
-		// ASCII upper case + 32 is ASCII lower case
-		if (previousChar + 32 == *it || previousChar - 32 == *it)
-		{
-			it = polymerList.erase(it);
-			it--;
-			it = polymerList.erase(it);
-			if (it == polymerList.begin())
-			{
-				// do nothing
-			}
-			else 
-			{
-				it--;
-			}
-		}
-
-		previousChar = *it;
-	}
-
-	for (auto const& pl : polymerList)
-	{
-		result += pl;
-	}
-
-	return result.size();
+	return ReactPolymer(polymer).size();
 }
 
 int Day05::Part2(string polymer)
@@ -76,6 +41,45 @@ std::string Day05::ReadInput()
 	getline(file, result);
 
 	file.close();
+
+	return result;
+}
+
+string Day05::ReactPolymer(string polymer)
+{
+	string result;
+	list<char> polymerList;
+	for (auto const& p : polymer)
+	{
+		polymerList.push_back(p);
+	}
+
+	char previousChar = *polymerList.begin();
+	for (auto it = ++polymerList.begin(); it != polymerList.end(); it++)
+	{
+		// ASCII upper case + 32 is ASCII lower case
+		if (previousChar + 32 == *it || previousChar - 32 == *it)
+		{
+			it = polymerList.erase(it);
+			it--;
+			it = polymerList.erase(it);
+			if (it == polymerList.begin())
+			{
+				// do nothing
+			}
+			else
+			{
+				it--;
+			}
+		}
+
+		previousChar = *it;
+	}
+
+	for (auto const& pl : polymerList)
+	{
+		result += pl;
+	}
 
 	return result;
 }
