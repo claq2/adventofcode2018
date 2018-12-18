@@ -22,10 +22,11 @@ namespace MsUnitTest
 		TEST_METHOD(Part1)
 		{
 			Day05 day5;
-			int actual;
-
-			string polymer(day5.ReadInput());
-			actual = day5.Part1(polymer);
+			size_t actual;
+			string input("dabAcCaCBAcCcaDA");
+			size_t expected(10);
+			actual = day5.Part1(input);
+			Assert::AreEqual(expected, actual);
 		}
 
 		TEST_METHOD(Part2)
