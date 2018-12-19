@@ -4,6 +4,7 @@
 #include <iterator>
 #include <fstream>
 #include <iostream>
+#include <map>
 
 using namespace std;
 
@@ -18,27 +19,34 @@ Day06::~Day06()
 size_t Day06::Part1(vector<string> coords)
 {
 	vector<pair<int, int>> coordVector;
+	map<pair<int, int>, int> coordMap;
 
 	int maxX(0);
 	int maxY(0);
+	int pointNum(1);
 	for (auto const& c : coords)
 	{
 		// 1, 1
 		istringstream iss(c);
 		vector<string> tokens(istream_iterator<string>{iss}, istream_iterator<string>());
 
+		int x(stoi(tokens[0].substr(0, tokens[0].find(','))));
+		int y(stoi(tokens[1]));
 		coordVector.push_back({
 			stoi(tokens[0].substr(0, tokens[0].find(','))),
 			stoi(tokens[1])
 			});
-		if (coordVector.back().first > maxX)
+
+		coordMap[{x, y}] = pointNum;
+		pointNum++;
+		if (x > maxX)
 		{
-			maxX = coordVector.back().first;
+			maxX = x;
 		}
 
-		if (coordVector.back().second > maxY)
+		if (y > maxY)
 		{
-			maxY = coordVector.back().second;
+			maxY = y;
 		}
 	}
 
@@ -47,7 +55,14 @@ size_t Day06::Part1(vector<string> coords)
 	{
 		for (int y = 0; y < maxY; y++)
 		{
-			cout << ".";
+			if (coordMap.count({ x, y }) == 1)
+			{
+				cout << coordMap[{x, y}];
+			}
+			else 
+			{
+				cout << ".";
+			}
 		}
 
 		cout << endl;
