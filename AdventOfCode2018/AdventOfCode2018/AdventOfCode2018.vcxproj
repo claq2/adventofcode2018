@@ -176,6 +176,7 @@
       <DeploymentContent>true</DeploymentContent>
     </Text>
     <Text Include="Day05.txt" />
+    <Text Include="Day06.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
