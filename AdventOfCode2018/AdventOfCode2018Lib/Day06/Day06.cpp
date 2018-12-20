@@ -19,7 +19,7 @@ Day06::~Day06()
 size_t Day06::Part1(vector<string> coords)
 {
 	map<pair<int, int>, char> coordMap;
-	map<char, int> countOfPoint;
+	map<char, size_t> countOfPoint;
 
 	int maxX(0);
 	int maxY(0);
@@ -94,7 +94,16 @@ size_t Day06::Part1(vector<string> coords)
 		cout << endl;
 	}
 
-	return size_t();
+	size_t largestCount(0);
+	for (auto const& c : countOfPoint)
+	{
+		if (c.second > largestCount)
+		{
+			largestCount = c.second;
+		}
+	}
+
+	return largestCount;
 }
 
 size_t Day06::Part2(vector<string> coords)
