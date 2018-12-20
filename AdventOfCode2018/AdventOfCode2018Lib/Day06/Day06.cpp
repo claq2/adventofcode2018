@@ -19,6 +19,7 @@ Day06::~Day06()
 size_t Day06::Part1(vector<string> coords)
 {
 	map<pair<int, int>, char> coordMap;
+	map<char, int> countOfPoint;
 
 	int maxX(0);
 	int maxY(0);
@@ -53,6 +54,7 @@ size_t Day06::Part1(vector<string> coords)
 			if (coordMap.count({ x, y }) == 1)
 			{
 				cout << coordMap[{x, y}];
+				countOfPoint[coordMap[{x, y}]]++;
 			}
 			else
 			{
@@ -83,6 +85,7 @@ size_t Day06::Part1(vector<string> coords)
 				}
 				else
 				{
+					countOfPoint[closestPoint]++;
 					cout << char(closestPoint + 32);
 				}
 			}
