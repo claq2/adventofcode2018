@@ -18,12 +18,11 @@ Day06::~Day06()
 
 size_t Day06::Part1(vector<string> coords)
 {
-	vector<pair<int, int>> coordVector;
-	map<pair<int, int>, int> coordMap;
+	map<pair<int, int>, char> coordMap;
 
 	int maxX(0);
 	int maxY(0);
-	int pointNum(1);
+	int pointNum(0);
 	for (auto const& c : coords)
 	{
 		// 1, 1
@@ -32,12 +31,8 @@ size_t Day06::Part1(vector<string> coords)
 
 		int x(stoi(tokens[0].substr(0, tokens[0].find(','))));
 		int y(stoi(tokens[1]));
-		coordVector.push_back({
-			stoi(tokens[0].substr(0, tokens[0].find(','))),
-			stoi(tokens[1])
-			});
 
-		coordMap[{x, y}] = pointNum;
+		coordMap[{x, y}] = pointNum + 65;
 		pointNum++;
 		if (x > maxX)
 		{
@@ -51,17 +46,45 @@ size_t Day06::Part1(vector<string> coords)
 	}
 
 	cout << endl;
-	for (int x = 0; x < maxX; x++)
+	for (int y = 0; y <= maxY; y++)
 	{
-		for (int y = 0; y < maxY; y++)
+		for (int x = 0; x <= maxX + 1; x++)
 		{
 			if (coordMap.count({ x, y }) == 1)
 			{
 				cout << coordMap[{x, y}];
 			}
-			else 
+			else
 			{
-				cout << ".";
+				int minDistance(1000);
+				int minDistanceCount(0);
+				char closestPoint;
+				for (auto const& c : coordMap)
+				{
+					if (c.first != pair<int, int>{x, y})
+					{
+						int distanceToCurrentPoint = ManhattanDistance(c.first, { x, y });
+						if (distanceToCurrentPoint < minDistance)
+						{
+							minDistance = distanceToCurrentPoint;
+							minDistanceCount = 1;
+							closestPoint = c.second;
+						}
+						else if (distanceToCurrentPoint == minDistance)
+						{
+							minDistanceCount++;
+						}
+					}
+				}
+
+				if (minDistanceCount > 1)
+				{
+					cout << ".";
+				}
+				else
+				{
+					cout << char(closestPoint + 32);
+				}
 			}
 		}
 
@@ -97,4 +120,9 @@ vector<string> Day06::ReadInput()
 
 	file.close();
 	return result;
+}
+
+int Day06::ManhattanDistance(std::pair<int, int> point1, std::pair<int, int> point2)
+{
+	return abs(point1.first - point2.first) + abs(point1.second - point2.second);
 }
