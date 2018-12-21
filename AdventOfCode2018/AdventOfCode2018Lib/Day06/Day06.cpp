@@ -19,6 +19,7 @@ Day06::~Day06()
 size_t Day06::Part1(vector<string> coords)
 {
 	map<pair<int, int>, char> coordMap;
+	vector<pair<int, int>> edgeCoords;
 	map<char, size_t> countOfPoint;
 
 	int maxX(0);
@@ -43,6 +44,44 @@ size_t Day06::Part1(vector<string> coords)
 		if (y > maxY)
 		{
 			maxY = y;
+		}
+	}
+
+	// Find highest and lowest x and y
+	int lowestX(1000);
+	int lowestY(1000);
+	int highestX(0);
+	int highestY(0);
+	for (auto const& c : coordMap)
+	{
+		if (c.first.first > highestX)
+		{
+			highestX = c.first.first;
+		}
+
+		if (c.first.second > highestY)
+		{
+			highestY = c.first.second;
+		}
+
+		if (c.first.first < lowestX)
+		{
+			lowestX = c.first.first;
+		}
+
+		if (c.first.second < lowestY)
+		{
+			lowestY = c.first.second;
+		}
+	}
+
+	// Find edge points
+	// See if each point has one of the highest or lowest values
+	for (auto const& c : coordMap)
+	{
+		if (c.first.first == lowestX || c.first.first == highestX || c.first.second == lowestY || c.first.second == highestY)
+		{
+			edgeCoords.push_back(c.first);
 		}
 	}
 
