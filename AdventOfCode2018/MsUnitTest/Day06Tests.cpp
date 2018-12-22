@@ -32,8 +32,7 @@ namespace MsUnitTest
 				"8, 9"
 				});
 			size_t expected(17);
-			vector<string> coords(day6.ReadInput());
-			actual = day6.Part1(coords);
+			actual = day6.Part1(input);
 			Assert::AreEqual(expected, actual);
 		}
 

@@ -79,13 +79,13 @@ size_t Day06::Part1(vector<string> coords)
 
 	// Find edge points
 	// See if each point has one of the highest or lowest values
-	for (auto const& c : coordMap)
+	/*for (auto const& c : coordMap)
 	{
 		if (c.first.first == lowestX || c.first.first == highestX || c.first.second == lowestY || c.first.second == highestY)
 		{
 			edgeCoords.push_back(c.second);
 		}
-	}
+	}*/
 
 	//cout << endl;
 	for (int y = 0; y <= maxY; y++)
@@ -117,6 +117,14 @@ size_t Day06::Part1(vector<string> coords)
 						{
 							minDistanceCount++;
 						}
+					}
+				}
+
+				if (x == maxX || x == 0 || y == maxY || y == 0)
+				{
+					if (find(edgeCoords.begin(), edgeCoords.end(), closestPoint) == edgeCoords.end())
+					{
+						edgeCoords.push_back(closestPoint);
 					}
 				}
 
