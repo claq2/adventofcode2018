@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <map>
+#include <algorithm>
 
 using namespace std;
 
@@ -18,9 +19,10 @@ Day06::~Day06()
 
 size_t Day06::Part1(vector<string> coords)
 {
-	map<pair<int, int>, char> coordMap;
-	vector<pair<int, int>> edgeCoords;
-	map<char, size_t> countOfPoint;
+	typedef int pointType;
+	map<pair<int, int>, pointType> coordMap;
+	vector<pointType> edgeCoords;
+	map<pointType, size_t> countOfPoint;
 
 	int maxX(0);
 	int maxY(0);
@@ -34,7 +36,7 @@ size_t Day06::Part1(vector<string> coords)
 		int x(stoi(tokens[0].substr(0, tokens[0].find(','))));
 		int y(stoi(tokens[1]));
 
-		coordMap[{x, y}] = pointNum + 65;
+		coordMap[{x, y}] = pointNum;// +65;
 		pointNum++;
 		if (x > maxX)
 		{
@@ -81,25 +83,25 @@ size_t Day06::Part1(vector<string> coords)
 	{
 		if (c.first.first == lowestX || c.first.first == highestX || c.first.second == lowestY || c.first.second == highestY)
 		{
-			edgeCoords.push_back(c.first);
+			edgeCoords.push_back(c.second);
 		}
 	}
 
-	cout << endl;
+	//cout << endl;
 	for (int y = 0; y <= maxY; y++)
 	{
 		for (int x = 0; x <= maxX + 1; x++)
 		{
 			if (coordMap.count({ x, y }) == 1)
 			{
-				cout << coordMap[{x, y}];
+				//cout << coordMap[{x, y}];
 				countOfPoint[coordMap[{x, y}]]++;
 			}
 			else
 			{
 				int minDistance(1000);
 				int minDistanceCount(0);
-				char closestPoint;
+				pointType closestPoint;
 				for (auto const& c : coordMap)
 				{
 					if (c.first != pair<int, int>{x, y})
@@ -120,23 +122,24 @@ size_t Day06::Part1(vector<string> coords)
 
 				if (minDistanceCount > 1)
 				{
-					cout << ".";
+					//cout << ".";
 				}
 				else
 				{
 					countOfPoint[closestPoint]++;
-					cout << char(closestPoint + 32);
+					//cout << char(closestPoint + 32);
 				}
 			}
 		}
 
-		cout << endl;
+		//cout << endl;
 	}
 
 	size_t largestCount(0);
 	for (auto const& c : countOfPoint)
 	{
-		if (c.second > largestCount)
+		if (c.second > largestCount
+			&& find(edgeCoords.begin(), edgeCoords.end(), c.first) == edgeCoords.end())
 		{
 			largestCount = c.second;
 		}
