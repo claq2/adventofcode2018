@@ -48,7 +48,7 @@ namespace MsUnitTest
 				"5, 5",
 				"8, 9"
 				});
-			size_t expected(4);
+			size_t expected(16);
 			actual = day6.Part2(input);
 			Assert::AreEqual(expected, actual);
 		}
