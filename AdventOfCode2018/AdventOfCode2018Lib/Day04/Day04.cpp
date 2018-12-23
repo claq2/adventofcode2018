@@ -263,7 +263,6 @@ vector<string> Day04::ReadInput()
 		throw e;
 	}
 
-	std::tm tm = {};
 	while (getline(file, currentGuardLine))
 	{
 		result.push_back(currentGuardLine);
@@ -289,7 +288,6 @@ vector<string> Day04::ReadInputRaw()
 		throw e;
 	}
 
-	std::tm tm = {};
 	while (getline(file, currentGuardLine))
 	{
 		result.push_back(string("20").append(currentGuardLine.substr(3, currentGuardLine.find(']') - 3)));

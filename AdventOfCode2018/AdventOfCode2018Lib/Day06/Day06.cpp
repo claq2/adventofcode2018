@@ -141,7 +141,6 @@ vector<string> Day06::ReadInput()
 		throw e;
 	}
 
-	std::tm tm = {};
 	while (getline(file, currentGuardLine))
 	{
 		result.push_back(currentGuardLine);

@@ -61,7 +61,6 @@ std::string Day05::ReadInput()
 		throw e;
 	}
 
-	std::tm tm = {};
 	getline(file, result);
 
 	file.close();
