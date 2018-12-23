@@ -157,7 +157,7 @@
     <ClInclude Include="Day04\Day04.h" />
     <ClInclude Include="Day05\Day05.h" />
     <ClInclude Include="Day06\Day06.h" />
-    <ClInclude Include="DayRunner.h" />
+    <ClInclude Include="Day07\Day07.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -170,7 +170,7 @@
     <ClCompile Include="Day04\Day04.cpp" />
     <ClCompile Include="Day05\Day05.cpp" />
     <ClCompile Include="Day06\Day06.cpp" />
-    <ClCompile Include="DayRunner.cpp" />
+    <ClCompile Include="Day07\Day07.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

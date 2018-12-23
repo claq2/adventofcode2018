@@ -10,7 +10,6 @@ public:
 	void Run();
 };
 
-
 template <class dayType> void Runner<dayType>::Run()
 {
 	dayType day;

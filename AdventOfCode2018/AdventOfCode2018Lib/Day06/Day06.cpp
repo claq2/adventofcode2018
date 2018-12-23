@@ -20,7 +20,7 @@ size_t Day06::Part1(vector<string> coords)
 {
 	typedef int pointType;
 
-	map<pair<int, int>, pointType> coordMap;
+	map<Coords, pointType> coordMap;
 	int maxX;
 	int maxY;
 
@@ -44,7 +44,7 @@ size_t Day06::Part1(vector<string> coords)
 				pointType closestPoint;
 				for (auto const& c : coordMap)
 				{
-					if (c.first != pair<int, int>{x, y})
+					if (c.first != Coords{x, y})
 					{
 						int distanceToCurrentPoint = ManhattanDistance(c.first, { x, y });
 						if (distanceToCurrentPoint < minDistance)
@@ -72,9 +72,6 @@ size_t Day06::Part1(vector<string> coords)
 				{
 					countOfPoint[closestPoint]++;
 				}
-				else
-				{
-				}
 			}
 		}
 	}
@@ -97,14 +94,14 @@ size_t Day06::Part2(vector<string> coords)
 	size_t maxTotalDistance(10000);
 	typedef int pointType;
 
-	map<pair<int, int>, pointType> coordMap;
+	map<Coords, pointType> coordMap;
 	int maxX;
 	int maxY;
 
 	tie(coordMap, maxX, maxY) = ExtractStuff(coords);
 
 	// Calculate total manhattan distances for each point
-	map<pair<int, int>, size_t> pointsAndtotalDistances;
+	map<Coords, size_t> pointsAndtotalDistances;
 	for (int y = 0; y <= maxY; y++)
 	{
 		for (int x = 0; x <= maxX + 1; x++)
@@ -154,12 +151,12 @@ vector<string> Day06::ReadInput()
 	return result;
 }
 
-int Day06::ManhattanDistance(std::pair<int, int> point1, std::pair<int, int> point2)
+int Day06::ManhattanDistance(Coords point1, Coords point2)
 {
 	return abs(point1.first - point2.first) + abs(point1.second - point2.second);
 }
 
-tuple<map<pair<int, int>, int>, int, int> Day06::ExtractStuff(vector<string> coords)
+tuple<map<Coords, int>, int, int> Day06::ExtractStuff(vector<string> coords)
 {
 	typedef int pointType;
 

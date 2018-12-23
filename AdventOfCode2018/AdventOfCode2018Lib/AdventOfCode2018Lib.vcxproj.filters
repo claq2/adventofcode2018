@@ -31,6 +31,9 @@
     <Filter Include="Day06">
       <UniqueIdentifier>{85e0c692-7e05-4a4f-b373-1de27527eb08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Day07">
+      <UniqueIdentifier>{c064c008-c429-4332-b147-9018aeb49420}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -40,9 +43,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AdventOfCode2018Lib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DayRunner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Day01\Day01.h">
@@ -66,6 +66,9 @@
     <ClInclude Include="Day06\Day06.h">
       <Filter>Day06</Filter>
     </ClInclude>
+    <ClInclude Include="Day07\Day07.h">
+      <Filter>Day07</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -75,9 +78,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DayRunner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Day01\Day01.cpp">
@@ -100,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="Day06\Day06.cpp">
       <Filter>Day06</Filter>
+    </ClCompile>
+    <ClCompile Include="Day07\Day07.cpp">
+      <Filter>Day07</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

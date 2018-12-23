@@ -160,6 +160,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Day07Tests.cpp" />
     <ClCompile Include="Day02Tests.cpp" />
     <ClCompile Include="Day03Tests.cpp" />
     <ClCompile Include="Day04Tests.cpp" />

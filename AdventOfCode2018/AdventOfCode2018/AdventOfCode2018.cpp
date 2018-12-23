@@ -4,7 +4,6 @@
 #include "pch.h"
 #include <iostream>
 #include <vector>
-#include "../AdventOfCode2018Lib/DayRunner.h"
 #include "Runner.h"
 #include "../AdventOfCode2018Lib/Day01/Day01.h"
 #include "../AdventOfCode2018Lib/Day02/Day02.h"
@@ -12,6 +11,7 @@
 #include "../AdventOfCode2018Lib/Day04/Day04.h"
 #include "../AdventOfCode2018Lib/Day05/Day05.h"
 #include "../AdventOfCode2018Lib/Day06/Day06.h"
+#include "../AdventOfCode2018Lib/Day07/Day07.h"
 
 using namespace std;
 
@@ -22,7 +22,8 @@ int main()
 	//Runner<Day03>().Run();
 	//Runner<Day04>().Run();
 	//Runner<Day05>().Run();
-	Runner<Day06>().Run();
+	//Runner<Day06>().Run();
+	Runner<Day07>().Run();
 }
 	
 
