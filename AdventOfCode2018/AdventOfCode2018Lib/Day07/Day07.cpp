@@ -43,7 +43,8 @@ string Day07::Part1(vector<string> nodeLines)
 	string result;
 	//vector<Node> nodes;
 	map<char, Node> nodeMap;
-	map <char, bool> performedSteps;
+	vector<Node> performedSteps;
+	vector<Node> nextSteps;
 	// step = index 5
 	// dep = index 36
 	char firstStep;
@@ -62,20 +63,24 @@ string Day07::Part1(vector<string> nodeLines)
 		if (nodeMap.count(currentId) == 0)
 		{
 			nodeMap[currentId] = Node(currentId);
-			nodeMap[currentId].NextSteps.push_back(Node(currentDep));
 		}
-		else
-		{
-			nodeMap[currentId].NextSteps.push_back(Node(currentDep));
-		}
+
+		nodeMap[currentId].NextSteps.push_back(Node(currentDep));
 
 		if (nodeMap.count(currentDep) == 0)
 		{
 			nodeMap[currentDep] = Node(currentDep);
 		}
+
+		nodeMap[currentDep].Dependencies.push_back(nodeMap[currentId]);
 	}
 
 	Node start = nodeMap[firstStep];
+	nextSteps = start.NextSteps;
+	/*while (performedSteps.size() > nodeMap.size())
+	{
+
+	}*/
 
 	return result;
 }

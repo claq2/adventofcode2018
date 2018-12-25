@@ -8,5 +8,6 @@ public:
 	~Node();
 	char Id;
 	std::vector<Node> NextSteps;
+	std::vector<Node> Dependencies;
 };
 
