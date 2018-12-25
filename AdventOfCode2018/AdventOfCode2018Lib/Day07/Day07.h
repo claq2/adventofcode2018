@@ -9,7 +9,7 @@ public:
 	Day07();
 	~Day07();
 	std::vector<std::string> ReadInput();
-	std::string Part1(std::vector<std::string> coords);
-	std::string Part2(std::vector<std::string> coords);
+	std::string Part1(std::vector<std::string> nodeLines);
+	std::string Part2(std::vector<std::string> nodeLines);
 };
 

@@ -158,6 +158,7 @@
     <ClInclude Include="Day05\Day05.h" />
     <ClInclude Include="Day06\Day06.h" />
     <ClInclude Include="Day07\Day07.h" />
+    <ClInclude Include="Day07\Node.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -172,6 +173,7 @@
     <ClCompile Include="Day06\Day06.cpp" />
     <ClCompile Include="Day07\Day07.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="Day07\Node.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

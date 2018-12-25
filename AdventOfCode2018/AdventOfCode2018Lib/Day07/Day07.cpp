@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Day07.h"
 #include <fstream>
-
+#include "Node.h"
+#include <map>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ vector<string> Day07::ReadInput()
 {
 	vector<string> result;
 	ifstream file;
-	string currentGuardLine;
+	string currentLine;
 
 	file.open("Day07.txt");
 	if (!file)
@@ -28,21 +29,58 @@ vector<string> Day07::ReadInput()
 	}
 
 	tm tm = {};
-	while (getline(file, currentGuardLine))
+	while (getline(file, currentLine))
 	{
-		result.push_back(currentGuardLine);
+		result.push_back(currentLine);
 	}
 
 	file.close();
 	return result;
 }
 
-string Day07::Part1(vector<string> coords)
+string Day07::Part1(vector<string> nodeLines)
 {
-	return "";
+	string result;
+	//vector<Node> nodes;
+	map<char, Node> nodeMap;
+	map <char, bool> performedSteps;
+	// step = index 5
+	// dep = index 36
+	char firstStep;
+
+	// Build dep graph
+	for (auto const& line : nodeLines)
+	{
+		char currentId(line[5]);
+		char currentDep(line[36]);
+		if (line == nodeLines.front())
+		{
+			firstStep = currentId;
+			result.push_back(firstStep);
+		}
+
+		if (nodeMap.count(currentId) == 0)
+		{
+			nodeMap[currentId] = Node(currentId);
+			nodeMap[currentId].NextSteps.push_back(Node(currentDep));
+		}
+		else
+		{
+			nodeMap[currentId].NextSteps.push_back(Node(currentDep));
+		}
+
+		if (nodeMap.count(currentDep) == 0)
+		{
+			nodeMap[currentDep] = Node(currentDep);
+		}
+	}
+
+	Node start = nodeMap[firstStep];
+
+	return result;
 }
 
-string Day07::Part2(vector<string> coords)
+string Day07::Part2(vector<string> nodeLines)
 {
 	return "";
 }
