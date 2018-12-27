@@ -44,8 +44,8 @@ string Day07::Part1(vector<string> nodeLines)
 	string result;
 	//vector<Node> nodes;
 	map<char, Node> nodeMap;
-	vector<Node> performedSteps;
-	vector<Node> nextSteps;
+	vector<Node*> performedSteps;
+	vector<Node*> potentialNextSteps;
 	// step = index 5
 	// dep = index 36
 	char firstStep;
@@ -65,45 +65,63 @@ string Day07::Part1(vector<string> nodeLines)
 			nodeMap[currentId] = Node(currentId);
 		}
 
-		nodeMap[currentId].NextSteps.push_back(Node(currentDep));
-
 		if (nodeMap.count(currentDep) == 0)
 		{
 			nodeMap[currentDep] = Node(currentDep);
 		}
 
-		nodeMap[currentDep].Dependencies.push_back(nodeMap[currentId]);
+		nodeMap[currentId].NextSteps.push_back(&nodeMap[currentDep]);
+		nodeMap[currentDep].Dependencies.push_back(&nodeMap[currentId]);
 	}
 
 	// Record first step
 	result.push_back(firstStep);
-	performedSteps.push_back(nodeMap[firstStep]);
+	performedSteps.push_back(&nodeMap[firstStep]);
 
-	Node start = nodeMap[firstStep];
-	nextSteps = start.NextSteps;
-	/*while (performedSteps.size() > nodeMap.size())
-	{*/
-		Node lowestNext(nextSteps.front());
+	Node* start = &nodeMap[firstStep];
+	potentialNextSteps = start->NextSteps;
+	while (performedSteps.size() < nodeMap.size())
+	{
+		Node* lowestNext(potentialNextSteps.front());
 		int lowestIndex(0);
-		// find next lowest step
-		for (int i = 0; i < nextSteps.size(); i++)
+		// Find next lowest step that have all of its dependencies satisfied
+		for (int i = 0; i < potentialNextSteps.size(); i++)
 		{
-			if (nextSteps[i].Id < lowestNext.Id)
+			if (potentialNextSteps[i]->Id < lowestNext->Id)
 			{
-				lowestNext = nextSteps[i];
-				lowestIndex = i;
+				// Check that we've performed its dependenies
+				size_t completedDeps(0);
+				for (auto const s : potentialNextSteps[i]->Dependencies)
+				{
+					if (find(performedSteps.begin(), performedSteps.end(), s) != performedSteps.end())
+					{
+						completedDeps++;
+					}
+				}
+
+				if (completedDeps == potentialNextSteps[i]->Dependencies.size())
+				{
+					lowestNext = potentialNextSteps[i];
+					lowestIndex = i;
+				}
 			}
 		}
 
 		// Record next step
 		performedSteps.push_back(lowestNext);
-		result += lowestNext.Id;
-		// Add the steps that may be available
-		nextSteps.insert(nextSteps.end(), lowestNext.NextSteps.begin(), lowestNext.NextSteps.end());
-		// Remove the step we did
-		nextSteps.erase(nextSteps.begin() + lowestIndex);
+		result += lowestNext->Id;
+		for (auto const s : lowestNext->NextSteps)
+		{
+			// If next step isn't already in the potentialNextSteps...
+			// Add the steps that may be available
+			if (find(potentialNextSteps.begin(), potentialNextSteps.end(), s) == potentialNextSteps.end())
+			{
+				potentialNextSteps.push_back(s);
+			}
+		}
 
-	/*}*/
+		potentialNextSteps.erase(potentialNextSteps.begin() + lowestIndex);
+	}
 
 	return result;
 }

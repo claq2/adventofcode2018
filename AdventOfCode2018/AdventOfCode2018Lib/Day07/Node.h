@@ -8,7 +8,7 @@ public:
 	Node(const Node& n);
 	~Node();
 	char Id;
-	std::vector<Node> NextSteps;
-	std::vector<Node> Dependencies;
+	std::vector<Node*> NextSteps;
+	std::vector<Node*> Dependencies;
 };
 
