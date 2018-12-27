@@ -55,11 +55,6 @@ string Day07::Part1(vector<string> nodeLines)
 	{
 		char currentId(line[5]);
 		char currentDep(line[36]);
-		if (line == nodeLines.front())
-		{
-			// TODO: First line is not the first step
-			firstStep = currentId;
-		}
 
 		if (nodeMap.count(currentId) == 0)
 		{
@@ -75,22 +70,35 @@ string Day07::Part1(vector<string> nodeLines)
 		nodeMap[currentDep].Dependencies.push_back(&nodeMap[currentId]);
 	}
 
-	// TODO: Potential steps starts with all nodes that have 0 dependencies
+	// Potential steps starts with all nodes that have 0 dependencies
+	// Find items with 0 dependencies and add them to potentialNextSteps
+	for (auto & n : nodeMap)
+	{
+		if (n.second.Dependencies.size() == 0)
+		{
+			potentialNextSteps.push_back(&n.second);
+		}
+	}
 
-	// Record first step
-	result.push_back(firstStep);
-	performedSteps.push_back(&nodeMap[firstStep]);
-
-	Node* start = &nodeMap[firstStep];
-	potentialNextSteps = start->NextSteps;
 	while (performedSteps.size() < nodeMap.size())
 	{
-		Node* lowestNext(potentialNextSteps.front());
-		int lowestIndex(0);
-		// Find next lowest step that have all of its dependencies satisfied
+		// Start lowest at highest ID value
+		Node* lowestNext;
+		char highestId('A');
 		for (int i = 0; i < potentialNextSteps.size(); i++)
 		{
-			if (potentialNextSteps[i]->Id < lowestNext->Id)
+			if (potentialNextSteps[i]->Id >= highestId)
+			{
+				highestId = potentialNextSteps[i]->Id;
+				lowestNext = potentialNextSteps[i];
+			}
+		}
+
+		// Find next lowest step that have all of its dependencies satisfied
+		int lowestIndex(0);
+		for (int i = 0; i < potentialNextSteps.size(); i++)
+		{
+			if (potentialNextSteps[i]->Id <= lowestNext->Id)
 			{
 				// Check that we've performed its dependenies
 				size_t completedDeps(0);
@@ -110,7 +118,7 @@ string Day07::Part1(vector<string> nodeLines)
 			}
 		}
 
-		// Record next step
+		// Record next step if it hasn't already been done
 		performedSteps.push_back(lowestNext);
 		result += lowestNext->Id;
 		for (auto const s : lowestNext->NextSteps)
