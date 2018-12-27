@@ -57,6 +57,7 @@ string Day07::Part1(vector<string> nodeLines)
 		char currentDep(line[36]);
 		if (line == nodeLines.front())
 		{
+			// TODO: First line is not the first step
 			firstStep = currentId;
 		}
 
@@ -73,6 +74,8 @@ string Day07::Part1(vector<string> nodeLines)
 		nodeMap[currentId].NextSteps.push_back(&nodeMap[currentDep]);
 		nodeMap[currentDep].Dependencies.push_back(&nodeMap[currentId]);
 	}
+
+	// TODO: Potential steps starts with all nodes that have 0 dependencies
 
 	// Record first step
 	result.push_back(firstStep);
