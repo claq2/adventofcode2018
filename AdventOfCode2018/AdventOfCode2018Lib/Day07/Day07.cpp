@@ -3,6 +3,7 @@
 #include <fstream>
 #include "Node.h"
 #include <map>
+#include <algorithm>
 
 using namespace std;
 
@@ -57,7 +58,6 @@ string Day07::Part1(vector<string> nodeLines)
 		if (line == nodeLines.front())
 		{
 			firstStep = currentId;
-			result.push_back(firstStep);
 		}
 
 		if (nodeMap.count(currentId) == 0)
@@ -75,12 +75,35 @@ string Day07::Part1(vector<string> nodeLines)
 		nodeMap[currentDep].Dependencies.push_back(nodeMap[currentId]);
 	}
 
+	// Record first step
+	result.push_back(firstStep);
+	performedSteps.push_back(nodeMap[firstStep]);
+
 	Node start = nodeMap[firstStep];
 	nextSteps = start.NextSteps;
 	/*while (performedSteps.size() > nodeMap.size())
-	{
+	{*/
+		Node lowestNext(nextSteps.front());
+		int lowestIndex(0);
+		// find next lowest step
+		for (int i = 0; i < nextSteps.size(); i++)
+		{
+			if (nextSteps[i].Id < lowestNext.Id)
+			{
+				lowestNext = nextSteps[i];
+				lowestIndex = i;
+			}
+		}
 
-	}*/
+		// Record next step
+		performedSteps.push_back(lowestNext);
+		result += lowestNext.Id;
+		// Add the steps that may be available
+		nextSteps.insert(nextSteps.end(), lowestNext.NextSteps.begin(), lowestNext.NextSteps.end());
+		// Remove the step we did
+		nextSteps.erase(nextSteps.begin() + lowestIndex);
+
+	/*}*/
 
 	return result;
 }
