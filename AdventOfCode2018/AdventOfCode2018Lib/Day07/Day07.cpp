@@ -139,5 +139,23 @@ string Day07::Part1(vector<string> nodeLines)
 
 string Day07::Part2(vector<string> nodeLines)
 {
+	const int numberOfWorkers(2); // 5 for non-test
+	const int stepBaseTime(0); // 60 for non-test
+	map<int, char> workerMap;
+	vector<char> steps;
+	vector<char> completedSteps;
+	string stepsString(Part1(nodeLines));
+	for (auto const& s : stepsString)
+	{
+		steps.push_back(s);
+	}
+
+	int seconds(0);
+	// Loop until we've completed as many steps as were in the starting string
+	while (completedSteps.size() < stepsString.size())
+	{
+
+	}
+
 	return "";
 }
