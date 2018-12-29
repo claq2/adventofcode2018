@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "Day07.h"
 #include <fstream>
-#include "Node.h"
-#include <map>
 #include <algorithm>
 
 using namespace std;
@@ -42,36 +40,13 @@ vector<string> Day07::ReadInput()
 string Day07::Part1(vector<string> nodeLines)
 {
 	string result;
-	//vector<Node> nodes;
-	map<char, Node> nodeMap;
-	vector<Node*> performedSteps;
-	vector<Node*> potentialNextSteps;
-	// step = index 5
-	// dep = index 36
-	char firstStep;
 
-	// Build dep graph
-	for (auto const& line : nodeLines)
-	{
-		char currentId(line[5]);
-		char currentDep(line[36]);
+	map<char, Node> nodeMap(BuildGraph(nodeLines));
 
-		if (nodeMap.count(currentId) == 0)
-		{
-			nodeMap[currentId] = Node(currentId);
-		}
-
-		if (nodeMap.count(currentDep) == 0)
-		{
-			nodeMap[currentDep] = Node(currentDep);
-		}
-
-		nodeMap[currentId].NextSteps.push_back(&nodeMap[currentDep]);
-		nodeMap[currentDep].Dependencies.push_back(&nodeMap[currentId]);
-	}
 
 	// Potential steps starts with all nodes that have 0 dependencies
 	// Find items with 0 dependencies and add them to potentialNextSteps
+	vector<Node*> potentialNextSteps;
 	for (auto & n : nodeMap)
 	{
 		if (n.second.Dependencies.size() == 0)
@@ -80,6 +55,7 @@ string Day07::Part1(vector<string> nodeLines)
 		}
 	}
 
+	vector<Node*> performedSteps;
 	while (performedSteps.size() < nodeMap.size())
 	{
 		// Start lowest at highest ID value
@@ -141,21 +117,64 @@ string Day07::Part2(vector<string> nodeLines)
 {
 	const int numberOfWorkers(2); // 5 for non-test
 	const int stepBaseTime(0); // 60 for non-test
-	map<int, char> workerMap;
+	map<int, char> workerMap; // Who's working on what
 	vector<char> steps;
 	vector<char> completedSteps;
+
 	string stepsString(Part1(nodeLines));
 	for (auto const& s : stepsString)
 	{
 		steps.push_back(s);
 	}
 
-	int seconds(0);
+	map<char, Node> nodeMap(BuildGraph(nodeLines));
+
+	// Find all the available start steps, order them and assign them to workers
+	// Potential steps starts with all nodes that have 0 dependencies
+	// Find items with 0 dependencies and add them to potentialNextSteps
+	vector<Node*> potentialNextSteps; 
+	for (auto & n : nodeMap)
+	{
+		if (n.second.Dependencies.size() == 0)
+		{
+			potentialNextSteps.push_back(&n.second);
+		}
+	}
+
 	// Loop until we've completed as many steps as were in the starting string
+	int seconds(0);
 	while (completedSteps.size() < stepsString.size())
 	{
-
+		break;
 	}
 
 	return "";
+}
+
+std::map<char, Node> Day07::BuildGraph(std::vector<std::string> nodeLines)
+{
+	// Build dep graph
+	map<char, Node> nodeMap;
+	for (auto const& line : nodeLines)
+	{
+		// step = index 5
+		// dep = index 36
+		char currentId(line[5]);
+		char currentDep(line[36]);
+
+		if (nodeMap.count(currentId) == 0)
+		{
+			nodeMap[currentId] = Node(currentId);
+		}
+
+		if (nodeMap.count(currentDep) == 0)
+		{
+			nodeMap[currentDep] = Node(currentDep);
+		}
+
+		nodeMap[currentId].NextSteps.push_back(&nodeMap[currentDep]);
+		nodeMap[currentDep].Dependencies.push_back(&nodeMap[currentId]);
+	}
+
+	return nodeMap;
 }
