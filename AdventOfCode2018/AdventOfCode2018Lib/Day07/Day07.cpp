@@ -58,9 +58,22 @@ string Day07::Part1(vector<string> nodeLines)
 	vector<Node*> performedSteps;
 	while (performedSteps.size() < nodeMap.size())
 	{
-		// Start lowest at highest ID value
+
+		// Start lowest at highest ID value by first finding the highest one...
 		Node* lowestNext;
 		char highestId('A');
+
+		vector<Node*>::iterator ni;
+		for (auto i = potentialNextSteps.begin(); i != potentialNextSteps.end(); i++)
+		{
+			if ((*i)->Id >= highestId)
+			{
+				ni = i;
+				highestId = (*i)->Id;
+			}
+		}
+
+
 		for (int i = 0; i < potentialNextSteps.size(); i++)
 		{
 			if (potentialNextSteps[i]->Id >= highestId)
@@ -70,7 +83,7 @@ string Day07::Part1(vector<string> nodeLines)
 			}
 		}
 
-		// Find next lowest step that have all of its dependencies satisfied
+		// ... then find lowest step that have all of its dependencies satisfied
 		int lowestIndex(0);
 		for (int i = 0; i < potentialNextSteps.size(); i++)
 		{
@@ -121,18 +134,12 @@ string Day07::Part2(vector<string> nodeLines)
 	vector<char> steps;
 	vector<char> completedSteps;
 
-	string stepsString(Part1(nodeLines));
-	for (auto const& s : stepsString)
-	{
-		steps.push_back(s);
-	}
-
 	map<char, Node> nodeMap(BuildGraph(nodeLines));
 
 	// Find all the available start steps, order them and assign them to workers
 	// Potential steps starts with all nodes that have 0 dependencies
 	// Find items with 0 dependencies and add them to potentialNextSteps
-	vector<Node*> potentialNextSteps; 
+	vector<Node*> potentialNextSteps;
 	for (auto & n : nodeMap)
 	{
 		if (n.second.Dependencies.size() == 0)
@@ -143,12 +150,12 @@ string Day07::Part2(vector<string> nodeLines)
 
 	// Loop until we've completed as many steps as were in the starting string
 	int seconds(0);
-	while (completedSteps.size() < stepsString.size())
+	while (completedSteps.size() < nodeMap.size())
 	{
 		break;
 	}
 
-	return "";
+	return to_string(seconds);
 }
 
 std::map<char, Node> Day07::BuildGraph(std::vector<std::string> nodeLines)

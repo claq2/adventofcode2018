@@ -50,7 +50,7 @@ namespace MsUnitTest
 				"Step D must be finished before step E can begin.",
 				"Step F must be finished before step E can begin.",
 				});
-			string expected("CABFDE");
+			string expected("15");
 			actual = day7.Part2(input);
 			Assert::AreEqual(expected, actual);
 		}
