@@ -110,7 +110,7 @@ string Day07::Part2(vector<string> nodeLines)
 	// Loop until we've completed as many steps as were in the starting string
 	int seconds(-1);
 	vector<Node*> performedSteps;
-	while (performedSteps.size() < 1 /*nodeMap.size()*/)
+	while (performedSteps.size() < nodeMap.size())
 	{
 		// Check to see if workers are done any steps
 		for (auto wi = workerMap.begin(); wi != workerMap.end(); wi++)
@@ -121,6 +121,19 @@ string Day07::Part2(vector<string> nodeLines)
 				// Worker is done
 				// Record step
 				performedSteps.push_back(&nodeMap[(*wi).second]);
+				// Remove completed step from potential next steps, populate next available steps
+				//auto f = find(potentialNextSteps.begin(), potentialNextSteps.end(), &nodeMap[(*wi).second]);
+				//potentialNextSteps.erase(f);
+				for (auto const s : (&nodeMap[(*wi).second])->NextSteps)
+				{
+					// If next step isn't already in the potentialNextSteps...
+					// Add the steps that may be available
+					if (find(potentialNextSteps.begin(), potentialNextSteps.end(), s) == potentialNextSteps.end())
+					{
+						potentialNextSteps.push_back(s);
+					}
+				}
+
 				// Free worker
 				(*wi).second = 0;
 			}
@@ -148,8 +161,11 @@ string Day07::Part2(vector<string> nodeLines)
 
 					if (!otherWorkerWorkingOnItem)
 					{
+						// Assign work
 						workerMap[i] = (*ni)->Id;
 						workerTimes[i] = 0;
+						// Remove from next steps
+						potentialNextSteps.erase(ni);
 					}
 				}
 			}
@@ -200,7 +216,7 @@ std::map<char, Node> Day07::BuildGraph(std::vector<std::string> nodeLines)
 vector<Node*>::iterator Day07::FindNextAvailableStep(vector<Node *> &potentialNextSteps, vector<Node *> &performedSteps)
 {
 	// Start lowest at highest ID value by first finding the highest one...
-	vector<Node*>::iterator ni;
+	vector<Node*>::iterator ni(potentialNextSteps.end());
 	char highestId('A');
 	for (auto i = potentialNextSteps.begin(); i != potentialNextSteps.end(); i++)
 	{
