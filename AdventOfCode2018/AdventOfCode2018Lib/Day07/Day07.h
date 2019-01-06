@@ -13,6 +13,8 @@ public:
 	std::vector<std::string> ReadInput();
 	std::string Part1(std::vector<std::string> nodeLines);
 
+	std::vector<Node*>::iterator FindNextAvailableStep(std::vector<Node *> &potentialNextSteps, std::vector<Node *> &performedSteps);
+
 	std::map<char, Node> BuildGraph(std::vector<std::string> nodeLines);
 	
 
