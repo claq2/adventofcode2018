@@ -131,12 +131,26 @@ string Day07::Part2(vector<string> nodeLines)
 		{
 			if (workerMap[i] == 0)
 			{
-				// Found free worker, see if there's an available step
+				// Found free worker, see if there's an available step and no one's working on it
 				auto ni = FindNextAvailableStep(potentialNextSteps, performedSteps);
+				
 				if (ni != potentialNextSteps.end())
 				{
-					workerMap[i] = (*ni)->Id;
-					workerTimes[i] = 0;
+					// Other workers working on this item?
+					bool otherWorkerWorkingOnItem(false);
+					for (int j = 0; j < numberOfWorkers; j++)
+					{
+						if (i != j && workerMap[j] == (*ni)->Id)
+						{
+							otherWorkerWorkingOnItem = true;
+						}
+					}
+
+					if (!otherWorkerWorkingOnItem)
+					{
+						workerMap[i] = (*ni)->Id;
+						workerTimes[i] = 0;
+					}
 				}
 			}
 		}
@@ -145,7 +159,10 @@ string Day07::Part2(vector<string> nodeLines)
 		// Update workers' times
 		for (auto & wt : workerTimes)
 		{
-			wt.second++;
+			if (workerMap[wt.first] != 0)
+			{
+				wt.second++;
+			}
 		}
 	}
 
