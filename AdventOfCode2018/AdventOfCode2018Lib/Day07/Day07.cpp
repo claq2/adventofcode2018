@@ -83,8 +83,15 @@ string Day07::Part2(vector<string> nodeLines)
 	const int numberOfWorkers(2); // 5 for non-test
 	const int stepBaseTime(0); // 60 for non-test
 	map<int, char> workerMap; // Who's working on what
-	vector<char> steps;
-	vector<char> completedSteps;
+	map<int, int> workerTimes; // How long each worker has been working on its task
+	//vector<char> steps;
+	//vector<char> completedSteps;
+
+	// Initialize worker map
+	for (int i = 0; i < numberOfWorkers; i++)
+	{
+		workerMap[i] = 0;
+	}
 
 	map<char, Node> nodeMap(BuildGraph(nodeLines));
 
@@ -101,12 +108,45 @@ string Day07::Part2(vector<string> nodeLines)
 	}
 
 	// Loop until we've completed as many steps as were in the starting string
-	int seconds(0);
-	while (completedSteps.size() < nodeMap.size())
+	int seconds(-1);
+	vector<Node*> performedSteps;
+	while (performedSteps.size() < 1 /*nodeMap.size()*/)
 	{
-		// TODO: find free workers
+		// Check to see if workers are done any steps
+		for (auto wi = workerMap.begin(); wi != workerMap.end(); wi++)
+		{
+			// A = 65
+			if (workerTimes[(*wi).first] == (*wi).second - 64 + stepBaseTime)
+			{
+				// Worker is done
+				// Record step
+				performedSteps.push_back(&nodeMap[(*wi).second]);
+				// Free worker
+				(*wi).second = 0;
+			}
+		}
 
-		break;
+		// Find free workers and give them work
+		for (int i = 0; i < numberOfWorkers; i++)
+		{
+			if (workerMap[i] == 0)
+			{
+				// Found free worker, see if there's an available step
+				auto ni = FindNextAvailableStep(potentialNextSteps, performedSteps);
+				if (ni != potentialNextSteps.end())
+				{
+					workerMap[i] = (*ni)->Id;
+					workerTimes[i] = 0;
+				}
+			}
+		}
+
+		seconds++;
+		// Update workers' times
+		for (auto & wt : workerTimes)
+		{
+			wt.second++;
+		}
 	}
 
 	return to_string(seconds);
