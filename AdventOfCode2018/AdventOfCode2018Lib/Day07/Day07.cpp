@@ -2,6 +2,7 @@
 #include "Day07.h"
 #include <fstream>
 #include <algorithm>
+#include <sstream>
 
 using namespace std;
 
@@ -107,8 +108,9 @@ string Day07::Part2(vector<string> nodeLines)
 		}
 	}
 
+	stringstream state;
 	// Loop until we've completed as many steps as were in the starting string
-	int seconds(-1);
+	int seconds(0);
 	vector<Node*> performedSteps;
 	while (performedSteps.size() < nodeMap.size())
 	{
@@ -121,9 +123,7 @@ string Day07::Part2(vector<string> nodeLines)
 				// Worker is done
 				// Record step
 				performedSteps.push_back(&nodeMap[(*wi).second]);
-				// Remove completed step from potential next steps, populate next available steps
-				//auto f = find(potentialNextSteps.begin(), potentialNextSteps.end(), &nodeMap[(*wi).second]);
-				//potentialNextSteps.erase(f);
+				// Populate next available steps
 				for (auto const s : (&nodeMap[(*wi).second])->NextSteps)
 				{
 					// If next step isn't already in the potentialNextSteps...
@@ -180,7 +180,18 @@ string Day07::Part2(vector<string> nodeLines)
 				wt.second++;
 			}
 		}
+
+		state << seconds << " ";
+		for (auto & wm : workerMap)
+		{
+			char x = (wm.second == 0) ? ('.') : (wm.second);
+			state << wm.first << ":" << x << " ";
+		}
+
+		state << endl;
 	}
+
+	string s(state.str());
 
 	return to_string(seconds);
 }
