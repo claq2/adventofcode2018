@@ -83,6 +83,7 @@ string Day07::Part2(vector<string> nodeLines)
 {
 	const int numberOfWorkers(2); // 5 for non-test
 	const int stepBaseTime(0); // 60 for non-test
+	const char freeWorkerValue('.');
 	map<int, char> workerMap; // Who's working on what
 	map<int, int> workerTimes; // How long each worker has been working on its task
 	//vector<char> steps;
@@ -91,7 +92,7 @@ string Day07::Part2(vector<string> nodeLines)
 	// Initialize worker map
 	for (int i = 0; i < numberOfWorkers; i++)
 	{
-		workerMap[i] = 0;
+		workerMap[i] = freeWorkerValue;
 	}
 
 	map<char, Node> nodeMap(BuildGraph(nodeLines));
@@ -110,7 +111,7 @@ string Day07::Part2(vector<string> nodeLines)
 
 	stringstream state;
 	// Loop until we've completed as many steps as were in the starting string
-	int seconds(0);
+	int seconds(-1);
 	vector<Node*> performedSteps;
 	while (performedSteps.size() < nodeMap.size())
 	{
@@ -135,14 +136,16 @@ string Day07::Part2(vector<string> nodeLines)
 				}
 
 				// Free worker
-				(*wi).second = 0;
+				(*wi).second = freeWorkerValue;
 			}
 		}
+
+		// TODO: make it delay starting something that depends on something we just finished in this iteration
 
 		// Find free workers and give them work
 		for (int i = 0; i < numberOfWorkers; i++)
 		{
-			if (workerMap[i] == 0)
+			if (workerMap[i] == freeWorkerValue)
 			{
 				// Found free worker, see if there's an available step and no one's working on it
 				auto ni = FindNextAvailableStep(potentialNextSteps, performedSteps);
@@ -184,8 +187,7 @@ string Day07::Part2(vector<string> nodeLines)
 		state << seconds << " ";
 		for (auto & wm : workerMap)
 		{
-			char x = (wm.second == 0) ? ('.') : (wm.second);
-			state << wm.first << ":" << x << " ";
+			state << wm.first << ":" << wm.second << " ";
 		}
 
 		state << endl;
