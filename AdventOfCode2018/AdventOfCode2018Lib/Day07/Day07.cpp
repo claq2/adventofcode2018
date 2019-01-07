@@ -97,7 +97,7 @@ string Day07::Part2(vector<string> nodeLines)
 
 	map<char, Node> nodeMap(BuildGraph(nodeLines));
 
-	// Find all the available start steps, order them and assign them to workers
+	// Find all the available start steps
 	// Potential steps starts with all nodes that have 0 dependencies
 	// Find items with 0 dependencies and add them to potentialNextSteps
 	vector<Node*> potentialNextSteps;
@@ -179,7 +179,7 @@ string Day07::Part2(vector<string> nodeLines)
 		// Update workers' times
 		for (auto & wt : workerTimes)
 		{
-			if (workerMap[wt.first] != 0)
+			if (workerMap[wt.first] != freeWorkerValue)
 			{
 				wt.second++;
 			}
