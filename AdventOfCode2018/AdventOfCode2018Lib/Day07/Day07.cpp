@@ -141,6 +141,7 @@ string Day07::Part2(vector<string> nodeLines)
 		}
 
 		// TODO: make it delay starting something that depends on something we just finished in this iteration
+		// E.g. D->E in sample
 
 		// Find free workers and give them work
 		for (int i = 0; i < numberOfWorkers; i++)
