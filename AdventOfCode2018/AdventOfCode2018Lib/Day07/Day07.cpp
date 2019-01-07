@@ -81,8 +81,8 @@ string Day07::Part1(vector<string> nodeLines)
 
 string Day07::Part2(vector<string> nodeLines)
 {
-	const int numberOfWorkers(2); // 5 for non-test
-	const int stepBaseTime(0); // 60 for non-test
+	const int numberOfWorkers(5); // 5 for non-test
+	const int stepBaseTime(60); // 60 for non-test
 	const char freeWorkerValue('.');
 	map<int, char> workerMap; // Who's working on what
 	map<int, int> workerTimes; // How long each worker has been working on its task
@@ -136,6 +136,7 @@ string Day07::Part2(vector<string> nodeLines)
 				}
 
 				// Free worker
+				workerTimes[(*wi).first] = 0; // Reset worker time
 				(*wi).second = freeWorkerValue;
 			}
 		}
@@ -150,7 +151,7 @@ string Day07::Part2(vector<string> nodeLines)
 			{
 				// Found free worker, see if there's an available step and no one's working on it
 				auto ni = FindNextAvailableStep(potentialNextSteps, performedSteps);
-				
+
 				if (ni != potentialNextSteps.end())
 				{
 					// Other workers working on this item?
@@ -241,7 +242,10 @@ vector<Node*>::iterator Day07::FindNextAvailableStep(vector<Node *> &potentialNe
 		}
 	}
 
+	// ni points to the highest ID element
+
 	// ... then find lowest step that have all of its dependencies satisfied
+	bool foundAvailableItem(false);
 	for (auto i = potentialNextSteps.begin(); i != potentialNextSteps.end(); i++)
 	{
 		if ((*i)->Id <= (*ni)->Id)
@@ -258,10 +262,12 @@ vector<Node*>::iterator Day07::FindNextAvailableStep(vector<Node *> &potentialNe
 
 			if (completedDeps == (*i)->Dependencies.size())
 			{
+				foundAvailableItem = true;
 				ni = i;
 			}
 		}
 	}
 
-	return ni;
+	// ni may still point to the highest ID item, but there might not be an available item
+	return foundAvailableItem ? ni : potentialNextSteps.end();
 }
