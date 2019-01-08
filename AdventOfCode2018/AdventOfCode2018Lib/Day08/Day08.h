@@ -19,6 +19,8 @@ private:
 			std::vector<std::unique_ptr<Leaf>> Children;
 			void BuildChildren(std::vector<int> values)
 			{
+				int numberOfChildren = values[0];
+
 				// Extract metadata
 				for (int i = 0; i < values[1]; i++)
 				{
@@ -26,7 +28,7 @@ private:
 					values.erase(values.end() - 1);
 				}
 
-				int numberOfChildren = values[0];
+				
 				// Erase number of children
 				values.erase(values.begin());
 				// Erase number of metadata
