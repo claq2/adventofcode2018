@@ -12,6 +12,7 @@
 #include "../AdventOfCode2018Lib/Day05/Day05.h"
 #include "../AdventOfCode2018Lib/Day06/Day06.h"
 #include "../AdventOfCode2018Lib/Day07/Day07.h"
+#include "../AdventOfCode2018Lib/Day08/Day08.h"
 
 using namespace std;
 
@@ -24,6 +25,7 @@ int main()
 	//Runner<Day05>().Run();
 	//Runner<Day06>().Run();
 	Runner<Day07>().Run();
+	Runner<Day08>().Run();
 }
 	
 

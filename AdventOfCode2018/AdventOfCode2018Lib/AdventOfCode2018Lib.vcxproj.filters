@@ -34,6 +34,9 @@
     <Filter Include="Day07">
       <UniqueIdentifier>{c064c008-c429-4332-b147-9018aeb49420}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Day08">
+      <UniqueIdentifier>{cd89ca05-0e82-4aec-95af-b49d1b8e1210}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -72,6 +75,9 @@
     <ClInclude Include="Day07\Node.h">
       <Filter>Day07</Filter>
     </ClInclude>
+    <ClInclude Include="Day08\Day08.h">
+      <Filter>Day08</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -109,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="Day07\Node.cpp">
       <Filter>Day07</Filter>
+    </ClCompile>
+    <ClCompile Include="Day08\Day08.cpp">
+      <Filter>Day08</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
