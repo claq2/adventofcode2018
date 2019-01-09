@@ -23,7 +23,7 @@ namespace MsUnitTest
 		{
 			Day08 day8;
 			string actual;
-			vector<int> input({ 2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2 });
+			vector<int> input{ 2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2 };
 			string expected("138");
 			actual = day8.Part1(input);
 			Assert::AreEqual(expected, actual);
@@ -33,10 +33,22 @@ namespace MsUnitTest
 		{
 			Day08 day8;
 			string actual;
-			vector<int> input({ 2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2 });
+			vector<int> input{ 2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2 };
 			string expected("15");
 			actual = day8.Part2(input);
 			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(LeafWithNoChildren)
+		{
+			vector<int> values{ 0, 3, 10, 11, 12 };
+			vector<int> expected({ 10, 11, 12 });
+			Day08::Leaf leaf(values);
+			Assert::AreEqual(size_t(3), leaf.Metadata.size());
+			for (int i = 0; i < leaf.Metadata.size(); i++)
+			{
+				Assert::AreEqual(expected[i], leaf.Metadata[i]);
+			}
 		}
 	};
 }
