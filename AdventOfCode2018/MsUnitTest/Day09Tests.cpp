@@ -16,7 +16,7 @@ namespace MsUnitTest
 			Day09 day9;
 
 			string values(day9.ReadInput());
-			Assert::AreEqual(size_t(17359), values.size());
+			Assert::AreEqual(size_t(46), values.size());
 		}
 
 		TEST_METHOD(Part1)

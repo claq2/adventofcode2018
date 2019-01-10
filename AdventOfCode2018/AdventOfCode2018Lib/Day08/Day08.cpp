@@ -18,7 +18,6 @@ vector<int> Day08::ReadInput()
 {
 	vector<int> result;
 	ifstream file;
-	string currentGuardLine;
 
 	file.open("Day08.txt");
 	if (!file)
