@@ -41,75 +41,62 @@ vector<int> Day08::ReadInput()
 	return result;
 }
 
-string Day08::Part1(vector<int> value)
+string Day08::Part1(vector<int> values)
 {
 	int sum(0);
-	Leaf root;
-	root.BuildChildren(value);
+	shared_ptr<Leaf> root;
+	root = make_shared<Leaf>();
+	root->Parent = nullptr;
+	root->ExpectedChildren = values.front();
+	values.erase(values.begin());
+	root->ExpectedMetadata = values.front();
+	values.erase(values.begin());
+
+	for (int i = 0; i < root->ExpectedChildren; i++)
+	{
+		root->Children.push_back(ExtractChild(values, root));
+	}
+
+	for (int i = 0; i < root->ExpectedMetadata; i++)
+	{
+		root->Metadata.push_back(values.front());
+		values.erase(values.begin());
+	}
+
 	return to_string(sum);
 }
 
-string Day08::Part2(vector<int> value)
+shared_ptr<Day08::Leaf> Day08::ExtractChild(
+	vector<int> &values,
+	shared_ptr<Leaf> parent)
+{
+	shared_ptr<Leaf> result;
+	result = make_shared<Leaf>();
+	result->ExpectedChildren = values.front();
+	values.erase(values.begin());
+	result->ExpectedMetadata = values.front();
+	values.erase(values.begin());
+	result->Parent = parent;
+
+	for (int i = 0; i < result->ExpectedChildren; i++)
+	{
+		result->Children.push_back(ExtractChild(values, result));
+	}
+
+	for (int i = 0; i < result->ExpectedMetadata; i++)
+	{
+		result->Metadata.push_back(values.front());
+		values.erase(values.begin());
+	}
+
+	return result;
+}
+
+string Day08::Part2(vector<int> values)
 {
 	return "";
 }
 
 Day08::Leaf::Leaf()
 {
-}
-
-Day08::Leaf::Leaf(vector<int> values)
-{
-	if (values[0] == 0)
-	{
-		// No children, extract metadata
-		// Extract metadata
-		for (int i = 0; i < values[1]; i++)
-		{
-			Metadata.push_back(values[values.size() - 1]);
-			values.erase(values.end() - 1);
-		}
-	}
-	else
-	{
-		// Consume values to get children
-	}
-}
-
-void Day08::Leaf::BuildChildren(vector<int> values)
-{
-	if (values[0] == 0)
-	{
-		// No grand children, build the 1 child
-		auto leaf = make_shared<Leaf>();
-		// Extract metadata
-		for (int i = 0; i < values[1]; i++)
-		{
-			leaf->Metadata.push_back(values[values.size() - 1]);
-			values.erase(values.end() - 1);
-		}
-
-		Children.push_back(leaf);
-	}
-
-	int numberOfChildren = values[0];
-
-	// Extract metadata
-	for (int i = 0; i < values[1]; i++)
-	{
-		Metadata.push_back(values[values.size() - 1]);
-		values.erase(values.end() - 1);
-	}
-
-
-	// Erase number of children
-	values.erase(values.begin());
-	// Erase number of metadata
-	values.erase(values.begin());
-
-	for (int i = 0; i < numberOfChildren; i++)
-	{
-		Children.push_back(std::make_unique<Leaf>());
-		Children.back()->BuildChildren(values);
-	}
 }
