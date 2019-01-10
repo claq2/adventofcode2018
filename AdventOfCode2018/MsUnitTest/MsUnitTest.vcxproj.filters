@@ -50,6 +50,9 @@
     <ClCompile Include="Day08Tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Day09Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Day01.txt" />
@@ -60,5 +63,6 @@
     <Text Include="Day06.txt" />
     <Text Include="Day07.txt" />
     <Text Include="Day08.txt" />
+    <Text Include="Day09.txt" />
   </ItemGroup>
 </Project>
