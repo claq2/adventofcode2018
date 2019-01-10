@@ -39,11 +39,11 @@ string Day02::Part2(vector<string> boxIds)
 	{
 		for (auto const& other : boxIds)
 		{
-			int totalDiffs = 0;
-			int lastDiffPosition = 0;
+			size_t totalDiffs = 0;
+			size_t lastDiffPosition = 0;
 			if (curr != other)
 			{
-				for (int i = 0; i < curr.length(); i++)
+				for (size_t i = 0; i < curr.length(); i++)
 				{
 					if (curr[i] != other[i])
 					{
@@ -123,7 +123,7 @@ map<char, int> Day02::FindCharacterOccurrences(string input)
 	int countOfCurrentChar = 1;
 	map<char, int> occurences;
 	occurences[previousChar] = 1;
-	for (int i = 1; i < sortedInput.length(); i++)
+	for (size_t i = 1; i < sortedInput.length(); i++)
 	{
 		char c = sortedInput[i];
 		if (previousChar == c)
