@@ -63,6 +63,8 @@ string Day08::Part1(vector<int> values)
 		values.erase(values.begin());
 	}
 
+	// Walk the tree
+	sum += SumMetadata(root);
 	return to_string(sum);
 }
 
@@ -90,6 +92,22 @@ shared_ptr<Day08::Leaf> Day08::ExtractChild(
 	}
 
 	return result;
+}
+
+int Day08::SumMetadata(shared_ptr<Leaf> leaf)
+{
+	int sum(0);
+	for (auto const& m : leaf->Metadata)
+	{
+		sum += m;
+	}
+
+	for (auto const& l : leaf->Children)
+	{
+		sum += SumMetadata(l);
+	}
+
+	return sum;
 }
 
 string Day08::Part2(vector<int> values)

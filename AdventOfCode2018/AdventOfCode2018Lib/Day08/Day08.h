@@ -25,6 +25,7 @@ public:
 	std::string Part1(std::vector<int> values);
 	//std::vector<std::shared_ptr<Leaf>> ExtractChildren(int count, std::vector<int>::iterator it, std::vector<int> &values, Leaf &parent);
 	std::shared_ptr<Leaf> ExtractChild(std::vector<int> &values, std::shared_ptr<Leaf> parent);
+	int SumMetadata(std::shared_ptr<Leaf> leaf);
 	std::string Part2(std::vector<int> values);
 };
 
