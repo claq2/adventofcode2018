@@ -44,6 +44,16 @@ vector<int> Day08::ReadInput()
 string Day08::Part1(vector<int> values)
 {
 	int sum(0);
+	shared_ptr<Leaf> root(BuildTree(values));
+
+
+	// Walk the tree
+	sum += SumMetadata(root);
+	return to_string(sum);
+}
+
+shared_ptr<Day08::Leaf> Day08::BuildTree(vector<int> &values)
+{
 	shared_ptr<Leaf> root;
 	root = make_shared<Leaf>();
 	root->Parent = nullptr;
@@ -63,9 +73,7 @@ string Day08::Part1(vector<int> values)
 		values.erase(values.begin());
 	}
 
-	// Walk the tree
-	sum += SumMetadata(root);
-	return to_string(sum);
+	return root;
 }
 
 shared_ptr<Day08::Leaf> Day08::ExtractChild(
@@ -110,9 +118,37 @@ int Day08::SumMetadata(shared_ptr<Leaf> leaf)
 	return sum;
 }
 
+int Day08::SumNodes(shared_ptr<Leaf> leaf)
+{
+	int sum(0);
+	if (leaf->Children.size() == 0)
+	{
+		// No children, sum the metadata
+		for (auto const& m : leaf->Metadata)
+		{
+			sum += m;
+		}
+	}
+	else
+	{
+		for (auto const& m : leaf->Metadata)
+		{
+			if (m != 0 && leaf->Children.size() >= m)
+			{
+				sum += SumNodes(leaf->Children[m - 1]);
+			}
+		}
+	}
+
+	return sum;
+}
+
 string Day08::Part2(vector<int> values)
 {
-	return "";
+	int sum(0);
+	shared_ptr<Leaf> root(BuildTree(values));
+	sum += SumNodes(root);
+	return to_string(sum);
 }
 
 Day08::Leaf::Leaf()
