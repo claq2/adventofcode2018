@@ -34,7 +34,7 @@ namespace MsUnitTest
 			Day08 day8;
 			string actual;
 			vector<int> input{ 2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2 };
-			string expected("15");
+			string expected("66");
 			actual = day8.Part2(input);
 			Assert::AreEqual(expected, actual);
 		}
