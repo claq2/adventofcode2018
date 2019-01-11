@@ -74,14 +74,13 @@ string Day09::Part1(pair<int, int> values)
 		if (i % 23 == 0)
 		{
 			int player = i % players;
-			playerScores[player] += 23;
+			playerScores[player] += i;
 			// Reverse 7 
 			for (int j = 0; j < 7; j++)
 			{
 				if (it == circle.begin())
 				{
 					it = circle.end();
-					advance(it, -1);
 				}
 				it--;
 			}
