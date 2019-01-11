@@ -10,10 +10,13 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition />
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Canvas Width="Auto" Height="Auto" Grid.Row="1"></Canvas>
-        <TextBlock VerticalAlignment="Bottom" Grid.Row="2">Hi</TextBlock>
+        <Image Source="https://placekitten.com/600/300" Grid.Row="0" Stretch="UniformToFill"></Image>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Bottom">
+            <Button VerticalAlignment="Bottom" Height="75" Width="75" FontSize="40">&#x23ef;</Button>
+        </StackPanel>
+        <!--<TextBlock VerticalAlignment="Bottom" Grid.Row="2">Hi</TextBlock>-->
     </Grid>
 </Page>
