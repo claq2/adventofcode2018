@@ -24,10 +24,28 @@ namespace MsUnitTest
 		{
 			Day09 day9;
 			string actual;
-			pair<int, int> input({ 9, 25 });
+			vector<pair<int, int>> inputs
+			{
+				{ 9, 25 },
+				{ 10, 1618 },
+				{ 13, 7999 },
+				{ 17, 1104 },
+				{ 21, 6111 },
+				{ 30, 5807 },
+			};
+			vector<string> expecteds{ "32", "8317", "146373", "2764", "54718", "37305" };
+
+			for (size_t i = 0; i < inputs.size(); i++)
+			{
+				actual = day9.Part1(inputs[i]);
+				Assert::AreEqual(expecteds[i], actual);
+			}
+
+
+			/*pair<int, int> input({ 9, 25 });
 			string expected("32");
 			actual = day9.Part1(input);
-			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(expected, actual);*/
 		}
 
 		TEST_METHOD(Part2)
