@@ -46,10 +46,55 @@ string Day09::Part1(pair<int, int> values)
 {
 	int players = values.first;
 	int marbles = values.second;
-	list<int> circle({ 0 });
-	for (int i = 1; i <= marbles; i++)
+	list<int> circle({ 0, 2, 1 });
+	/*
+[-] (0)
+[1]  0 (1)
+[2]  0 (2) 1
+[3]  0  2  1 (3)
+[4]  0 (4) 2  1  3
+[5]  0  4  2 (5) 1  3
+[6]  0  4  2  5  1 (6) 3
+[7]  0  4  2  5  1  6  3 (7)
+[8]  0 (8) 4  2  5  1  6  3  7
+[9]  0  8  4 (9) 2  5  1  6  3  7
+[1]  0  8  4  9  2(10) 5  1  6  3  7
+[2]  0  8  4  9  2 10  5(11) 1  6  3  7
+[3]  0  8  4  9  2 10  5 11  1(12) 6  3  7
+[4]  0  8  4  9  2 10  5 11  1 12  6(13) 3  7
+[5]  0  8  4  9  2 10  5 11  1 12  6 13  3(14) 7
+[6]  0  8  4  9  2 10  5 11  1 12  6 13  3 14  7(15)
+	*/
+	list<int>::iterator it = circle.begin();
+	advance(it, 1);// start at the 2 in the middle
+	for (int i = 3; i <= marbles; i++)
 	{
-		circle.push_back(i);
+		// Advance twice
+		it++;
+		if (it == circle.end())
+		{
+			it = circle.begin();
+		}
+
+		it++;
+		if (it == circle.end())
+		{
+			it = circle.begin();
+		}
+
+		// Insert next number
+		if (it == circle.begin())
+		{
+			// Insert at end
+			circle.push_back(i);
+			it = circle.end();
+			advance(it, -1);
+		}
+		else
+		{
+			// Insert at current location
+			it = circle.insert(it, i);
+		}
 	}
 
 	return std::string();
