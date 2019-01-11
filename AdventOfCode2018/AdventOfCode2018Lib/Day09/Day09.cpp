@@ -48,7 +48,7 @@ string Day09::Part1(pair<int, int> values)
 	int players = values.first;
 	int marbles = values.second;
 	list<int> circle({ 0, 2, 1 });
-	map<int, int> playerScores;
+	map<int, size_t> playerScores;
 	/*
 [-] (0)
 [1]  0 (1)
@@ -116,7 +116,7 @@ string Day09::Part1(pair<int, int> values)
 		}
 	}
 
-	int maxScore(0);
+	size_t maxScore(0);
 	for (auto const & s : playerScores)
 	{
 		if (s.second > maxScore)
@@ -130,5 +130,5 @@ string Day09::Part1(pair<int, int> values)
 
 string Day09::Part2(pair<int, int> values)
 {
-	return std::string();
+	return Part1(pair<int, int>{values.first, values.second * 100});
 }
