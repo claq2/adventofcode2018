@@ -81,6 +81,7 @@ string Day09::Part1(pair<int, int> values)
 				if (it == circle.begin())
 				{
 					it = circle.end();
+					advance(it, -1);
 				}
 				it--;
 			}
