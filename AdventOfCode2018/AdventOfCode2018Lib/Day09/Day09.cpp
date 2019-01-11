@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <list>
+#include <map>
 
 using namespace std;
 
@@ -47,6 +48,7 @@ string Day09::Part1(pair<int, int> values)
 	int players = values.first;
 	int marbles = values.second;
 	list<int> circle({ 0, 2, 1 });
+	map<int, int> playerScores;
 	/*
 [-] (0)
 [1]  0 (1)
@@ -69,35 +71,61 @@ string Day09::Part1(pair<int, int> values)
 	advance(it, 1);// start at the 2 in the middle
 	for (int i = 3; i <= marbles; i++)
 	{
-		// Advance twice
-		it++;
-		if (it == circle.end())
+		if (i % 23 == 0)
 		{
-			it = circle.begin();
-		}
+			int player = i % players;
+			playerScores[player] += 23;
+			// Reverse 7 
+			for (int j = 0; j < 7; j++)
+			{
+				if (it == circle.begin())
+				{
+					it = circle.end();
+				}
+				it--;
+			}
 
-		it++;
-		if (it == circle.end())
-		{
-			it = circle.begin();
-		}
-
-		// Insert next number
-		if (it == circle.begin())
-		{
-			// Insert at end
-			circle.push_back(i);
-			it = circle.end();
-			advance(it, -1);
+			playerScores[player] += *it;
+			it = circle.erase(it);
 		}
 		else
 		{
-			// Insert at current location
-			it = circle.insert(it, i);
+			// Advance twice
+			for (int j = 0; j < 2; j++)
+			{
+				it++;
+				if (it == circle.end())
+				{
+					it = circle.begin();
+				}
+			}
+
+			// Insert next number
+			if (it == circle.begin())
+			{
+				// Insert at end
+				circle.push_back(i);
+				it = circle.end();
+				advance(it, -1);
+			}
+			else
+			{
+				// Insert at current location
+				it = circle.insert(it, i);
+			}
 		}
 	}
 
-	return std::string();
+	int maxScore(0);
+	for (auto const & s : playerScores)
+	{
+		if (s.second > maxScore)
+		{
+			maxScore = s.second;
+		}
+	}
+
+	return to_string(maxScore);
 }
 
 string Day09::Part2(pair<int, int> values)
