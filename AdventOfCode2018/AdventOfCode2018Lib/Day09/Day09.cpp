@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Day09.h"
 #include <fstream>
+#include <sstream>
+#include <list>
 
 using namespace std;
 
@@ -12,9 +14,9 @@ Day09::~Day09()
 {
 }
 
-std::string Day09::ReadInput()
+pair<int, int> Day09::ReadInput()
 {
-	vector<int> result;
+	vector<string> result;
 	ifstream file;
 
 	file.open("Day09.txt");
@@ -28,15 +30,32 @@ std::string Day09::ReadInput()
 	getline(file, line);
 
 	file.close();
-	return line;
+
+	istringstream is(line);
+	// 10 players; last marble is worth 1618 points
+	string n;
+	while (is >> n) {
+		result.push_back(n);
+	}
+
+	pair<int, int> numbers({ stoi(result[0]), stoi(result[6]) });
+	return numbers;
 }
 
-std::string Day09::Part1(std::string values)
+string Day09::Part1(pair<int, int> values)
 {
+	int players = values.first;
+	int marbles = values.second;
+	list<int> circle({ 0 });
+	for (int i = 1; i <= marbles; i++)
+	{
+		circle.push_back(i);
+	}
+
 	return std::string();
 }
 
-std::string Day09::Part2(std::string values)
+string Day09::Part2(pair<int, int> values)
 {
 	return std::string();
 }

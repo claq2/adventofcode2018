@@ -8,8 +8,8 @@ class ADVENTOFCODE2018LIB_API Day09
 public:
 	Day09();
 	~Day09();
-	std::string ReadInput();
-	std::string Part1(std::string values);
-	std::string Part2(std::string values);
+	std::pair<int, int> ReadInput();
+	std::string Part1(std::pair<int, int> values);
+	std::string Part2(std::pair<int, int> values);
 };
 

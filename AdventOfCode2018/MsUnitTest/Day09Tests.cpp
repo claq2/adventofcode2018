@@ -15,15 +15,16 @@ namespace MsUnitTest
 		{
 			Day09 day9;
 
-			string values(day9.ReadInput());
-			Assert::AreEqual(size_t(46), values.size());
+			pair<int, int> values(day9.ReadInput());
+			Assert::AreEqual(446, values.first);
+			Assert::AreEqual(71522, values.second);
 		}
 
 		TEST_METHOD(Part1)
 		{
 			Day09 day9;
 			string actual;
-			string input("9 players; last marble is worth 25 points");
+			pair<int, int> input({ 9, 25 });
 			string expected("32");
 			actual = day9.Part1(input);
 			Assert::AreEqual(expected, actual);
@@ -33,7 +34,7 @@ namespace MsUnitTest
 		{
 			Day09 day9;
 			string actual;
-			string input("9 players; last marble is worth 25 points");
+			pair<int, int> input({ 9, 25 });
 			string expected("32");
 			actual = day9.Part2(input);
 			Assert::AreEqual(expected, actual);
