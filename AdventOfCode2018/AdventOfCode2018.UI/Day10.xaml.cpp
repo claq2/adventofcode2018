@@ -42,7 +42,7 @@ void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::
 	for (size_t i = 0; i < 384; i++)
 	{
 		auto x = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 10000;
-		auto y = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 500;
+		auto y = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 10000;
 		auto rect = ref new Rectangle();
 		rect->Width = 6;
 		rect->Height = 6;
@@ -62,8 +62,8 @@ void AdventOfCode2018_UI::Day10::DispatcherTimer_Tick(Platform::Object^ sender, 
 		auto yDir = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 2;
 		double y = Canvas::GetTop(c);
 		double x = Canvas::GetLeft(c);
-		Canvas::SetTop(c, y + (yDir == 0 ? 1 : -1));
-		Canvas::SetLeft(c, x + (xDir == 0 ? 1 : -1));
+		Canvas::SetTop(c, y + (yDir == 0 ? 6 : -6));
+		Canvas::SetLeft(c, x + (xDir == 0 ? 6 : -6));
 	}
 
 	ticks++;
