@@ -17,5 +17,10 @@ namespace AdventOfCode2018_UI
 	{
 	public:
 		Day10();
+	private:
+		void Page_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void DispatcherTimer_Tick(Platform::Object^ sender, Platform::Object^ e);
+		int ticks;
+		Windows::UI::Xaml::DispatcherTimer^ timer;
 	};
 }

@@ -6,14 +6,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Page_Loaded">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Image Source="https://placekitten.com/600/300" Grid.Row="0" Stretch="UniformToFill"></Image>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" Grid.Row="0">
+            <Canvas Width="10000" Background="Red" x:Name="canvas">
+                <!--<Rectangle Width="5000" Height="500" Fill="Blue"></Rectangle>-->
+            </Canvas>
+        </ScrollViewer>
+        <!--<Image Source="https://placekitten.com/600/300" Grid.Row="0" Stretch="UniformToFill"></Image>-->
         <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Bottom">
             <Button VerticalAlignment="Bottom" Height="75" Width="75" FontSize="40">&#x23ef;</Button>
         </StackPanel>
