@@ -31,6 +31,7 @@ Day10::Day10()
 {
 	InitializeComponent();
 	this->input = this->ReadInput();
+	// TODO: Initialize positionsAndVelocities from input
 }
 
 void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
@@ -43,7 +44,9 @@ void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::
 	timer->Interval = t;
 	timer->Start();
 
-	//auto x = ref new System::Random();
+	// TODO: Initalize canvas size from positionsAndVelocities
+	// TODO: Draw first pixels from positionsAndVelocities
+
 	for (size_t i = 0; i < 384; i++)
 	{
 		auto x = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 10000;
@@ -61,6 +64,7 @@ void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::
 
 void AdventOfCode2018_UI::Day10::DispatcherTimer_Tick(Platform::Object^ sender, Platform::Object^ e)
 {
+	// TODO: Update pixels from positionsAndVelocities * 6
 	for (auto const & c : this->canvas->Children)
 	{
 		auto xDir = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 2;
@@ -94,12 +98,16 @@ void AdventOfCode2018_UI::Day10::PlayPause_Click(Platform::Object^ sender, Windo
 
 void AdventOfCode2018_UI::Day10::StepBack_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-
+	this->timer->Stop();
+	this->PlayPause->Content = ">";
+	// TODO: Step back 1 step
 }
 
 void AdventOfCode2018_UI::Day10::StepForward_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-
+	this->timer->Stop();
+	this->PlayPause->Content = ">";
+	// TODO: Step forward 1 step
 }
 
 Platform::String^ AdventOfCode2018_UI::Day10::ReadInput()
