@@ -21,10 +21,10 @@ namespace AdventOfCode2018_UI
 		void Page_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void DispatcherTimer_Tick(Platform::Object^ sender, Platform::Object^ e);
 		int ticks;
-		Platform::String^ input;
+		std::string input;
 		Windows::UI::Xaml::DispatcherTimer^ timer;
 		std::map<std::pair<int, int>, std::pair<int, int>> positionsAndVelocities;
-		Platform::String ^ ReadInput();
+		std::string ReadInput();
 		void PlayPause_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void StepBack_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void StepForward_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);

@@ -7,6 +7,7 @@
 #include "Day10.xaml.h"
 #include <ppltasks.h>
 #include <string>
+#include <sstream>
 
 using namespace concurrency;
 
@@ -31,6 +32,14 @@ Day10::Day10()
 {
 	InitializeComponent();
 	this->input = this->ReadInput();
+	istringstream inputStream(input);
+	string line;
+	while (getline(inputStream, line))
+	{
+		istringstream iss(line);
+		vector<string> tokens(istream_iterator<string>{iss}, istream_iterator<string>());
+	}
+	
 	// TODO: Initialize positionsAndVelocities from input
 }
 
@@ -110,7 +119,7 @@ void AdventOfCode2018_UI::Day10::StepForward_Click(Platform::Object^ sender, Win
 	// TODO: Step forward 1 step
 }
 
-Platform::String^ AdventOfCode2018_UI::Day10::ReadInput()
+string AdventOfCode2018_UI::Day10::ReadInput()
 {
 	return R"(position=< 7,  0> velocity=<-1,  0>
 position = < 3, -2> velocity = <-1, 1>
