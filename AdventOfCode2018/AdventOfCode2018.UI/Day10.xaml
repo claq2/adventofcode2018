@@ -20,7 +20,9 @@
         </ScrollViewer>
         <!--<Image Source="https://placekitten.com/600/300" Grid.Row="0" Stretch="UniformToFill"></Image>-->
         <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Bottom">
-            <Button VerticalAlignment="Bottom" Height="75" Width="75" FontSize="40">&#x23ef;</Button>
+            <Button VerticalAlignment="Bottom" Height="75" Width="75" FontSize="40" BorderBrush="Black" x:Name="StepBack" Click="StepBack_Click">&lt;&lt;</Button>
+            <Button VerticalAlignment="Bottom" Height="75" Width="75" FontSize="40" BorderBrush="Black" x:Name="PlayPause" Click="PlayPause_Click">||</Button>
+            <Button VerticalAlignment="Bottom" Height="75" Width="75" FontSize="40" BorderBrush="Black" x:Name="StepForward" Click="StepForward_Click">&gt;&gt;</Button>
         </StackPanel>
         <!--<TextBlock VerticalAlignment="Bottom" Grid.Row="2">Hi</TextBlock>-->
     </Grid>
