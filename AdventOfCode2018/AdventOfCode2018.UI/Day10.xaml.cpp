@@ -33,6 +33,7 @@ using namespace std;
 Day10::Day10()
 {
 	const int adjustment = 20; // 1000 for real
+	const int pixelSize = 6;
 	InitializeComponent();
 	this->input = this->ReadInput();
 	istringstream inputStream(input);
@@ -61,7 +62,6 @@ Day10::Day10()
 		this->posAndVel.push_back({ lineValues[0], lineValues[1], lineValues[2], lineValues[3] });
 	}
 
-	// TODO: Find min x, min y, add those values to make everything >= 0
 	auto minX = min_element(xes.begin(), xes.end());
 	auto minY = min_element(ys.begin(), ys.end());
 	int addToX = *minX * -1 + adjustment;
@@ -88,10 +88,7 @@ void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::
 	timer->Interval = t;
 	timer->Start();
 
-	// TODO: Initalize canvas size from positionsAndVelocities
-	// TODO: Draw first pixels from positionsAndVelocities
-
-	for (size_t i = 0; i < 384; i++)
+	/*for (size_t i = 0; i < posAndVel; i++)
 	{
 		auto x = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 10000;
 		auto y = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 10000;
@@ -103,21 +100,33 @@ void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::
 		Canvas::SetLeft(rect, x);
 
 		this->canvas->Children->Append(rect);
+	}*/
+
+	for (auto const & p : this->posAndVel)
+	{
+		auto rect = ref new Rectangle();
+		rect->Width = 1;
+		rect->Height = 1;
+		rect->Fill = ref new SolidColorBrush(Windows::UI::Colors::Black);
+		Canvas::SetTop(rect, get<1>(p));
+		Canvas::SetLeft(rect, get<0>(p));
+
+		this->canvas->Children->Append(rect);
 	}
 }
 
 void AdventOfCode2018_UI::Day10::DispatcherTimer_Tick(Platform::Object^ sender, Platform::Object^ e)
 {
 	// TODO: Update pixels from positionsAndVelocities * 6
-	for (auto const & c : this->canvas->Children)
-	{
-		auto xDir = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 2;
-		auto yDir = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 2;
-		double y = Canvas::GetTop(c);
-		double x = Canvas::GetLeft(c);
-		Canvas::SetTop(c, y + (yDir == 0 ? 6 : -6));
-		Canvas::SetLeft(c, x + (xDir == 0 ? 6 : -6));
-	}
+	//for (auto const & c : this->canvas->Children)
+	//{
+	//	auto xDir = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 2;
+	//	auto yDir = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 2;
+	//	double y = Canvas::GetTop(c);
+	//	double x = Canvas::GetLeft(c);
+	//	Canvas::SetTop(c, y + (yDir == 0 ? 6 : -6));
+	//	Canvas::SetLeft(c, x + (xDir == 0 ? 6 : -6));
+	//}
 
 	ticks++;
 	if (ticks == 1000)
