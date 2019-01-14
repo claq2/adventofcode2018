@@ -23,6 +23,8 @@
             <Button VerticalAlignment="Bottom" Height="75" Width="75" FontSize="40" BorderBrush="Black" x:Name="StepBack" Click="StepBack_Click">&lt;&lt;</Button>
             <Button VerticalAlignment="Bottom" Height="75" Width="75" FontSize="40" BorderBrush="Black" x:Name="PlayPause" Click="PlayPause_Click">||</Button>
             <Button VerticalAlignment="Bottom" Height="75" Width="75" FontSize="40" BorderBrush="Black" x:Name="StepForward" Click="StepForward_Click">&gt;&gt;</Button>
+            <TextBlock x:Name="SecondsLabel" FontSize="40">Seconds:</TextBlock>
+            <TextBlock x:Name="Seconds" FontSize="40">0</TextBlock>
         </StackPanel>
         <!--<TextBlock VerticalAlignment="Bottom" Grid.Row="2">Hi</TextBlock>-->
     </Grid>

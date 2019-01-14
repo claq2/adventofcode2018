@@ -41,7 +41,7 @@ Day10::Day10()
 	std::regex number_regex("[+-]?[0-9]{1,9}");
 	vector<int> xes;
 	vector<int> ys;
-	//map<pair<int, int>, pair<int, int>> unadjustedPositionsAndVelocities;
+
 	while (getline(inputStream, line))
 	{
 		vector<int> lineValues;
@@ -56,7 +56,6 @@ Day10::Day10()
 			lineValues.push_back(match_int);
 		}
 
-		//unadjustedPositionsAndVelocities[pair<int, int>{lineValues[0], lineValues[1]}] = { lineValues[2], lineValues[3] };
 		xes.push_back(lineValues[0]);
 		ys.push_back(lineValues[1]);
 		this->posAndVel.push_back({ lineValues[0], lineValues[1], lineValues[2], lineValues[3] });
@@ -70,16 +69,6 @@ Day10::Day10()
 	int canvasY = *minY * -1 + *maxY;
 	int addToX = *minX * -1 + adjustment;
 	int addToY = *minY * -1 + adjustment;
-	/*for (auto p : unadjustedPositionsAndVelocities)
-	{
-		this->positionsAndVelocities[pair<int, int>{p.first.first + addToX, p.first.second + addToY}] = p.second;
-	}*/
-
-	/*for (auto & p : this->posAndVel)
-	{
-		get<0>(p) += addToX;
-		get<1>(p) += addToY;
-	}*/
 }
 
 void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
@@ -90,21 +79,6 @@ void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::
 	TimeSpan t;
 	t.Duration = 10000000;
 	timer->Interval = t;
-	
-
-	/*for (size_t i = 0; i < posAndVel; i++)
-	{
-		auto x = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 10000;
-		auto y = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 10000;
-		auto rect = ref new Rectangle();
-		rect->Width = 6;
-		rect->Height = 6;
-		rect->Fill = ref new SolidColorBrush(Windows::UI::Colors::Black);
-		Canvas::SetTop(rect, y);
-		Canvas::SetLeft(rect, x);
-
-		this->canvas->Children->Append(rect);
-	}*/
 
 	// Iterate the first x
 	for (int j = 0; j < 10000; j++)
@@ -115,6 +89,9 @@ void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::
 			get<1>(this->posAndVel[i]) += get<3>(this->posAndVel[i]);
 		}
 	}
+
+	this->seconds = 10000;
+	this->Seconds->Text = this->seconds.ToString();
 
 	for (auto const & p : this->posAndVel)
 	{
@@ -133,17 +110,6 @@ void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::
 
 void AdventOfCode2018_UI::Day10::DispatcherTimer_Tick(Platform::Object^ sender, Platform::Object^ e)
 {
-	// TODO: Update pixels from positionsAndVelocities * 6
-	//for (auto const & c : this->canvas->Children)
-	//{
-	//	auto xDir = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 2;
-	//	auto yDir = Windows::Security::Cryptography::CryptographicBuffer::GenerateRandomNumber() % 2;
-	//	double y = Canvas::GetTop(c);
-	//	double x = Canvas::GetLeft(c);
-	//	Canvas::SetTop(c, y + (yDir == 0 ? 6 : -6));
-	//	Canvas::SetLeft(c, x + (xDir == 0 ? 6 : -6));
-	//}
-
 	int i = 0;
 	for (auto const & c : this->canvas->Children)
 	{
@@ -153,6 +119,9 @@ void AdventOfCode2018_UI::Day10::DispatcherTimer_Tick(Platform::Object^ sender, 
 		Canvas::SetLeft(c, x + (get<2>(this->posAndVel[i])));
 		i++;
 	}
+
+	this->seconds++;
+	this->Seconds->Text = this->seconds.ToString();
 
 	ticks++;
 	if (ticks == 100000)

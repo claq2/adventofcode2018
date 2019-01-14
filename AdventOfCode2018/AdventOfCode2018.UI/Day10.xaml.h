@@ -21,6 +21,7 @@ namespace AdventOfCode2018_UI
 		void Page_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void DispatcherTimer_Tick(Platform::Object^ sender, Platform::Object^ e);
 		int ticks;
+		int seconds;
 		std::string input;
 		Windows::UI::Xaml::DispatcherTimer^ timer;
 		std::map<std::pair<int, int>, std::pair<int, int>> positionsAndVelocities;
