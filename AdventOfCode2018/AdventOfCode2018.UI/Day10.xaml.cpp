@@ -41,7 +41,7 @@ Day10::Day10()
 	std::regex number_regex("[+-]?[0-9]{1,9}");
 	vector<int> xes;
 	vector<int> ys;
-	map<pair<int, int>, pair<int, int>> unadjustedPositionsAndVelocities;
+	//map<pair<int, int>, pair<int, int>> unadjustedPositionsAndVelocities;
 	while (getline(inputStream, line))
 	{
 		vector<int> lineValues;
@@ -56,7 +56,7 @@ Day10::Day10()
 			lineValues.push_back(match_int);
 		}
 
-		unadjustedPositionsAndVelocities[pair<int, int>{lineValues[0], lineValues[1]}] = { lineValues[2], lineValues[3] };
+		//unadjustedPositionsAndVelocities[pair<int, int>{lineValues[0], lineValues[1]}] = { lineValues[2], lineValues[3] };
 		xes.push_back(lineValues[0]);
 		ys.push_back(lineValues[1]);
 		this->posAndVel.push_back({ lineValues[0], lineValues[1], lineValues[2], lineValues[3] });
@@ -70,16 +70,16 @@ Day10::Day10()
 	int canvasY = *minY * -1 + *maxY;
 	int addToX = *minX * -1 + adjustment;
 	int addToY = *minY * -1 + adjustment;
-	for (auto p : unadjustedPositionsAndVelocities)
+	/*for (auto p : unadjustedPositionsAndVelocities)
 	{
 		this->positionsAndVelocities[pair<int, int>{p.first.first + addToX, p.first.second + addToY}] = p.second;
-	}
+	}*/
 
-	for (auto & p : this->posAndVel)
+	/*for (auto & p : this->posAndVel)
 	{
 		get<0>(p) += addToX;
 		get<1>(p) += addToY;
-	}
+	}*/
 }
 
 void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
@@ -88,9 +88,9 @@ void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::
 	timer = ref new DispatcherTimer;
 	timer->Tick += ref new Windows::Foundation::EventHandler<Platform::Object^>(this, &AdventOfCode2018_UI::Day10::DispatcherTimer_Tick);
 	TimeSpan t;
-	t.Duration = 1;//20000000;
+	t.Duration = 10000000;
 	timer->Interval = t;
-	timer->Start();
+	
 
 	/*for (size_t i = 0; i < posAndVel; i++)
 	{
@@ -106,17 +106,29 @@ void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::
 		this->canvas->Children->Append(rect);
 	}*/
 
+	// Iterate the first x
+	for (int j = 0; j < 10000; j++)
+	{
+		for (int i = 0; i < this->posAndVel.size(); i++)
+		{
+			get<0>(this->posAndVel[i]) += get<2>(this->posAndVel[i]);
+			get<1>(this->posAndVel[i]) += get<3>(this->posAndVel[i]);
+		}
+	}
+
 	for (auto const & p : this->posAndVel)
 	{
 		auto rect = ref new Rectangle();
-		rect->Width = 6;
-		rect->Height = 6;
+		rect->Width = 1;
+		rect->Height = 1;
 		rect->Fill = ref new SolidColorBrush(Windows::UI::Colors::Black);
 		Canvas::SetTop(rect, get<1>(p));
 		Canvas::SetLeft(rect, get<0>(p));
 
 		this->canvas->Children->Append(rect);
 	}
+
+	timer->Start();
 }
 
 void AdventOfCode2018_UI::Day10::DispatcherTimer_Tick(Platform::Object^ sender, Platform::Object^ e)
