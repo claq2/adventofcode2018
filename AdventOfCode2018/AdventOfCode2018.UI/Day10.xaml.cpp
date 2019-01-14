@@ -8,6 +8,7 @@
 #include <ppltasks.h>
 #include <string>
 #include <sstream>
+#include <regex>
 
 using namespace concurrency;
 
@@ -34,13 +35,25 @@ Day10::Day10()
 	this->input = this->ReadInput();
 	istringstream inputStream(input);
 	string line;
+	std::regex number_regex("[+-]?[0-9]{1,9}");
 	while (getline(inputStream, line))
 	{
-		istringstream iss(line);
-		vector<string> tokens(istream_iterator<string>{iss}, istream_iterator<string>());
+		vector<int> lineValues;
+		// regex: [+-]?[0-9]{1,9}
+		auto words_begin =
+			std::sregex_iterator(line.begin(), line.end(), number_regex);
+		auto words_end = std::sregex_iterator();
+		for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
+			std::smatch match = *i;
+			std::string match_str = match.str();
+			int match_int = stoi(match_str);
+			lineValues.push_back(match_int);
+		}
+
+		this->positionsAndVelocities[pair<int, int>{lineValues[0], lineValues[1]}] = { lineValues[2], lineValues[3] };
 	}
-	
-	// TODO: Initialize positionsAndVelocities from input
+
+	// TODO: Find min x, min y, add those values to make everything >= 0
 }
 
 void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
@@ -121,7 +134,8 @@ void AdventOfCode2018_UI::Day10::StepForward_Click(Platform::Object^ sender, Win
 
 string AdventOfCode2018_UI::Day10::ReadInput()
 {
-	return R"(position=< 7,  0> velocity=<-1,  0>
+	return R"(position=< 9,  1> velocity=< 0,  2>
+position=< 7,  0> velocity=<-1,  0>
 position = < 3, -2> velocity = <-1, 1>
 position = < 6, 10> velocity = <-2, -1>
 position = < 2, -4> velocity = < 2, 2>
