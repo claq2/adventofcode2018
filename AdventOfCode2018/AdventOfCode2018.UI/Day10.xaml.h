@@ -24,6 +24,7 @@ namespace AdventOfCode2018_UI
 		std::string input;
 		Windows::UI::Xaml::DispatcherTimer^ timer;
 		std::map<std::pair<int, int>, std::pair<int, int>> positionsAndVelocities;
+		std::vector<std::tuple<int, int, int, int>> posAndVel;
 		std::string ReadInput();
 		void PlayPause_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void StepBack_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);

@@ -9,6 +9,7 @@
 #include <string>
 #include <sstream>
 #include <regex>
+#include <algorithm>
 
 using namespace concurrency;
 
@@ -31,11 +32,15 @@ using namespace std;
 
 Day10::Day10()
 {
+	const int adjustment = 20; // 1000 for real
 	InitializeComponent();
 	this->input = this->ReadInput();
 	istringstream inputStream(input);
 	string line;
 	std::regex number_regex("[+-]?[0-9]{1,9}");
+	vector<int> xes;
+	vector<int> ys;
+	map<pair<int, int>, pair<int, int>> unadjustedPositionsAndVelocities;
 	while (getline(inputStream, line))
 	{
 		vector<int> lineValues;
@@ -50,10 +55,27 @@ Day10::Day10()
 			lineValues.push_back(match_int);
 		}
 
-		this->positionsAndVelocities[pair<int, int>{lineValues[0], lineValues[1]}] = { lineValues[2], lineValues[3] };
+		unadjustedPositionsAndVelocities[pair<int, int>{lineValues[0], lineValues[1]}] = { lineValues[2], lineValues[3] };
+		xes.push_back(lineValues[0]);
+		ys.push_back(lineValues[1]);
+		this->posAndVel.push_back({ lineValues[0], lineValues[1], lineValues[2], lineValues[3] });
 	}
 
 	// TODO: Find min x, min y, add those values to make everything >= 0
+	auto minX = min_element(xes.begin(), xes.end());
+	auto minY = min_element(ys.begin(), ys.end());
+	int addToX = *minX * -1 + adjustment;
+	int addToY = *minY * -1 + adjustment;
+	for (auto p : unadjustedPositionsAndVelocities)
+	{
+		this->positionsAndVelocities[pair<int, int>{p.first.first + addToX, p.first.second + addToY}] = p.second;
+	}
+
+	for (auto & p : this->posAndVel)
+	{
+		get<0>(p) += addToX;
+		get<1>(p) += addToY;
+	}
 }
 
 void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
