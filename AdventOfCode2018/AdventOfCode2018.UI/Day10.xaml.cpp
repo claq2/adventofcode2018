@@ -32,7 +32,7 @@ using namespace std;
 
 Day10::Day10()
 {
-	const int adjustment = 20; // 1000 for real
+	const int adjustment = 200;
 	const int pixelSize = 6;
 	InitializeComponent();
 	this->input = this->ReadInput();
@@ -84,7 +84,7 @@ void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::
 	timer = ref new DispatcherTimer;
 	timer->Tick += ref new Windows::Foundation::EventHandler<Platform::Object^>(this, &AdventOfCode2018_UI::Day10::DispatcherTimer_Tick);
 	TimeSpan t;
-	t.Duration = 1000000;
+	t.Duration = 10;//20000000;
 	timer->Interval = t;
 	timer->Start();
 
@@ -105,8 +105,8 @@ void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::
 	for (auto const & p : this->posAndVel)
 	{
 		auto rect = ref new Rectangle();
-		rect->Width = 1;
-		rect->Height = 1;
+		rect->Width = 6;
+		rect->Height = 6;
 		rect->Fill = ref new SolidColorBrush(Windows::UI::Colors::Black);
 		Canvas::SetTop(rect, get<1>(p));
 		Canvas::SetLeft(rect, get<0>(p));
@@ -128,8 +128,18 @@ void AdventOfCode2018_UI::Day10::DispatcherTimer_Tick(Platform::Object^ sender, 
 	//	Canvas::SetLeft(c, x + (xDir == 0 ? 6 : -6));
 	//}
 
+	int i = 0;
+	for (auto const & c : this->canvas->Children)
+	{
+		double y = Canvas::GetTop(c);
+		double x = Canvas::GetLeft(c);
+		Canvas::SetTop(c, y + (get<3>(this->posAndVel[i])));
+		Canvas::SetLeft(c, x + (get<2>(this->posAndVel[i])));
+		i++;
+	}
+
 	ticks++;
-	if (ticks == 1000)
+	if (ticks == 50000)
 	{
 		timer->Stop();
 	}
@@ -165,7 +175,7 @@ void AdventOfCode2018_UI::Day10::StepForward_Click(Platform::Object^ sender, Win
 
 string AdventOfCode2018_UI::Day10::ReadInput()
 {
-	return R"(position=< 9,  1> velocity=< 0,  2>
+	/*return R"(position=< 9,  1> velocity=< 0,  2>
 position=< 7,  0> velocity=<-1,  0>
 position = < 3, -2> velocity = <-1, 1>
 position = < 6, 10> velocity = <-2, -1>
@@ -196,9 +206,9 @@ position = <-6, 0> velocity = < 2, 0>
 position = < 5, 9> velocity = < 1, -2>
 position = <14, 7> velocity = <-2, 0>
 position = <-3, 6> velocity = < 2, -1>
-)";
+)";*/
 
-	/*return R"(position=< 20247,  40241> velocity=<-2, -4>
+	string part1(R"(position=< 20247,  40241> velocity=<-2, -4>
 position=< 10184, -29948> velocity=<-1,  3>
 position=< 50313, -39966> velocity=<-5,  4>
 position=<-19870, -19921> velocity=< 2,  2>
@@ -377,7 +387,8 @@ position=<-39930,  20188> velocity=< 4, -2>
 position=<-29916,  30214> velocity=< 3, -3>
 position=< 10229,  40245> velocity=<-1, -4>
 position=<-49994, -29942> velocity=< 5,  3>
-position=< -9858,  20191> velocity=< 1, -2>
+)");
+string part2(R"(position=< -9858,  20191> velocity=< 1, -2>
 position=< 40306,  20188> velocity=<-4, -2>
 position=< 10176,  30216> velocity=<-1, -3>
 position=< 30230, -19916> velocity=<-3,  2>
@@ -581,5 +592,7 @@ position=< -9838,  30214> velocity=< 1, -3>
 position=< 50305,  50269> velocity=<-5, -5>
 position=<-49933,  -9891> velocity=< 5,  1>
 position=< 50321,  30215> velocity=<-5, -3>
-)";*/
+)");
+	string whole = part1.append(part2);
+	return whole;
 }
