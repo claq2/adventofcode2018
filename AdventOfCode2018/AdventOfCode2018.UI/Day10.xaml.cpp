@@ -64,6 +64,10 @@ Day10::Day10()
 
 	auto minX = min_element(xes.begin(), xes.end());
 	auto minY = min_element(ys.begin(), ys.end());
+	auto maxX = max_element(xes.begin(), xes.end());
+	auto maxY = max_element(ys.begin(), ys.end());
+	int canvasX = *minX * -1 + *maxX;
+	int canvasY = *minY * -1 + *maxY;
 	int addToX = *minX * -1 + adjustment;
 	int addToY = *minY * -1 + adjustment;
 	for (auto p : unadjustedPositionsAndVelocities)
@@ -84,7 +88,7 @@ void AdventOfCode2018_UI::Day10::Page_Loaded(Platform::Object^ sender, Windows::
 	timer = ref new DispatcherTimer;
 	timer->Tick += ref new Windows::Foundation::EventHandler<Platform::Object^>(this, &AdventOfCode2018_UI::Day10::DispatcherTimer_Tick);
 	TimeSpan t;
-	t.Duration = 10;//20000000;
+	t.Duration = 1;//20000000;
 	timer->Interval = t;
 	timer->Start();
 
@@ -139,7 +143,7 @@ void AdventOfCode2018_UI::Day10::DispatcherTimer_Tick(Platform::Object^ sender, 
 	}
 
 	ticks++;
-	if (ticks == 50000)
+	if (ticks == 100000)
 	{
 		timer->Stop();
 	}

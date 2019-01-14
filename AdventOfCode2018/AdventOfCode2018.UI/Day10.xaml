@@ -14,7 +14,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Grid.Row="0" ZoomMode="Enabled">
-            <Canvas Width="100000" Height ="100000" Background="White" x:Name="canvas">
+            <Canvas Width="100400" Height ="100300" Background="White" x:Name="canvas">
                 <!--<Rectangle Width="5000" Height="500" Fill="Blue"></Rectangle>-->
             </Canvas>
         </ScrollViewer>
