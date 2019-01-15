@@ -19,6 +19,20 @@ int Day11::ReadInput()
 
 string Day11::Part1(int input)
 {
+	auto grid(BuildGrid(input));
+	int maxPower(0);
+	for (int y = 0; y < 297; y++)
+	{
+		for (int x = 0; x < 297; x++)
+		{
+			vector<int> toCheck;
+			for (int i = 0; i < 3; i++)
+			{
+
+			}
+		}
+	}
+
 	return "";
 }
 
