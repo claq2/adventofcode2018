@@ -1,9 +1,5 @@
 #include "stdafx.h"
 #include "Day09.h"
-#include <fstream>
-#include <sstream>
-#include <list>
-#include <map>
 
 using namespace std;
 

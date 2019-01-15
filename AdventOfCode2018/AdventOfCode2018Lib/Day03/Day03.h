@@ -1,8 +1,5 @@
 #pragma once
 #include "../AdventOfCode2018Lib.h"
-#include <vector>
-#include <string>
-#include <map>
 #include "FabricClaim.h"
 
 using namespace std;

@@ -1,8 +1,5 @@
 #include "stdafx.h"
 #include "Day03.h"
-#include <fstream>
-#include <sstream>
-#include <iterator>
 
 Day03::Day03()
 {

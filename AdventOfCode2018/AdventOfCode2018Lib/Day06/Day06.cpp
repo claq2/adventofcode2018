@@ -1,10 +1,5 @@
 #include "stdafx.h"
 #include "Day06.h"
-#include <sstream>
-#include <iterator>
-#include <fstream>
-#include <iostream>
-#include <algorithm>
 
 using namespace std;
 

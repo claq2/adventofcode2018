@@ -20,3 +20,15 @@
 //extern ADVENTOFCODE2018LIB_API int nAdventOfCode2018Lib;
 
 //ADVENTOFCODE2018LIB_API int fnAdventOfCode2018Lib(void);
+#include <vector>
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <algorithm>
+#include <iostream>
+#include <map>
+#include <iterator>
+#include <iomanip>
+#include <tuple>
+#include <list>
+#include <map>

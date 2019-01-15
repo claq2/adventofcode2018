@@ -1,6 +1,5 @@
 #pragma once
 #include "../AdventOfCode2018Lib.h"
-#include <string>
 
 class ADVENTOFCODE2018LIB_API Day05
 {

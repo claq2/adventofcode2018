@@ -1,14 +1,5 @@
 #include "stdafx.h"
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <time.h>
 #include "Day04.h"
-#include <iomanip>
-#include <algorithm>
-#include <iterator>
-#include <sstream>
-#include <tuple>
 
 Day04::Day04()
 {

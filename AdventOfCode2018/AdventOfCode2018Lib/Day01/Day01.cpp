@@ -1,13 +1,9 @@
 #include <stdafx.h>
-#include <fstream>
-#include <sstream> 
-#include <map>
 #include "Day01.h"
 
 Day01::Day01()
 {
 }
-
 
 Day01::~Day01()
 {

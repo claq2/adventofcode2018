@@ -1,7 +1,4 @@
 #pragma once
-#include <vector>
-#include <string>
-#include <map>
 #include "../AdventOfCode2018Lib.h"
 
 using namespace std;

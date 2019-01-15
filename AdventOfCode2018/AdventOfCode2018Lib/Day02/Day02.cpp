@@ -1,8 +1,5 @@
 #include "stdafx.h"
-#include <fstream>
 #include "Day02.h"
-#include <algorithm>
-#include <iostream>
 
 Day02::Day02()
 {

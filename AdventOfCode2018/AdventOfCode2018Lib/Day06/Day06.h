@@ -1,9 +1,5 @@
-#include <string>
-#include <vector>
-#include "../AdventOfCode2018Lib.h"
 #pragma once
-#include <utility>
-#include <map>
+#include "../AdventOfCode2018Lib.h"
 
 typedef std::pair<int, int> Coords;
 

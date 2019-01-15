@@ -1,9 +1,6 @@
 #pragma once
 #include "../AdventOfCode2018Lib.h"
-#include <vector>
-#include <string>
 #include "Node.h"
-#include <map>
 
 class ADVENTOFCODE2018LIB_API Day07
 {

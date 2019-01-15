@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "Day08.h"
-#include <sstream>
-#include <fstream>
 
 using namespace std;
 
