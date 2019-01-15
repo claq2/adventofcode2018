@@ -161,6 +161,7 @@
     <ClInclude Include="Day07\Node.h" />
     <ClInclude Include="Day08\Day08.h" />
     <ClInclude Include="Day09\Day09.h" />
+    <ClInclude Include="Day11\Day11.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -176,6 +177,7 @@
     <ClCompile Include="Day07\Day07.cpp" />
     <ClCompile Include="Day08\Day08.cpp" />
     <ClCompile Include="Day09\Day09.cpp" />
+    <ClCompile Include="Day11\Day11.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Day07\Node.cpp" />
     <ClCompile Include="stdafx.cpp">
