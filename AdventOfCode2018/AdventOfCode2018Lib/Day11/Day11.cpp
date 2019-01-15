@@ -21,6 +21,7 @@ string Day11::Part1(int input)
 {
 	auto grid(BuildGrid(input));
 	int maxPower(0);
+	pair<int, int> maxPowerStart;
 	for (int y = 0; y < 297; y++)
 	{
 		for (int x = 0; x < 297; x++)
@@ -28,7 +29,19 @@ string Day11::Part1(int input)
 			vector<int> toCheck;
 			for (int i = 0; i < 3; i++)
 			{
+				toCheck.push_back(grid[y + i][x + i]);
+			}
 
+			int powerTotal(0);
+			for (auto const& t : toCheck)
+			{
+				powerTotal += t;
+			}
+
+			if (powerTotal > maxPower)
+			{
+				maxPower = powerTotal;
+				maxPowerStart = pair<int, int>{ x, y };
 			}
 		}
 	}
@@ -68,7 +81,7 @@ vector<vector<int>> Day11::BuildGrid(int serial)
 {
 	vector<vector<string>> gridValues;
 	vector<vector<int>> result;
-	for (int y = 1; y <= 300 ; y++)
+	for (int y = 1; y <= 300; y++)
 	{
 		result.push_back(vector<int>());
 		gridValues.push_back(vector<string>());
