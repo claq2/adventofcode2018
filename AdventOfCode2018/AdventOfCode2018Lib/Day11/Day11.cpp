@@ -20,17 +20,23 @@ int Day11::ReadInput()
 string Day11::Part1(int input)
 {
 	auto grid(BuildGrid(input));
+	auto maxPowerStart(FindMaxPower(3, grid));
+	return to_string(get<0>(maxPowerStart) + 1) + "," + to_string(get<1>(maxPowerStart) + 1);
+}
+
+tuple<int, int, int> Day11::FindMaxPower(int gridSize, vector<vector<int>> grid)
+{
 	int maxPower(0);
 	pair<int, int> maxPowerStart;
-	for (int y = 0; y < 297; y++)
+	for (int y = 0; y < 300 - gridSize; y++)
 	{
-		for (int x = 0; x < 297; x++)
+		for (int x = 0; x < 300 - gridSize; x++)
 		{
 			vector<int> toCheck;
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < gridSize; i++)
 			{
 				int curry = y + i;
-				for (int j = 0; j < 3; j++) 
+				for (int j = 0; j < gridSize; j++)
 				{
 					toCheck.push_back(grid[curry][x + j]);
 				}
@@ -50,12 +56,27 @@ string Day11::Part1(int input)
 		}
 	}
 
-	return to_string(maxPowerStart.first + 1) + "," + to_string(maxPowerStart.second + 1);
+	return tuple<int, int, int>(maxPowerStart.first, maxPowerStart.second, maxPower);
 }
 
 string Day11::Part2(int input)
 {
-	return "";
+	pair<int, int> maxPowerStartCoords;
+	int maxPowerGridSize(0);
+	int maxPower(0);
+	auto grid(BuildGrid(input));
+	for (int i = 1; i <= 299; i++)
+	{
+		auto maxPowerStart = FindMaxPower(i, grid);
+		if (maxPower < get<2>(maxPowerStart))
+		{
+			maxPower = get<2>(maxPowerStart);
+			maxPowerGridSize = i;
+			maxPowerStartCoords = pair<int, int>(get<0>(maxPowerStart), get<1>(maxPowerStart));
+		}
+	}
+
+	return to_string(get<0>(maxPowerStartCoords) + 1) + "," + to_string(get<1>(maxPowerStartCoords) + 1) + "," + to_string(maxPowerGridSize);
 }
 
 int Day11::CalculatePower(int serial, int x, int y)

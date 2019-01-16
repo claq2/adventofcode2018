@@ -30,7 +30,9 @@ namespace MsUnitTest
 		TEST_METHOD(Part2)
 		{
 			Day11 day11;
-			string actual;
+			string expected("90,269,16");
+			string actual(day11.Part2(18));
+			Assert::AreEqual(expected, actual);
 		}
 
 		TEST_METHOD(CalculatePower)
