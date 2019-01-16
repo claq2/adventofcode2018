@@ -26,9 +26,9 @@ int main()
 	//Runner<Day04>().Run();
 	//Runner<Day05>().Run();
 	//Runner<Day06>().Run();
-	Runner<Day07>().Run();
-	Runner<Day08>().Run();
-	Runner<Day09>().Run();
+	//Runner<Day07>().Run();
+	//Runner<Day08>().Run();
+	//Runner<Day09>().Run();
 	Runner<Day11>().Run();
 }
 	

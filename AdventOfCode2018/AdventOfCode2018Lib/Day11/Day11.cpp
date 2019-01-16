@@ -29,7 +29,11 @@ string Day11::Part1(int input)
 			vector<int> toCheck;
 			for (int i = 0; i < 3; i++)
 			{
-				toCheck.push_back(grid[y + i][x + i]);
+				int curry = y + i;
+				for (int j = 0; j < 3; j++) 
+				{
+					toCheck.push_back(grid[curry][x + j]);
+				}
 			}
 
 			int powerTotal(0);
@@ -46,7 +50,7 @@ string Day11::Part1(int input)
 		}
 	}
 
-	return "";
+	return to_string(maxPowerStart.first + 1) + "," + to_string(maxPowerStart.second + 1);
 }
 
 string Day11::Part2(int input)
