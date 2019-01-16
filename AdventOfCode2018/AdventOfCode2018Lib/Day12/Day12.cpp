@@ -39,6 +39,23 @@ tuple<vector<bool>, vector<map<int, bool>>> Day12::ReadInput()
   ..#.# => #
   ###.# => .
 */
+	string initialStateLine(lines.front());
+	// Erase first 2 lines, leaving only rules
+	lines.erase(lines.begin(), lines.begin() + 2);
+	// Remove "initial state: "
+	initialStateLine = initialStateLine.substr(15);
+	for (auto const & i : initialStateLine)
+	{
+		if (i == '#')
+		{
+			get<0>(result).push_back(true);
+		}
+		else
+		{
+			get<0>(result).push_back(false);
+		}
+	}
+
 	return result;
 }
 

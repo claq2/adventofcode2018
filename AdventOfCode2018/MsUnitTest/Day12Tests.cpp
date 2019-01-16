@@ -14,9 +14,14 @@ namespace MsUnitTest
 		TEST_METHOD(ReadInput)
 		{
 			Day12 day12;
-
+			// ###..###....####.###...#..#...##...#..#....#.##.##.#..#.#..##.#####..######....#....##..#...#...#.#
 			auto value(day12.ReadInput());
-			//Assert::AreEqual(5535, value);
+			Assert::IsTrue(get<0>(value)[0]);
+			Assert::IsTrue(get<0>(value)[1]);
+			Assert::IsTrue(get<0>(value)[2]);
+			Assert::IsFalse(get<0>(value)[3]);
+			Assert::IsFalse(get<0>(value)[4]);
+			Assert::IsTrue(get<0>(value)[5]);
 		}
 
 		TEST_METHOD(Part1)
