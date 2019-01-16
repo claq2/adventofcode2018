@@ -33,6 +33,7 @@ tuple<int, int, int> Day11::FindMaxPower(int gridSize, vector<vector<int>> grid)
 		for (int x = 0; x < 300 - gridSize; x++)
 		{
 			vector<int> toCheck;
+			toCheck.reserve(gridSize * gridSize);
 			for (int i = 0; i < gridSize; i++)
 			{
 				int curry = y + i;
@@ -88,6 +89,9 @@ int Day11::CalculatePower(int serial, int x, int y)
 	if (powerLevel > 99)
 	{
 		// Extract hundreds value
+		//int plUnder1000 = powerLevel % 1000;
+		//int plUnder100 = plUnder1000 % 100;
+		//powerLevel = plUnder1000 - plUnder100;
 		string powerLevelString(to_string(powerLevel));
 		reverse(powerLevelString.begin(), powerLevelString.end());
 		powerLevel = powerLevelString[2] - '0';
@@ -104,17 +108,17 @@ int Day11::CalculatePower(int serial, int x, int y)
 
 vector<vector<int>> Day11::BuildGrid(int serial)
 {
-	vector<vector<string>> gridValues;
+	//vector<vector<string>> gridValues;
 	vector<vector<int>> result;
 	for (int y = 1; y <= 300; y++)
 	{
 		result.push_back(vector<int>());
-		gridValues.push_back(vector<string>());
+		//gridValues.push_back(vector<string>());
 		for (int x = 1; x <= 300; x++)
 		{
 			int power(CalculatePower(serial, x, y));
 			result.back().push_back(power);
-			gridValues.back().push_back(to_string(x) + "," + to_string(y) + "=" + to_string(power));
+			//gridValues.back().push_back(to_string(x) + "," + to_string(y) + "=" + to_string(power));
 		}
 	}
 

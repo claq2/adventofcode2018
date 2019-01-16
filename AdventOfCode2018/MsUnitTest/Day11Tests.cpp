@@ -68,5 +68,40 @@ namespace MsUnitTest
 			Assert::AreEqual(4, grid[43][34]);
 			Assert::AreEqual(4, grid[43][35]);
 		}
+
+		TEST_METHOD(FindMaxPower1)
+		{
+			Day11 day11;
+			auto grid = day11.BuildGrid(18);
+			auto maxPowerStart = day11.FindMaxPower(1, grid);
+		}
+
+		TEST_METHOD(FindMaxPower2)
+		{
+			Day11 day11;
+			auto grid = day11.BuildGrid(18);
+			auto maxPowerStart = day11.FindMaxPower(2, grid);
+		}
+
+		TEST_METHOD(FindMaxPower3)
+		{
+			Day11 day11;
+			auto grid = day11.BuildGrid(18);
+			auto maxPowerStart = day11.FindMaxPower(3, grid);
+		}
+
+		TEST_METHOD(FindMaxPower4)
+		{
+			Day11 day11;
+			auto grid = day11.BuildGrid(18);
+			auto maxPowerStart = day11.FindMaxPower(4, grid);
+		}
+
+		TEST_METHOD(FindMaxPower5)
+		{
+			Day11 day11;
+			auto grid = day11.BuildGrid(18);
+			auto maxPowerStart = day11.FindMaxPower(5, grid);
+		}
 	};
 }
