@@ -11,6 +11,27 @@ namespace MsUnitTest
 	{
 	public:
 
+		vector<string> sampleInput{
+			//0123456789012345678901234
+			{"initial state: #..#.#..##......###...###"},
+			{""},
+			//124816
+			{"...## => #"}, //24
+			{"..#.. => #"}, //4
+			{".#... => #"}, //2
+			{".#.#. => #"}, //10
+			{".#.## => #"}, //26
+			{".##.. => #"}, //6
+			{".#### => #"}, //30
+			{"#.#.# => #"}, //21
+			{"#.### => #"}, //29
+			{"##.#. => #"}, //11
+			{"##.## => #"}, //27
+			{"###.. => #"}, //7
+			{"###.# => #"}, //23
+			{"####. => #"}, //15
+		};
+
 		TEST_METHOD(ReadInput)
 		{
 			Day12 day12;
@@ -27,10 +48,8 @@ namespace MsUnitTest
 		TEST_METHOD(Part1)
 		{
 			Day12 day12;
-			//string expected("33,45");
-			auto value(day12.ReadInput());
-			auto actual(day12.Part1(value));
-			//Assert::AreEqual(expected, actual);
+			auto actual(day12.Part1(day12.ParseInput(sampleInput)));
+			Assert::AreEqual(string("325"), actual);
 		}
 
 		TEST_METHOD(Part2)
@@ -44,27 +63,7 @@ namespace MsUnitTest
 		TEST_METHOD(ParseInput)
 		{
 			Day12 day12;
-			vector<string> input{
-				//0123456789012345678901234
-				{"initial state: #..#.#..##......###...###"},
-				{""},
-				//124816
-				{"...## => #"}, //24
-				{"..#.. => #"}, //4
-				{".#... => #"}, //2
-				{".#.#. => #"}, //10
-				{".#.## => #"}, //26
-				{".##.. => #"}, //6
-				{".#### => #"}, //30
-				{"#.#.# => #"}, //21
-				{"#.### => #"}, //29
-				{"##.#. => #"}, //11
-				{"##.## => #"}, //27
-				{"###.. => #"}, //7
-				{"###.# => #"}, //23
-				{"####. => #"}, //15
-			};
-			auto stateAndRules = day12.ParseInput(input);
+			auto stateAndRules = day12.ParseInput(sampleInput);
 			auto state(get<0>(stateAndRules));
 			auto rules(get<1>(stateAndRules));
 			vector<bool> expectedState{

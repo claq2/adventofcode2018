@@ -42,7 +42,19 @@ string Day12::Part1(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
 	auto state = get<0>(initialStateAndRules);
 	const vector<bool> padding{ false, false, false, false, false };
 	int totalPlants(0);
-	for (int i = 0; i < 21; i++)
+	string generations;
+	// Count initial plants
+	for (auto const& s : state)
+	{
+		if (s)
+		{
+			totalPlants++;
+		}
+	}
+
+	generations = BuildString(state);
+
+	for (int i = 0; i < 20; i++)
 	{
 		vector<bool> nextGeneration;
 		// Pad beginning with up to 5 falses
@@ -57,7 +69,7 @@ string Day12::Part1(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
 		}
 
 		// Check from start + 2 to end - 2
-		for (auto it = state.begin() + 2; it < state.end() - 2; it++)
+		for (auto it = state.begin() + 2; it != state.end() - 2; it++)
 		{
 			// Build bitmap of LLCRR
 			int bitmap(0);
@@ -65,25 +77,38 @@ string Day12::Part1(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
 			{
 				if (*(it + localIndex))
 				{
-					bitmap += pow(2, localIndex);
+					bitmap += pow(2, localIndex + 2);
 				}
 			}
 
 			if (get<1>(initialStateAndRules).count(bitmap) && get<1>(initialStateAndRules)[bitmap])
 			{
-				state.push_back(true);
+				nextGeneration.push_back(true);
 				totalPlants++;
 			}
 			else
 			{
-				state.push_back(false);
+				nextGeneration.push_back(false);
 			}
 		}
 
 		state = nextGeneration;
+		generations += string("\r\n");
+		generations += BuildString(state);
 	}
 
 	return to_string(totalPlants);
+}
+
+string Day12::BuildString(vector<bool> state)
+{
+	string result;
+	for (auto const & s : state)
+	{
+		result += s ? '#' : '.';
+	}
+
+	return result;
 }
 
 string Day12::Part2(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
