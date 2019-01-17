@@ -12,9 +12,9 @@ Day12::~Day12()
 {
 }
 
-tuple<vector<bool>, vector<map<int, bool>>> Day12::ReadInput()
+tuple<vector<bool>, map<int, bool>> Day12::ReadInput()
 {
-	tuple<vector<bool>, vector<map<int, bool>>> result;
+	tuple<vector<bool>, map<int, bool>> result;
 	vector<string> lines;
 	ifstream file;
 	string currentLine;
@@ -50,21 +50,53 @@ tuple<vector<bool>, vector<map<int, bool>>> Day12::ReadInput()
 		{
 			get<0>(result).push_back(true);
 		}
-		else
+		else if (i == '.')
 		{
 			get<0>(result).push_back(false);
 		}
+		else
+		{
+			throw exception("Found bad input");
+		}
+	}
+
+	for (auto const & r : lines)
+	{
+		int val(0);
+		for (int i = 0; i < 5; i++)
+		{
+			if (r[i] == '#')
+			{
+				val += pow(2, i);
+			}
+			else if (r[i] == '.')
+			{
+			    //nothing
+			}
+			else
+			{
+				throw exception("Found bad input");
+			}
+		}
+
+		bool ruleResult(r.back() == '#');
+		if (get<1>(result).count(val) != 0)
+		{
+			throw exception("Duplicate rule");
+		}
+
+		get<1>(result)[val] = ruleResult;
 	}
 
 	return result;
 }
 
-string Day12::Part1(tuple<vector<bool>, vector<map<int, bool>>> initialStateAndRules)
+string Day12::Part1(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
 {
 	return string();
 }
 
-string Day12::Part2(tuple<vector<bool>, vector<map<int, bool>>> initialStateAndRules)
+string Day12::Part2(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
 {
 	return string();
 }
