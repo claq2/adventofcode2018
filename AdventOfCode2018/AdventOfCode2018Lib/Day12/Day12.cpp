@@ -93,6 +93,36 @@ tuple<vector<bool>, map<int, bool>> Day12::ReadInput()
 
 string Day12::Part1(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
 {
+	auto state = get<0>(initialStateAndRules);
+	for (int i = 0; i < 21; i++)
+	{
+		// Pad beginning with up to 2 falses
+		if (state[0] == true)
+		{
+			// Prepend 2 falses
+			state.insert(state.begin(), false);
+			state.insert(state.begin(), false);
+		}
+		else if (state[0] == false && state[1] == true)
+		{
+			// Prepend 1 false to make 2 false
+			state.insert(state.begin(), false);
+		}
+
+		// Pad end with up to 2 falses
+		if (state.back() == true)
+		{
+			// Append 2 falses
+			state.push_back(false);
+			state.push_back(false);
+		} 
+		else if (state[state.size() - 2] == true && state.back() == false)
+		{
+			// Append 1 false
+			state.push_back(false);
+		}
+	}
+
 	return string();
 }
 
