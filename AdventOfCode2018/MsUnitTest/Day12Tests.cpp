@@ -28,7 +28,8 @@ namespace MsUnitTest
 		{
 			Day12 day12;
 			//string expected("33,45");
-			//auto actual(day12.Part1(18));
+			auto value(day12.ReadInput());
+			auto actual(day12.Part1(value));
 			//Assert::AreEqual(expected, actual);
 		}
 

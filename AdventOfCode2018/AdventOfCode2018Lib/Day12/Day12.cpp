@@ -71,7 +71,7 @@ tuple<vector<bool>, map<int, bool>> Day12::ReadInput()
 			}
 			else if (r[i] == '.')
 			{
-			    //nothing
+				//nothing
 			}
 			else
 			{
@@ -94,33 +94,26 @@ tuple<vector<bool>, map<int, bool>> Day12::ReadInput()
 string Day12::Part1(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
 {
 	auto state = get<0>(initialStateAndRules);
+	const vector<bool> padding{ false, false, false, false, false };
+	int totalPlants(0);
 	for (int i = 0; i < 21; i++)
 	{
-		// Pad beginning with up to 2 falses
-		if (state[0] == true)
+		vector<bool> nextGeneration;
+		// Pad beginning with up to 5 falses
+		while (!equal(state.begin(), state.begin() + 5, padding.begin()))
 		{
-			// Prepend 2 falses
-			state.insert(state.begin(), false);
-			state.insert(state.begin(), false);
-		}
-		else if (state[0] == false && state[1] == true)
-		{
-			// Prepend 1 false to make 2 false
 			state.insert(state.begin(), false);
 		}
 
-		// Pad end with up to 2 falses
-		if (state.back() == true)
+		while (!equal(state.end() - 5, state.end(), padding.begin()))
 		{
-			// Append 2 falses
-			state.push_back(false);
-			state.push_back(false);
-		} 
-		else if (state[state.size() - 2] == true && state.back() == false)
-		{
-			// Append 1 false
 			state.push_back(false);
 		}
+
+		// Do stuff
+		// If adding a plant, totalPlants++;
+
+		state = nextGeneration;
 	}
 
 	return string();
