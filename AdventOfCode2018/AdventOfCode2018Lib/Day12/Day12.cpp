@@ -39,35 +39,23 @@ tuple<vector<bool>, map<int, bool>> Day12::ReadInput()
 
 string Day12::Part1(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
 {
+	const int padding(100);
 	auto state = get<0>(initialStateAndRules);
-	const vector<bool> padding{ false, false, false, false, false };
-	int totalPlants(0);
-	string generations;
-	// Count initial plants
-	for (auto const& s : state)
+	// Pad state with falses on both ends
+	for (int i = 0; i < padding; i++)
 	{
-		if (s)
-		{
-			totalPlants++;
-		}
+		state.insert(state.begin(), false);
+		state.push_back(false);
 	}
+
+	int plantPotsTotal(0);
+	string generations;
 
 	generations = BuildString(state);
 
 	for (int i = 0; i < 20; i++)
 	{
 		vector<bool> nextGeneration;
-		// Pad beginning with up to 5 falses
-		while (!equal(state.begin(), state.begin() + 5, padding.begin()))
-		{
-			state.insert(state.begin(), false);
-		}
-
-		while (!equal(state.end() - 5, state.end(), padding.begin()))
-		{
-			state.push_back(false);
-		}
-
 		// Check from start + 2 to end - 2
 		for (auto it = state.begin() + 2; it != state.end() - 2; it++)
 		{
@@ -84,7 +72,6 @@ string Day12::Part1(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
 			if (get<1>(initialStateAndRules).count(bitmap) && get<1>(initialStateAndRules)[bitmap])
 			{
 				nextGeneration.push_back(true);
-				totalPlants++;
 			}
 			else
 			{
@@ -92,12 +79,33 @@ string Day12::Part1(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
 			}
 		}
 
+		// Re-pad ends with falses
+		for (int i = 0; i < 2; i++)
+		{
+			nextGeneration.insert(nextGeneration.begin(), false);
+			nextGeneration.push_back(false);
+		}
+
 		state = nextGeneration;
 		generations += string("\r\n");
 		generations += BuildString(state);
 	}
 
-	return to_string(totalPlants);
+	// Total up the plants' pot numbers
+	int index(-padding);
+	vector<int> nums;
+	for (auto const & s : state)
+	{
+		if (s)
+		{
+			plantPotsTotal += index;
+			nums.push_back(index);
+		}
+
+		index++;
+	}
+
+	return to_string(plantPotsTotal);
 }
 
 string Day12::BuildString(vector<bool> state)
