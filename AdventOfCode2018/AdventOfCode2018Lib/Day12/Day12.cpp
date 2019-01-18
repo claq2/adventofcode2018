@@ -101,7 +101,7 @@ string Day12::Part2(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
 	long long currentTotal(0);
 	long long previousDifference(currentTotal - previousTotal);
 	long long currentDifference(0);
-	long long generation(0);
+	long long generation(1);
 	long long previousCount(count(state.begin(), state.end(), true));
 	long long currentCount(0);
 	for (long long i = 0; i < 2000; i++)
@@ -110,8 +110,11 @@ string Day12::Part2(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
 		currentTotal = CalculatePotsTotal(state);
 		currentDifference = currentTotal - previousTotal;
 		currentCount = count(state.begin(), state.end(), true);
-		// Look for a repeating pattern of same number of plants changing by the same number each generation
-		if (currentCount == previousCount && currentDifference == previousDifference)
+		auto first = find(state.begin(), state.end(), true);
+		auto last = find(state.rbegin(), state.rend(), true);
+		auto diff = distance(first, last.base());
+		// Look for a repeating pattern of a contiguous block of the same number of plants changing by the same number each generation
+		if (currentCount == previousCount && currentDifference == previousDifference && currentCount == diff)
 		{
 			break;
 		}
@@ -128,19 +131,8 @@ string Day12::Part2(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
 		generations += BuildString(state);
 	}
 
-	// Total up the plants' pot numbers
-	long long index(-padding);
-	//vector<long long> nums;
-	for (auto const & s : state)
-	{
-		if (s)
-		{
-			plantPotsTotal += index;
-			//nums.push_back(index);
-		}
-
-		index++;
-	}
+	// Calculate forward up to 50,000,000,000
+	plantPotsTotal = currentTotal + (50000000000 - generation) * currentCount;
 
 	return to_string(plantPotsTotal);
 }
@@ -195,26 +187,6 @@ vector<bool> Day12::CalculateNextGeneration(vector<bool> state, map<int, bool> r
 		nextGeneration.insert(nextGeneration.begin(), false);
 		nextGeneration.push_back(false);
 	}
-
-	//state = nextGeneration;
-	/*generations += string("\r\n");
-	generations += to_string(i + 1) + ":";
-	generations += BuildString(state);*/
-
-	//// Total up the plants' pot numbers
-	//long long index(-padding);
-	//long long localPlantPotsTotal(0);
-	////vector<long long> nums;
-	//for (auto const & s : state)
-	//{
-	//	if (s)
-	//	{
-	//		localPlantPotsTotal += index;
-	//		//nums.push_back(index);
-	//	}
-
-	//	index++;
-	//}
 
 	return nextGeneration;
 }
