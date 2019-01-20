@@ -9,5 +9,5 @@ public:
 	std::string ReadInput();
 	std::string Part1(std::string tracks);
 	std::string Part2(std::string tracks);
+	std::string ParseInput(std::string input);
 };
-

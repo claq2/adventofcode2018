@@ -4,12 +4,20 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
+//using namespace std::string_literals;
 
 namespace MsUnitTest
 {
 	TEST_CLASS(Day13Tests)
 	{
 	public:
+		string sample = R"("
+/->-\        
+|   |  /----\
+| /-+--+-\  |
+| | |  | v  |
+\-+-/  \-+--/
+  \------/")";
 
 		TEST_METHOD(ReadInput)
 		{
@@ -20,17 +28,17 @@ namespace MsUnitTest
 		TEST_METHOD(Part1)
 		{
 			Day13 day13;
-			auto value(day13.ReadInput());
+			auto value(day13.ParseInput(sample));
 			auto actual(day13.Part1(value));
-			Assert::AreEqual(string("325"), actual);
+			Assert::AreEqual(string("7,3"), actual);
 		}
 
 		TEST_METHOD(Part2)
 		{
 			Day13 day13;
-			auto value(day13.ReadInput());
+			auto value(day13.ParseInput(sample));
 			auto actual(day13.Part2(value));
-			Assert::AreEqual(string("325"), actual);
+			Assert::AreEqual(string("7,3"), actual);
 		}
 	};
 }

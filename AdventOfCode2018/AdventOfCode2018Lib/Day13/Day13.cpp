@@ -12,7 +12,7 @@ Day13::~Day13()
 {
 }
 
-std::string Day13::ReadInput()
+string Day13::ReadInput()
 {
 	vector<string> lines;
 	ifstream file;
@@ -32,15 +32,20 @@ std::string Day13::ReadInput()
 	}
 
 	file.close();
-	return std::string();
+	return string();
 }
 
-std::string Day13::Part1(std::string tracks)
+string Day13::Part1(string tracks)
 {
-	return std::string();
+	return string();
 }
 
-std::string Day13::Part2(std::string tracks)
+string Day13::Part2(string tracks)
 {
-	return std::string();
+	return string();
+}
+
+string Day13::ParseInput(string input)
+{
+	return string();
 }
