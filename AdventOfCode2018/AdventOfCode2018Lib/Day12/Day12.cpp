@@ -51,7 +51,7 @@ string Day12::Part1(tuple<vector<bool>, map<int, bool>> initialStateAndRules)
 	state.insert(state.begin(), paddingVector.begin(), paddingVector.end());
 	state.insert(state.end(), paddingVector.begin(), paddingVector.end());
 
-	int plantPotsTotal(0);
+	long long plantPotsTotal(0);
 	string generations;
 
 	generations = "0:" + BuildString(state);
@@ -167,7 +167,7 @@ vector<bool> Day12::CalculateNextGeneration(vector<bool> state, map<int, bool> r
 		{
 			if (*(it + localIndex))
 			{
-				bitmap += pow(2, localIndex + 2);
+				bitmap += (int)pow(2, localIndex + 2);
 			}
 		}
 
@@ -228,7 +228,7 @@ tuple<vector<bool>, map<int, bool>> Day12::ParseInput(vector<string> lines)
 		{
 			if (r[i] == '#')
 			{
-				val += pow(2, i);
+				val += (int)pow(2, i);
 			}
 			else if (r[i] == '.')
 			{
