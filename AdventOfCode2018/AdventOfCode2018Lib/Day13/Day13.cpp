@@ -47,5 +47,15 @@ string Day13::Part2(std::vector<std::vector<char>> tracks)
 
 vector<vector<char>> Day13::ReadTracks(vector<string> tracks)
 {
-	return vector<vector<char>>();
+	vector<vector<char>> result;
+	for (auto const & tl : tracks)
+	{
+		result.push_back(vector<char>());
+		for (auto const & c : tl)
+		{
+			result.back().push_back(c);
+		}
+	}
+
+	return result;
 }

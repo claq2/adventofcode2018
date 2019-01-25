@@ -12,26 +12,35 @@ namespace MsUnitTest
 	public:
 		vector<string> sample
 		{
-			"/->-\        ",
-			"|   |  /----\\",
-			"| /-+--+-\  |",
-			"| | |  | v  |",
-			"\-+-/  \-+--/",
-			"  \------/",
+//           0123456789012
+		  R"(/->-\        )",
+		  R"(|   |  /----\)",
+		  R"(| /-+--+-\  |)",
+		  R"(| | |  | v  |)",
+		  R"(\-+-/  \-+--/)",
+		  R"(  \------/   )",
 		};
 /*
-/->-\        
-|   |  /----\
-| /-+--+-\  |
-| | |  | v  |
-\-+-/  \-+--/
-  \------/
+ 0123456789012
+0/->-\        
+1|   |  /----\
+2| /-+--+-\  |
+3| | |  | v  |
+4\-+-/  \-+--/
+5  \------/   
 */;
 
 		TEST_METHOD(ReadInput)
 		{
 			Day13 day13;
 			auto value(day13.ReadInput());
+			for (auto const & v : value)
+			{
+				// 150 wide
+				Assert::AreEqual(size_t(150), v.size());
+			}
+			// 150 long
+			Assert::AreEqual(size_t(150), value.size());
 		}
 
 		TEST_METHOD(Part1)
@@ -48,6 +57,23 @@ namespace MsUnitTest
 			auto value(day13.ReadTracks(sample));
 			auto actual(day13.Part2(value));
 			Assert::AreEqual(string("7,3"), actual);
+		}
+
+		TEST_METHOD(ReadTracks)
+		{
+			Day13 day13;
+			auto value(day13.ReadTracks(sample));
+			for (auto const & v : value)
+			{
+				// 13 wide
+				Assert::AreEqual(size_t(13), v.size());
+			}
+			// 6 long
+			Assert::AreEqual(size_t(6), value.size());
+			Assert::AreEqual('/', value[0][0]);
+			Assert::AreEqual(' ', value[0][12]);
+			Assert::AreEqual(' ', value[5][0]);
+			Assert::AreEqual(' ', value[5][12]);
 		}
 	};
 }
