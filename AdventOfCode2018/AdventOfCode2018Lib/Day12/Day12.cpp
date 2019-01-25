@@ -25,7 +25,6 @@ tuple<vector<bool>, map<int, bool>> Day12::ReadInput()
 		throw e;
 	}
 
-	tm tm = {};
 	while (getline(file, currentLine))
 	{
 		lines.push_back(currentLine);

@@ -25,7 +25,6 @@ vector<string> Day07::ReadInput()
 		throw e;
 	}
 
-	tm tm = {};
 	while (getline(file, currentLine))
 	{
 		result.push_back(currentLine);
