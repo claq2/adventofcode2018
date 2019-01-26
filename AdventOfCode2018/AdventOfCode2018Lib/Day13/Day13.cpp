@@ -61,7 +61,7 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 	bool collisionDetected(false);
 	while (!collisionDetected)
 	{
-
+		step++;
 		// Prevent bugs from running this forever
 		if (step == 100)
 		{
