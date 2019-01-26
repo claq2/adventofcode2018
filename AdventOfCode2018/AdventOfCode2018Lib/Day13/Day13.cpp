@@ -37,6 +37,38 @@ vector<string> Day13::ReadInput()
 string Day13::Part1(std::vector<std::vector<char>> tracks)
 {
 	// Left, straight, then right
+	map<int, tuple<int, int, Direction>> cartsAndDirections;
+	int x(0), y(0), cartId(0);
+	
+	// Populate initial cart locations
+	for (auto const & tl : tracks)
+	{
+		x = 0;
+		for (auto const & tc : tl)
+		{
+			if (DirectionChars.count(tc) == 1)
+			{
+				cartsAndDirections[cartId] = { x,y, DirectionChars[tc] };
+				cartId++;
+			}
+			x++;
+		}
+
+		y++;
+	}
+
+	int step(0);
+	bool collisionDetected(false);
+	while (!collisionDetected)
+	{
+
+		// Prevent bugs from running this forever
+		if (step == 100)
+		{
+			break;
+		}
+	}
+
 	return string();
 }
 
