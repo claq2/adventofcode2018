@@ -45,6 +45,13 @@ public:
 		{ '>', Direction::Right },
 		{ '^', Direction::Up },
 	};
+	std::map<Direction, char> DirectionsToChars
+	{
+		{ Direction::Left, '<' },
+		{ Direction::Down, 'v' },
+		{ Direction::Right, '>' },
+		{ Direction::Up, '^' },
+	};
 	std::map<std::pair<char, Direction>, Direction> NextDirections
 	{
 		{ { '|', Direction::Up }, Direction::Up },
@@ -55,6 +62,7 @@ public:
 		{ { '/', Direction::Left }, Direction::Down },
 		{ { '\\', Direction::Right }, Direction::Down },
 		{ { '\\', Direction::Up }, Direction::Left },
+		// /
 	};
 	std::map<Direction, std::pair<int,int>> NumbersToAdd
 	{

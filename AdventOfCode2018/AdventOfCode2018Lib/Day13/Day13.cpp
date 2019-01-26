@@ -41,15 +41,24 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 	int x(0), y(0), cartId(0);
 	
 	// Populate initial cart locations. All next junction actions are rotate left.
-	for (auto const & tl : tracks)
+	// Replace carts with track characters
+	for (auto & tl : tracks)
 	{
 		x = 0;
-		for (auto const & tc : tl)
+		for (auto & tc : tl)
 		{
 			if (DirectionChars.count(tc) == 1)
 			{
 				cartsAndDirections[cartId] = { x,y, DirectionChars[tc], NextJunctionAction::RotateLeft };
 				cartId++;
+				if (tc == '<' or tc == '>')
+				{
+					tc = '-';
+				}
+				else
+				{
+					tc = '|';
+				}
 			}
 			x++;
 		}
@@ -112,6 +121,25 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 					return to_string(currentX) + "," + to_string(currentY);
 				}
 			}
+		}
+		string state;
+		for (size_t y = 0; y < tracks.size(); y++)
+		{
+			for (size_t x = 0; x < tracks[y].size(); x++)
+			{
+				auto r = find_if(cartsAndDirections.begin(), cartsAndDirections.end(), 
+					[x, y](auto const &c) { return get<0>(c.second) == x && get<1>(c.second) == y; }
+					);
+				if (r != cartsAndDirections.end())
+				{
+					state += DirectionsToChars[get<2>((*r).second)];
+				}
+				else
+				{
+					state += tracks[y][x];
+				}
+			}
+			state += "\r\n";
 		}
 
 		step++;
