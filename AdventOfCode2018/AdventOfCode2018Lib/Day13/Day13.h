@@ -9,14 +9,53 @@ public:
 	std::vector<std::string> ReadInput();
 	std::string Part1(std::vector<std::vector<char>> tracks);
 	std::string Part2(std::vector<std::vector<char>> tracks);
-	enum JunctionAction { GoLeft, GoStraight, GoRight };
+	enum JunctionAction { None, GoLeft, GoStraight, GoRight };
 	enum Direction { Left, Down, Right, Up };
+	std::map<Direction, Direction> TurnLeftDirections
+	{
+		{ Direction::Up, Direction::Left },
+		{ Direction::Left, Direction::Down },
+		{ Direction::Down, Direction::Right },
+		{ Direction::Right, Direction::Up },
+	};
+	std::map<Direction, Direction> TurnRightDirections
+	{
+		{ Direction::Up, Direction::Right },
+		{ Direction::Right, Direction::Down },
+		{ Direction::Down, Direction::Left },
+		{ Direction::Left, Direction::Up },
+	};
+	std::map<Direction, Direction> GoStraightDirections
+	{
+		{ Direction::Up, Direction::Up },
+		{ Direction::Right, Direction::Right },
+		{ Direction::Down, Direction::Down },
+		{ Direction::Left, Direction::Left },
+	};
 	std::map<char, Direction> DirectionChars
 	{
 		{ '<', Direction::Left }, 
 		{ 'v', Direction::Down },
 		{ '>', Direction::Right },
-		{ '^', Direction::Up }
+		{ '^', Direction::Up },
+	};
+	std::map<std::pair<char, Direction>, Direction> NextDirections
+	{
+		{ { '|', Direction::Up }, Direction::Up },
+		{ { '|', Direction::Down }, Direction::Down },
+		{ { '-', Direction::Right }, Direction::Right },
+		{ { '-', Direction::Left }, Direction::Left },
+		{ { '/', Direction::Up }, Direction::Right },
+		{ { '/', Direction::Left }, Direction::Down },
+		{ { '\\', Direction::Right }, Direction::Down },
+		{ { '\\', Direction::Up }, Direction::Left },
+	};
+	std::map<Direction, std::pair<int,int>> NumbersToAdd
+	{
+		{ Direction::Up, { 0, -1 } },
+		{ Direction::Down, { 0, 1 } },
+		{ Direction::Left, { -1, 0 } },
+		{ Direction::Right, { 1, 0 } },
 	};
 	std::vector<std::vector<char>> ReadTracks(std::vector<std::string> tracks);
 };

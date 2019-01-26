@@ -61,6 +61,31 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 	bool collisionDetected(false);
 	while (!collisionDetected)
 	{
+		for (auto & cart : cartsAndDirections)
+		{
+			// Check to see if current char is a junction
+			int currentX(get<0>(cart.second));
+			int currentY(get<1>(cart.second));
+			Direction currentDirection(get<2>(cart.second));
+			if (tracks[currentY][currentX] == '+')
+			{
+				// Change direction
+				if (currentDirection == Direction::)
+			}
+
+			// Read next step for each cart
+			pair<int, int> toAdd(NumbersToAdd[currentDirection]);
+			int nextX(currentX + toAdd.first);
+			int nextY(currentY + toAdd.second);
+			char nextChar(tracks[nextY][nextX]);
+			Direction nextDirection(NextDirections[{ nextChar, currentDirection }]);
+			// Move
+			cartsAndDirections[cart.first] = { nextX, nextY, nextDirection };
+			int x(9);
+
+			// Detect collisions - did any carts just move to the same location as another cart
+		}
+
 		step++;
 		// Prevent bugs from running this forever
 		if (step == 100)
