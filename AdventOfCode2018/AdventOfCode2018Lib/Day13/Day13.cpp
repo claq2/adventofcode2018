@@ -12,7 +12,7 @@ Day13::~Day13()
 {
 }
 
-vector<string> Day13::ReadInput()
+vector<vector<char>> Day13::ReadInput()
 {
 	vector<string> lines;
 	ifstream file;
@@ -31,7 +31,7 @@ vector<string> Day13::ReadInput()
 	}
 
 	file.close();
-	return lines;
+	return ReadTracks(lines);
 }
 
 string Day13::Part1(std::vector<std::vector<char>> tracks)
@@ -127,12 +127,13 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 		{
 			for (size_t x = 0; x < tracks[y].size(); x++)
 			{
-				auto r = find_if(cartsAndDirections.begin(), cartsAndDirections.end(), 
+				// If location has a cart write the cart
+				auto cartAtCurrentlocation = find_if(cartsAndDirections.begin(), cartsAndDirections.end(), 
 					[x, y](auto const &c) { return get<0>(c.second) == x && get<1>(c.second) == y; }
 					);
-				if (r != cartsAndDirections.end())
+				if (cartAtCurrentlocation != cartsAndDirections.end())
 				{
-					state += DirectionsToChars[get<2>((*r).second)];
+					state += DirectionsToChars[get<2>((*cartAtCurrentlocation).second)];
 				}
 				else
 				{
@@ -144,7 +145,7 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 
 		step++;
 		// Prevent bugs from running this forever
-		if (step == 100)
+		if (step == 10000)
 		{
 			break;
 		}

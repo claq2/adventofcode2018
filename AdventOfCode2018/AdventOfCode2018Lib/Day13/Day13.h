@@ -6,7 +6,7 @@ class ADVENTOFCODE2018LIB_API Day13
 public:
 	Day13();
 	~Day13();
-	std::vector<std::string> ReadInput();
+	std::vector<std::vector<char>> ReadInput();
 	std::string Part1(std::vector<std::vector<char>> tracks);
 	std::string Part2(std::vector<std::vector<char>> tracks);
 	enum NextJunctionAction { RotateLeft, GoStraight, RotateRight };
@@ -60,9 +60,12 @@ public:
 		{ { '-', Direction::Left }, Direction::Left },
 		{ { '/', Direction::Up }, Direction::Right },
 		{ { '/', Direction::Left }, Direction::Down },
+		{ { '/', Direction::Right }, Direction::Up },
+		{ { '/', Direction::Down }, Direction::Left },
 		{ { '\\', Direction::Right }, Direction::Down },
 		{ { '\\', Direction::Up }, Direction::Left },
-		// /
+		{ { '\\', Direction::Left }, Direction::Up },
+		{ { '\\', Direction::Down }, Direction::Right },
 	};
 	std::map<Direction, std::pair<int,int>> NumbersToAdd
 	{
