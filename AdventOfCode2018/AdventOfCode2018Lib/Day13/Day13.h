@@ -9,8 +9,14 @@ public:
 	std::vector<std::string> ReadInput();
 	std::string Part1(std::vector<std::vector<char>> tracks);
 	std::string Part2(std::vector<std::vector<char>> tracks);
-	enum JunctionAction { None, GoLeft, GoStraight, GoRight };
+	enum NextJunctionAction { RotateLeft, GoStraight, RotateRight };
 	enum Direction { Left, Down, Right, Up };
+	std::map<NextJunctionAction, NextJunctionAction> NextJunctionActions
+	{
+		{ NextJunctionAction::RotateLeft, NextJunctionAction::GoStraight },
+		{ NextJunctionAction::GoStraight, NextJunctionAction::RotateRight },
+		{ NextJunctionAction::RotateRight, NextJunctionAction::RotateLeft },
+	};
 	std::map<Direction, Direction> TurnLeftDirections
 	{
 		{ Direction::Up, Direction::Left },

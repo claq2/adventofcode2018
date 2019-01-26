@@ -37,10 +37,10 @@ vector<string> Day13::ReadInput()
 string Day13::Part1(std::vector<std::vector<char>> tracks)
 {
 	// Left, straight, then right
-	map<int, tuple<int, int, Direction>> cartsAndDirections;
+	map<int, tuple<int, int, Direction, NextJunctionAction>> cartsAndDirections;
 	int x(0), y(0), cartId(0);
 	
-	// Populate initial cart locations
+	// Populate initial cart locations. All next junction actions are rotate left.
 	for (auto const & tl : tracks)
 	{
 		x = 0;
@@ -48,7 +48,7 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 		{
 			if (DirectionChars.count(tc) == 1)
 			{
-				cartsAndDirections[cartId] = { x,y, DirectionChars[tc] };
+				cartsAndDirections[cartId] = { x,y, DirectionChars[tc], NextJunctionAction::RotateLeft };
 				cartId++;
 			}
 			x++;
@@ -67,23 +67,51 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 			int currentX(get<0>(cart.second));
 			int currentY(get<1>(cart.second));
 			Direction currentDirection(get<2>(cart.second));
-			if (tracks[currentY][currentX] == '+')
-			{
-				// Change direction
-				if (currentDirection == Direction::)
-			}
+			NextJunctionAction nextAction(get<3>(cart.second));
+			
 
 			// Read next step for each cart
 			pair<int, int> toAdd(NumbersToAdd[currentDirection]);
 			int nextX(currentX + toAdd.first);
 			int nextY(currentY + toAdd.second);
 			char nextChar(tracks[nextY][nextX]);
-			Direction nextDirection(NextDirections[{ nextChar, currentDirection }]);
+			if (nextChar == '+')
+			{
+				// Change direction
+				if (nextAction == NextJunctionAction::RotateLeft)
+				{
+					currentDirection = TurnLeftDirections[currentDirection];
+				}
+				else if (nextAction == NextJunctionAction::GoStraight) // remove?
+				{
+					currentDirection = GoStraightDirections[currentDirection];
+				}
+				else if (nextAction == NextJunctionAction::RotateRight)
+				{
+					currentDirection = TurnRightDirections[currentDirection];
+				}
+
+				nextAction = NextJunctionActions[nextAction];
+			}
+			else
+			{
+				currentDirection = NextDirections[{ nextChar, currentDirection }];
+			}
+
 			// Move
-			cartsAndDirections[cart.first] = { nextX, nextY, nextDirection };
+			cartsAndDirections[cart.first] = { nextX, nextY, currentDirection, nextAction };
 			int x(9);
 
 			// Detect collisions - did any carts just move to the same location as another cart
+			for (auto & otherCart : cartsAndDirections)
+			{
+				int currentOtherX(get<0>(otherCart.second));
+				int currentOtherY(get<1>(otherCart.second));
+				if (cart != otherCart && currentOtherX == currentX && currentOtherY == currentY)
+				{
+					return to_string(currentX) + "," + to_string(currentY);
+				}
+			}
 		}
 
 		step++;
