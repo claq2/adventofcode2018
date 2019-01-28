@@ -72,18 +72,17 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 	{
 		for (auto & cart : cartsAndDirections)
 		{
-			// Check to see if current char is a junction
 			int currentX(get<0>(cart.second));
 			int currentY(get<1>(cart.second));
 			Direction currentDirection(get<2>(cart.second));
 			NextJunctionAction nextAction(get<3>(cart.second));
-			
 
 			// Read next step for each cart
 			pair<int, int> toAdd(NumbersToAdd[currentDirection]);
 			int nextX(currentX + toAdd.first);
 			int nextY(currentY + toAdd.second);
 			char nextChar(tracks[nextY][nextX]);
+			// Check to see if current char is a junction
 			if (nextChar == '+')
 			{
 				// Change direction
@@ -109,7 +108,6 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 
 			// Move
 			cartsAndDirections[cart.first] = { nextX, nextY, currentDirection, nextAction };
-			int x(9);
 
 			// Detect collisions - did any carts just move to the same location as another cart
 			for (auto & otherCart : cartsAndDirections)
@@ -118,6 +116,27 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 				int currentOtherY(get<1>(otherCart.second));
 				if (cart != otherCart && currentOtherX == currentX && currentOtherY == currentY)
 				{
+					string state;
+					for (size_t y = 0; y < tracks.size(); y++)
+					{
+						for (size_t x = 0; x < tracks[y].size(); x++)
+						{
+							// If location has a cart write the cart
+							auto cartAtCurrentlocation = find_if(cartsAndDirections.begin(), cartsAndDirections.end(),
+								[x, y](auto const &c) { return get<0>(c.second) == x && get<1>(c.second) == y; }
+							);
+							if (cartAtCurrentlocation != cartsAndDirections.end())
+							{
+								state += DirectionsToChars[get<2>((*cartAtCurrentlocation).second)];
+							}
+							else
+							{
+								state += tracks[y][x];
+							}
+						}
+						state += "\r\n";
+					}
+
 					return to_string(currentX) + "," + to_string(currentY);
 				}
 			}
