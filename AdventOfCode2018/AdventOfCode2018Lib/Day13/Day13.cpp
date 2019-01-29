@@ -109,8 +109,10 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 			// Move
 			cartsAndDirections[cart.first] = { nextX, nextY, currentDirection, nextAction };
 
-			
+			// TODO: Check if we just moved onto another cart
 		}
+
+		// Rebuild cart map based on coordinates, 
 
 		string state;
 		for (size_t y = 0; y < tracks.size(); y++)
@@ -136,7 +138,7 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 			state += "\r\n";
 		}
 
-		// Detect collisions - did any carts just move to the same location as another cart
+		// Detect collisions after moving everything - are any carts on top of each other
 		for (auto & cart : cartsAndDirections)
 		{
 			int currentX(get<0>(cart.second));
