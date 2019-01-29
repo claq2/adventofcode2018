@@ -109,47 +109,21 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 			// Move
 			cartsAndDirections[cart.first] = { nextX, nextY, currentDirection, nextAction };
 
-			// Detect collisions - did any carts just move to the same location as another cart
-			for (auto & otherCart : cartsAndDirections)
-			{
-				int currentOtherX(get<0>(otherCart.second));
-				int currentOtherY(get<1>(otherCart.second));
-				if (cart != otherCart && currentOtherX == currentX && currentOtherY == currentY)
-				{
-					string state;
-					for (size_t y = 0; y < tracks.size(); y++)
-					{
-						for (size_t x = 0; x < tracks[y].size(); x++)
-						{
-							// If location has a cart write the cart
-							auto cartAtCurrentlocation = find_if(cartsAndDirections.begin(), cartsAndDirections.end(),
-								[x, y](auto const &c) { return get<0>(c.second) == x && get<1>(c.second) == y; }
-							);
-							if (cartAtCurrentlocation != cartsAndDirections.end())
-							{
-								state += DirectionsToChars[get<2>((*cartAtCurrentlocation).second)];
-							}
-							else
-							{
-								state += tracks[y][x];
-							}
-						}
-						state += "\r\n";
-					}
-
-					return to_string(currentX) + "," + to_string(currentY);
-				}
-			}
+			
 		}
+
 		string state;
 		for (size_t y = 0; y < tracks.size(); y++)
 		{
 			for (size_t x = 0; x < tracks[y].size(); x++)
 			{
 				// If location has a cart write the cart
-				auto cartAtCurrentlocation = find_if(cartsAndDirections.begin(), cartsAndDirections.end(), 
-					[x, y](auto const &c) { return get<0>(c.second) == x && get<1>(c.second) == y; }
-					);
+				map<int, tuple<int, int, Direction, NextJunctionAction>>::iterator cartAtCurrentlocation = 
+					find_if(cartsAndDirections.begin(), cartsAndDirections.end(),
+					[x, y](pair<int, tuple<int, int, Direction, NextJunctionAction>> const &c)
+					{
+						return get<0>(c.second) == x && get<1>(c.second) == y; 
+					});
 				if (cartAtCurrentlocation != cartsAndDirections.end())
 				{
 					state += DirectionsToChars[get<2>((*cartAtCurrentlocation).second)];
@@ -160,6 +134,22 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 				}
 			}
 			state += "\r\n";
+		}
+
+		// Detect collisions - did any carts just move to the same location as another cart
+		for (auto & cart : cartsAndDirections)
+		{
+			int currentX(get<0>(cart.second));
+			int currentY(get<1>(cart.second));
+			for (auto & otherCart : cartsAndDirections)
+			{
+				int currentOtherX(get<0>(otherCart.second));
+				int currentOtherY(get<1>(otherCart.second));
+				if (cart != otherCart && currentOtherX == currentX && currentOtherY == currentY)
+				{
+					return to_string(currentX) + "," + to_string(currentY);
+				}
+			}
 		}
 
 		step++;
