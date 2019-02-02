@@ -152,22 +152,40 @@ map<int, tuple<int, int, Day13::Direction, Day13::NextJunctionAction>> Day13::Ex
 pair<int, int> Day13::FindNextCollision(vector<vector<char>> &tracks, map<int, tuple<int, int, Day13::Direction, Day13::NextJunctionAction>> &cartsAndDirections)
 {
 	int step(0);
+
+	// Check for existing collisions
+	for (auto & cart : cartsAndDirections)
+	{
+		int currentX(get<0>(cart.second));
+		int currentY(get<1>(cart.second));
+		for (auto & otherCart : cartsAndDirections)
+		{
+			int currentOtherX(get<0>(otherCart.second));
+			int currentOtherY(get<1>(otherCart.second));
+			if (cart != otherCart && currentOtherX == currentX && currentOtherY == currentY)
+			{
+				return { currentX, currentY };
+			}
+		}
+	}
+
 	bool collisionDetected(false);
 	while (!collisionDetected)
 	{
 		// Determine processing order based on location. Top left to bottom right.
-			// Map of pair<int,int> automatically ordered.
-		map<pair<int, int>, int> cartLocationsToIds;
+		// Map of pair<int,int> automatically ordered.
+		map<pair<int, int>, int> reversedCartLocationsToIds;
 		for (auto & cart : cartsAndDirections)
 		{
-			pair<int, int> location{ get<0>(cart.second), get<1>(cart.second) };
-			cartLocationsToIds[location] = cart.first;
+			// y, x so that we scan line by line rather than column by column
+			pair<int, int> location{ get<1>(cart.second), get<0>(cart.second) };
+			reversedCartLocationsToIds[location] = cart.first;
 		}
 
-		for (auto & locationAndId : cartLocationsToIds)
+		for (auto & locationAndId : reversedCartLocationsToIds)
 		{
-			int currentX(locationAndId.first.first);
-			int currentY(locationAndId.first.second);
+			int currentX(locationAndId.first.second);
+			int currentY(locationAndId.first.first);
 			Direction currentDirection(get<2>(cartsAndDirections[locationAndId.second]));
 			NextJunctionAction nextAction(get<3>(cartsAndDirections[locationAndId.second]));
 
@@ -205,30 +223,31 @@ pair<int, int> Day13::FindNextCollision(vector<vector<char>> &tracks, map<int, t
 
 			// Rebuild cart map based on coordinates, 
 
-			//string state;
-			//for (size_t y = 0; y < tracks.size(); y++)
-			//{
-			//	for (size_t x = 0; x < tracks[y].size(); x++)
-			//	{
-			//		// If location has a cart write the cart
-			//		map<int, tuple<int, int, Direction, NextJunctionAction>>::iterator cartAtCurrentlocation =
-			//			find_if(cartsAndDirections.begin(), cartsAndDirections.end(),
-			//				[x, y](pair<int, tuple<int, int, Direction, NextJunctionAction>> const &c)
-			//		{
-			//			return get<0>(c.second) == x && get<1>(c.second) == y;
-			//		});
-			//		if (cartAtCurrentlocation != cartsAndDirections.end())
-			//		{
-			//			state += DirectionsToChars[get<2>((*cartAtCurrentlocation).second)];
-			//		}
-			//		else
-			//		{
-			//			state += tracks[y][x];
-			//		}
-			//	}
-			//	state += "\r\n";
-			//}
+			string state;
+			for (size_t y = 0; y < tracks.size(); y++)
+			{
+				for (size_t x = 0; x < tracks[y].size(); x++)
+				{
+					// If location has a cart write the cart
+					map<int, tuple<int, int, Direction, NextJunctionAction>>::iterator cartAtCurrentlocation =
+						find_if(cartsAndDirections.begin(), cartsAndDirections.end(),
+							[x, y](pair<int, tuple<int, int, Direction, NextJunctionAction>> const &c)
+					{
+						return get<0>(c.second) == x && get<1>(c.second) == y;
+					});
+					if (cartAtCurrentlocation != cartsAndDirections.end())
+					{
+						state += DirectionsToChars[get<2>((*cartAtCurrentlocation).second)];
+					}
+					else
+					{
+						state += tracks[y][x];
+					}
+				}
+				state += "\r\n";
+			}
 
+			// Check for collisions
 			for (auto & cart : cartsAndDirections)
 			{
 				int currentX(get<0>(cart.second));
