@@ -91,7 +91,17 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 
 		for (auto & locationAndId : cartLocationsToIds)
 		{
-			int x = 0;
+			int currentX(locationAndId.first.first);
+			int currentY(locationAndId.first.second);
+			Direction currentDirection(get<2>(cartsAndDirections[locationAndId.second]));
+			NextJunctionAction nextAction(get<3>(cartsAndDirections[locationAndId.second]));
+
+			// Read next step for each cart
+			pair<int, int> toAdd(NumbersToAdd[currentDirection]);
+			int nextX(currentX + toAdd.first);
+			int nextY(currentY + toAdd.second);
+			char nextChar(tracks[nextY][nextX]);
+			// Check to see if current char is a junction
 		}
 
 		for (auto & cart : cartsAndDirections)
