@@ -10,7 +10,7 @@ namespace MsUnitTest
 	TEST_CLASS(Day13Tests)
 	{
 	public:
-		vector<string> sample
+		vector<string> sample1
 		{
 //           0123456789012
 		  R"(/->-\        )",
@@ -28,7 +28,27 @@ namespace MsUnitTest
 3| | |  | v  |
 4\-+-/  \-+--/
 5  \------/   
-*/;
+*/
+
+		vector<string> sample2
+		{
+			R"(/>-<\  )",
+			R"(|   |  )",
+			R"(| /<+-\)",
+			R"(| | | v)",
+			R"(\>+</ |)",
+			R"(  |   ^)",
+			R"(  \<->/)",
+		};
+/*
+/>-<\
+|   |
+| /<+-\
+| | | v
+\>+</ |
+  |   ^
+  \<->/
+*/
 
 		TEST_METHOD(ReadInput)
 		{
@@ -46,7 +66,7 @@ namespace MsUnitTest
 		TEST_METHOD(Part1)
 		{
 			Day13 day13;
-			auto value(day13.ReadTracks(sample));
+			auto value(day13.ReadTracks(sample1));
 			auto actual(day13.Part1(value));
 			Assert::AreEqual(string("7,3"), actual);
 		}
@@ -54,15 +74,15 @@ namespace MsUnitTest
 		TEST_METHOD(Part2)
 		{
 			Day13 day13;
-			auto value(day13.ReadTracks(sample));
+			auto value(day13.ReadTracks(sample2));
 			auto actual(day13.Part2(value));
-			Assert::AreEqual(string("7,3"), actual);
+			Assert::AreEqual(string("6,4"), actual);
 		}
 
 		TEST_METHOD(ReadTracks)
 		{
 			Day13 day13;
-			auto value(day13.ReadTracks(sample));
+			auto value(day13.ReadTracks(sample1));
 			for (auto const & v : value)
 			{
 				// 13 wide

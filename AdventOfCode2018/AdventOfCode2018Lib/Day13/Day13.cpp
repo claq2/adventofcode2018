@@ -34,12 +34,92 @@ vector<vector<char>> Day13::ReadInput()
 	return ReadTracks(lines);
 }
 
-string Day13::Part1(std::vector<std::vector<char>> tracks)
+string Day13::Part1(vector<vector<char>> tracks)
 {
-	// Left, straight, then right
+	map<int, tuple<int, int, Direction, NextJunctionAction>> cartsAndDirections(ExtractCarts(tracks));
+	pair<int, int> firstCollision(FindNextCollision(tracks, cartsAndDirections));
+	return to_string(firstCollision.first) + "," + to_string(firstCollision.second);
+}
+
+string Day13::Part2(std::vector<std::vector<char>> tracks)
+{
+	map<int, tuple<int, int, Direction, NextJunctionAction>> cartsAndDirections(ExtractCarts(tracks));
+	while (cartsAndDirections.size() > 1)
+	{
+		pair<int, int> nextCollision(FindNextCollision(tracks, cartsAndDirections));
+
+		string state;
+		for (size_t y = 0; y < tracks.size(); y++)
+		{
+			for (size_t x = 0; x < tracks[y].size(); x++)
+			{
+				// If location has a cart write the cart
+				map<int, tuple<int, int, Direction, NextJunctionAction>>::iterator cartAtCurrentlocation =
+					find_if(cartsAndDirections.begin(), cartsAndDirections.end(),
+						[x, y](pair<int, tuple<int, int, Direction, NextJunctionAction>> const &c)
+				{
+					return get<0>(c.second) == x && get<1>(c.second) == y;
+				});
+				if (cartAtCurrentlocation != cartsAndDirections.end())
+				{
+					state += DirectionsToChars[get<2>((*cartAtCurrentlocation).second)];
+				}
+				else
+				{
+					state += tracks[y][x];
+				}
+			}
+			state += "\r\n";
+		}
+
+		// Remove crashed carts
+		bool erasedFirstItem(false);
+		for (auto it = cartsAndDirections.begin(); it != cartsAndDirections.end(); it++)
+		{
+			if (erasedFirstItem)
+			{
+				it--;
+			}
+
+			erasedFirstItem = false;
+			if (get<0>((*it).second) == nextCollision.first && get<1>((*it).second) == nextCollision.second)
+			{
+				if (it == cartsAndDirections.begin())
+				{
+					erasedFirstItem = true;
+				}
+
+				it = cartsAndDirections.erase(it);
+			}
+		}
+	}
+
+	pair<int, tuple<int, int, Direction, NextJunctionAction>> lastCart = *cartsAndDirections.begin();
+	int x(get<0>(lastCart.second));
+	int y(get<1>(lastCart.second));
+	return to_string(x) + "," + to_string(y);
+}
+
+vector<vector<char>> Day13::ReadTracks(vector<string> tracks)
+{
+	vector<vector<char>> result;
+	for (auto const & tl : tracks)
+	{
+		result.push_back(vector<char>());
+		for (auto const & c : tl)
+		{
+			result.back().push_back(c);
+		}
+	}
+
+	return result;
+}
+
+map<int, tuple<int, int, Day13::Direction, Day13::NextJunctionAction>> Day13::ExtractCarts(vector<vector<char>> &tracks)
+{
 	map<int, tuple<int, int, Direction, NextJunctionAction>> cartsAndDirections;
 	int x(0), y(0), cartId(0);
-	
+
 	// Populate initial cart locations. All next junction actions are rotate left.
 	// Replace carts with track characters
 	for (auto & tl : tracks)
@@ -66,12 +146,17 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 		y++;
 	}
 
+	return cartsAndDirections;
+}
+
+pair<int, int> Day13::FindNextCollision(vector<vector<char>> &tracks, map<int, tuple<int, int, Day13::Direction, Day13::NextJunctionAction>> &cartsAndDirections)
+{
 	int step(0);
 	bool collisionDetected(false);
 	while (!collisionDetected)
 	{
 		// Determine processing order based on location. Top left to bottom right.
-		// Map of pair<int,int> automatically ordered.
+			// Map of pair<int,int> automatically ordered.
 		map<pair<int, int>, int> cartLocationsToIds;
 		for (auto & cart : cartsAndDirections)
 		{
@@ -154,39 +239,17 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 					int currentOtherY(get<1>(otherCart.second));
 					if (cart != otherCart && currentOtherX == currentX && currentOtherY == currentY)
 					{
-						return to_string(currentX) + "," + to_string(currentY);
+						return { currentX, currentY };
 					}
 				}
 			}
-		}
 
-		step++;
-		// Prevent bugs from running this forever
-		if (step == 10000)
-		{
-			break;
-		}
-	}
-
-	return string();
-}
-
-string Day13::Part2(std::vector<std::vector<char>> tracks)
-{
-	return string();
-}
-
-vector<vector<char>> Day13::ReadTracks(vector<string> tracks)
-{
-	vector<vector<char>> result;
-	for (auto const & tl : tracks)
-	{
-		result.push_back(vector<char>());
-		for (auto const & c : tl)
-		{
-			result.back().push_back(c);
+			step++;
+			// Prevent bugs from running this forever
+			if (step == 10000)
+			{
+				return { -1,-1 };
+			}
 		}
 	}
-
-	return result;
 }
