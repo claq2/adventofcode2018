@@ -46,6 +46,8 @@ string Day13::Part2(std::vector<std::vector<char>> tracks)
 	map<int, tuple<int, int, Direction, NextJunctionAction>> cartsAndDirections(ExtractCarts(tracks));
 	while (cartsAndDirections.size() > 1)
 	{
+		// TODO: check state after every move/tick
+
 		pair<int, int> nextCollision(FindNextCollision(tracks, cartsAndDirections));
 
 		string state;
