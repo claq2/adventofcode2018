@@ -73,21 +73,11 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 		// Determine processing order based on location. Top left to bottom right.
 		// Map of pair<int,int> automatically ordered.
 		map<pair<int, int>, int> cartLocationsToIds;
-		//vector<pair<int, int>> cartLocations;
 		for (auto & cart : cartsAndDirections)
 		{
 			pair<int, int> location{ get<0>(cart.second), get<1>(cart.second) };
 			cartLocationsToIds[location] = cart.first;
-			//cartLocations.push_back(location);
 		}
-
-		//sort(cartLocations.begin(), cartLocations.end());
-
-		/*vector<int> cartIdsInOrderOfProcessing;
-		for (auto const & location : cartLocations)
-		{
-			cartIdsInOrderOfProcessing.push_back(cartLocationsToIds[location]);
-		}*/
 
 		for (auto & locationAndId : cartLocationsToIds)
 		{
@@ -95,21 +85,6 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 			int currentY(locationAndId.first.second);
 			Direction currentDirection(get<2>(cartsAndDirections[locationAndId.second]));
 			NextJunctionAction nextAction(get<3>(cartsAndDirections[locationAndId.second]));
-
-			// Read next step for each cart
-			pair<int, int> toAdd(NumbersToAdd[currentDirection]);
-			int nextX(currentX + toAdd.first);
-			int nextY(currentY + toAdd.second);
-			char nextChar(tracks[nextY][nextX]);
-			// Check to see if current char is a junction
-		}
-
-		for (auto & cart : cartsAndDirections)
-		{
-			int currentX(get<0>(cart.second));
-			int currentY(get<1>(cart.second));
-			Direction currentDirection(get<2>(cart.second));
-			NextJunctionAction nextAction(get<3>(cart.second));
 
 			// Read next step for each cart
 			pair<int, int> toAdd(NumbersToAdd[currentDirection]);
@@ -141,49 +116,46 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 			}
 
 			// Move
-			cartsAndDirections[cart.first] = { nextX, nextY, currentDirection, nextAction };
+			cartsAndDirections[locationAndId.second] = { nextX, nextY, currentDirection, nextAction };
 
-			// TODO: Check if we just moved onto another cart
-		}
+			// Rebuild cart map based on coordinates, 
 
-		// Rebuild cart map based on coordinates, 
+			//string state;
+			//for (size_t y = 0; y < tracks.size(); y++)
+			//{
+			//	for (size_t x = 0; x < tracks[y].size(); x++)
+			//	{
+			//		// If location has a cart write the cart
+			//		map<int, tuple<int, int, Direction, NextJunctionAction>>::iterator cartAtCurrentlocation =
+			//			find_if(cartsAndDirections.begin(), cartsAndDirections.end(),
+			//				[x, y](pair<int, tuple<int, int, Direction, NextJunctionAction>> const &c)
+			//		{
+			//			return get<0>(c.second) == x && get<1>(c.second) == y;
+			//		});
+			//		if (cartAtCurrentlocation != cartsAndDirections.end())
+			//		{
+			//			state += DirectionsToChars[get<2>((*cartAtCurrentlocation).second)];
+			//		}
+			//		else
+			//		{
+			//			state += tracks[y][x];
+			//		}
+			//	}
+			//	state += "\r\n";
+			//}
 
-		string state;
-		for (size_t y = 0; y < tracks.size(); y++)
-		{
-			for (size_t x = 0; x < tracks[y].size(); x++)
+			for (auto & cart : cartsAndDirections)
 			{
-				// If location has a cart write the cart
-				map<int, tuple<int, int, Direction, NextJunctionAction>>::iterator cartAtCurrentlocation = 
-					find_if(cartsAndDirections.begin(), cartsAndDirections.end(),
-					[x, y](pair<int, tuple<int, int, Direction, NextJunctionAction>> const &c)
+				int currentX(get<0>(cart.second));
+				int currentY(get<1>(cart.second));
+				for (auto & otherCart : cartsAndDirections)
+				{
+					int currentOtherX(get<0>(otherCart.second));
+					int currentOtherY(get<1>(otherCart.second));
+					if (cart != otherCart && currentOtherX == currentX && currentOtherY == currentY)
 					{
-						return get<0>(c.second) == x && get<1>(c.second) == y; 
-					});
-				if (cartAtCurrentlocation != cartsAndDirections.end())
-				{
-					state += DirectionsToChars[get<2>((*cartAtCurrentlocation).second)];
-				}
-				else
-				{
-					state += tracks[y][x];
-				}
-			}
-			state += "\r\n";
-		}
-
-		// Detect collisions after moving everything - are any carts on top of each other
-		for (auto & cart : cartsAndDirections)
-		{
-			int currentX(get<0>(cart.second));
-			int currentY(get<1>(cart.second));
-			for (auto & otherCart : cartsAndDirections)
-			{
-				int currentOtherX(get<0>(otherCart.second));
-				int currentOtherY(get<1>(otherCart.second));
-				if (cart != otherCart && currentOtherX == currentX && currentOtherY == currentY)
-				{
-					return to_string(currentX) + "," + to_string(currentY);
+						return to_string(currentX) + "," + to_string(currentY);
+					}
 				}
 			}
 		}
