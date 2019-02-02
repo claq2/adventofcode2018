@@ -70,6 +70,30 @@ string Day13::Part1(std::vector<std::vector<char>> tracks)
 	bool collisionDetected(false);
 	while (!collisionDetected)
 	{
+		// Determine processing order based on location. Top left to bottom right.
+		// Map of pair<int,int> automatically ordered.
+		map<pair<int, int>, int> cartLocationsToIds;
+		//vector<pair<int, int>> cartLocations;
+		for (auto & cart : cartsAndDirections)
+		{
+			pair<int, int> location{ get<0>(cart.second), get<1>(cart.second) };
+			cartLocationsToIds[location] = cart.first;
+			//cartLocations.push_back(location);
+		}
+
+		//sort(cartLocations.begin(), cartLocations.end());
+
+		/*vector<int> cartIdsInOrderOfProcessing;
+		for (auto const & location : cartLocations)
+		{
+			cartIdsInOrderOfProcessing.push_back(cartLocationsToIds[location]);
+		}*/
+
+		for (auto & locationAndId : cartLocationsToIds)
+		{
+			int x = 0;
+		}
+
 		for (auto & cart : cartsAndDirections)
 		{
 			int currentX(get<0>(cart.second));
