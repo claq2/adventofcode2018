@@ -77,4 +77,5 @@ public:
 	std::vector<std::vector<char>> ReadTracks(std::vector<std::string> tracks);
 	std::map<int, std::tuple<int, int, Direction, NextJunctionAction>> ExtractCarts(std::vector<std::vector<char>> &tracks);
 	std::pair<int, int> FindNextCollision(std::vector<std::vector<char>> &tracks, std::map<int, std::tuple<int, int, Day13::Direction, Day13::NextJunctionAction>> &cartsAndDirections);
+	void MoveNextCart(std::pair<const std::pair<int, int>, int> &locationAndId, std::vector<std::vector<char>>& tracks, std::map<int, std::tuple<int, int, Day13::Direction, Day13::NextJunctionAction>>& cartsAndDirections);
 };
