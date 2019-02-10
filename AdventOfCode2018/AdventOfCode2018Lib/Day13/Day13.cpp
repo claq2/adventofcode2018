@@ -62,46 +62,40 @@ string Day13::Part2(std::vector<std::vector<char>> tracks)
 			MoveNextCart(locationAndId, tracks, cartsAndDirections);
 
 			// Check for collisions
-			for (auto & cart : cartsAndDirections)
+
+			// Remove crashed carts
+			vector<int> cartIdsToRemove;
+			for (auto it = cartsAndDirections.begin(); it != cartsAndDirections.end(); it++)
 			{
-				int currentX(get<0>(cart.second));
-				int currentY(get<1>(cart.second));
-				for (auto & otherCart : cartsAndDirections)
+				bool erasedFirstItem(false);
+				for (auto itOther = cartsAndDirections.begin(); itOther != cartsAndDirections.end(); itOther++)
 				{
-					int currentOtherX(get<0>(otherCart.second));
-					int currentOtherY(get<1>(otherCart.second));
-					if (cart != otherCart && currentOtherX == currentX && currentOtherY == currentY)
+					if (it != itOther && get<0>((*itOther).second) == get<0>((*it).second) && get<1>((*itOther).second) == get<1>((*it).second))
 					{
-						// TODO: remove carts with iterators. Remove one of the loop
-						// Remove crashed carts
-						bool erasedFirstItem(false);
-						for (auto it = cartsAndDirections.begin(); it != cartsAndDirections.end(); it++)
+						if (find(cartIdsToRemove.begin(), cartIdsToRemove.end(), (*it).first) == cartIdsToRemove.end())
 						{
-							if (erasedFirstItem)
-							{
-								it--;
-							}
+							cartIdsToRemove.push_back((*it).first);
+						}
 
-							erasedFirstItem = false;
-							if (get<0>((*it).second) == currentX && get<1>((*it).second) == currentY)
-							{
-								if (it == cartsAndDirections.begin())
-								{
-									erasedFirstItem = true;
-								}
-
-								it = cartsAndDirections.erase(it);
-							}
+						if (find(cartIdsToRemove.begin(), cartIdsToRemove.end(), (*itOther).first) == cartIdsToRemove.end())
+						{
+							cartIdsToRemove.push_back((*itOther).first);
 						}
 					}
 				}
 			}
 
+			for (auto const & cid : cartIdsToRemove)
+			{
+				// TODO: Adjust reversedCartLocationsToIds
+				cartsAndDirections.erase(cid);
+			}
+
 			step++;
 			// Prevent bugs from running this forever
-			if (step == 10000)
+			if (step == 100000)
 			{
-				return { -1,-1 };
+				return "-1,-1";
 			}
 		}
 	}
@@ -130,7 +124,9 @@ vector<vector<char>> Day13::ReadTracks(vector<string> tracks)
 map<int, tuple<int, int, Day13::Direction, Day13::NextJunctionAction>> Day13::ExtractCarts(vector<vector<char>> &tracks)
 {
 	map<int, tuple<int, int, Direction, NextJunctionAction>> cartsAndDirections;
-	int x(0), y(0), cartId(0);
+	int x(0);
+	int y(0);
+	int cartId(0);
 
 	// Populate initial cart locations. All next junction actions are rotate left.
 	// Replace carts with track characters
@@ -224,7 +220,7 @@ pair<int, int> Day13::FindNextCollision(vector<vector<char>> &tracks, map<int, t
 	}
 }
 
-void Day13::MoveNextCart(pair<const pair<int,int>, int> &locationAndId, vector<vector<char>> &tracks, map<int, tuple<int, int, Day13::Direction, Day13::NextJunctionAction>> &cartsAndDirections)
+void Day13::MoveNextCart(pair<const pair<int, int>, int> &locationAndId, vector<vector<char>> &tracks, map<int, tuple<int, int, Day13::Direction, Day13::NextJunctionAction>> &cartsAndDirections)
 {
 	int currentX(locationAndId.first.second);
 	int currentY(locationAndId.first.first);
@@ -265,27 +261,27 @@ void Day13::MoveNextCart(pair<const pair<int,int>, int> &locationAndId, vector<v
 
 	// Rebuild cart map based on coordinates, 
 
-	string state;
-	for (size_t y = 0; y < tracks.size(); y++)
-	{
-		for (size_t x = 0; x < tracks[y].size(); x++)
-		{
-			// If location has a cart write the cart
-			map<int, tuple<int, int, Direction, NextJunctionAction>>::iterator cartAtCurrentlocation =
-				find_if(cartsAndDirections.begin(), cartsAndDirections.end(),
-					[x, y](pair<int, tuple<int, int, Direction, NextJunctionAction>> const &c)
-			{
-				return get<0>(c.second) == x && get<1>(c.second) == y;
-			});
-			if (cartAtCurrentlocation != cartsAndDirections.end())
-			{
-				state += DirectionsToChars[get<2>((*cartAtCurrentlocation).second)];
-			}
-			else
-			{
-				state += tracks[y][x];
-			}
-		}
-		state += "\r\n";
-	}
+	//string state;
+	//for (size_t y = 0; y < tracks.size(); y++)
+	//{
+	//	for (size_t x = 0; x < tracks[y].size(); x++)
+	//	{
+	//		// If location has a cart write the cart
+	//		map<int, tuple<int, int, Direction, NextJunctionAction>>::iterator cartAtCurrentlocation =
+	//			find_if(cartsAndDirections.begin(), cartsAndDirections.end(),
+	//				[x, y](pair<int, tuple<int, int, Direction, NextJunctionAction>> const &c)
+	//		{
+	//			return get<0>(c.second) == x && get<1>(c.second) == y;
+	//		});
+	//		if (cartAtCurrentlocation != cartsAndDirections.end())
+	//		{
+	//			state += DirectionsToChars[get<2>((*cartAtCurrentlocation).second)];
+	//		}
+	//		else
+	//		{
+	//			state += tracks[y][x];
+	//		}
+	//	}
+	//	state += "\r\n";
+	//}
 }
