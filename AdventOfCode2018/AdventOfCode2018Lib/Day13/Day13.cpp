@@ -57,7 +57,7 @@ string Day13::Part2(std::vector<std::vector<char>> tracks)
 			reversedCartLocationsToIds[location] = cart.first;
 		}
 
-		for (auto lIdIt = reversedCartLocationsToIds.begin(); lIdIt != reversedCartLocationsToIds.end(); lIdIt++)// pair<const pair<int, int>, int> & locationAndId : reversedCartLocationsToIds)
+		for (auto lIdIt = reversedCartLocationsToIds.begin(); lIdIt != reversedCartLocationsToIds.end();)// pair<const pair<int, int>, int> & locationAndId : reversedCartLocationsToIds)
 		{
 			MoveNextCart(*lIdIt, tracks, cartsAndDirections);
 
@@ -85,21 +85,27 @@ string Day13::Part2(std::vector<std::vector<char>> tracks)
 				}
 			}
 
+			if (cartIdsToRemove.size() == 0)
+			{
+				lIdIt++;
+			}
+
 			for (auto const & cid : cartIdsToRemove)
 			{
-				// TODO: Adjust reversedCartLocationsToIds
 				cartsAndDirections.erase(cid);
 				if ((*lIdIt).second == cid)
 				{
+					// If the iterator points to one of the items to erase, do so
 					lIdIt = reversedCartLocationsToIds.erase(lIdIt);
-					if (lIdIt != reversedCartLocationsToIds.end())
-					{
-						lIdIt--;
-					}
 				}
 				else
 				{
-					//find_if(reversedCartLocationsToIds.begin(), reversedCartLocationsToIds.end(), 
+					// The item is before or after the current iterator. Find it and erase it.
+					auto it = find_if(reversedCartLocationsToIds.begin(), reversedCartLocationsToIds.end(), 
+						[cid](const pair<pair<int, int>, int> & p) {
+							return p.second == cid;
+					});
+					reversedCartLocationsToIds.erase(it);
 				}
 			}
 
