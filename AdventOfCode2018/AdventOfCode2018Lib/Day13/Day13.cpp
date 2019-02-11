@@ -236,6 +236,8 @@ pair<int, int> Day13::FindNextCollision(vector<vector<char>> &tracks, map<int, t
 			}
 		}
 	}
+
+	return { -1,-1 };
 }
 
 void Day13::MoveNextCart(pair<const pair<int, int>, int> &locationAndId, vector<vector<char>> &tracks, map<int, tuple<int, int, Day13::Direction, Day13::NextJunctionAction>> &cartsAndDirections)

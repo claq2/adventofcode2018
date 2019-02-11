@@ -161,5 +161,8 @@
     <ClCompile Include="Day13\Day13.cpp">
       <Filter>Day13</Filter>
     </ClCompile>
+    <ClCompile Include="Day14\Day14.cpp">
+      <Filter>Day14</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

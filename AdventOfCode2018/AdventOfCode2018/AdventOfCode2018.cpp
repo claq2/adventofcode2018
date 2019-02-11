@@ -17,6 +17,7 @@
 #include "../AdventOfCode2018Lib/Day11/Day11.h"
 #include "../AdventOfCode2018Lib/Day12/Day12.h"
 #include "../AdventOfCode2018Lib/Day13/Day13.h"
+#include "../AdventOfCode2018Lib/Day14/Day14.h"
 
 using namespace std;
 
@@ -33,7 +34,8 @@ int main()
 	//Runner<Day09>().Run();
 	//Runner<Day11>().Run();
 	//Runner<Day12>().Run();
-	Runner<Day13>().Run();
+	//Runner<Day13>().Run();
+	Runner<Day14>().Run();
 }
 	
 

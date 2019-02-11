@@ -183,6 +183,7 @@
     <ClCompile Include="Day11\Day11.cpp" />
     <ClCompile Include="Day12\Day12.cpp" />
     <ClCompile Include="Day13\Day13.cpp" />
+    <ClCompile Include="Day14\Day14.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Day07\Node.cpp" />
     <ClCompile Include="stdafx.cpp">
