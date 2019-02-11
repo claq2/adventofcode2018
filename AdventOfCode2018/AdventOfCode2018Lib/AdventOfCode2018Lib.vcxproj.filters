@@ -49,6 +49,9 @@
     <Filter Include="Day13">
       <UniqueIdentifier>{5843f7ed-e7dc-4747-81f3-1c0f31696b5a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Day14">
+      <UniqueIdentifier>{999a3b0c-41e9-42cd-99c6-ea14efa1d843}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -101,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="Day13\Day13.h">
       <Filter>Day13</Filter>
+    </ClInclude>
+    <ClInclude Include="Day14\Day14.h">
+      <Filter>Day14</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
