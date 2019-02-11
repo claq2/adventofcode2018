@@ -57,9 +57,9 @@ string Day13::Part2(std::vector<std::vector<char>> tracks)
 			reversedCartLocationsToIds[location] = cart.first;
 		}
 
-		for (pair<const pair<int, int>, int> & locationAndId : reversedCartLocationsToIds)
+		for (auto lIdIt = reversedCartLocationsToIds.begin(); lIdIt != reversedCartLocationsToIds.end(); lIdIt++)// pair<const pair<int, int>, int> & locationAndId : reversedCartLocationsToIds)
 		{
-			MoveNextCart(locationAndId, tracks, cartsAndDirections);
+			MoveNextCart(*lIdIt, tracks, cartsAndDirections);
 
 			// Check for collisions
 
@@ -89,6 +89,18 @@ string Day13::Part2(std::vector<std::vector<char>> tracks)
 			{
 				// TODO: Adjust reversedCartLocationsToIds
 				cartsAndDirections.erase(cid);
+				if ((*lIdIt).second == cid)
+				{
+					lIdIt = reversedCartLocationsToIds.erase(lIdIt);
+					if (lIdIt != reversedCartLocationsToIds.end())
+					{
+						lIdIt--;
+					}
+				}
+				else
+				{
+					//find_if(reversedCartLocationsToIds.begin(), reversedCartLocationsToIds.end(), 
+				}
 			}
 
 			step++;
