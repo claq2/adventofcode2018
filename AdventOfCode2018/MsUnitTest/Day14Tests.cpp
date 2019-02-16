@@ -23,7 +23,9 @@ namespace MsUnitTest
 		TEST_METHOD(Part1)
 		{
 			Day14 day14;
-			
+			string expected9("5158916779");
+			string actual = day14.Part1(9);
+			Assert::AreEqual(expected9, actual);
 		}
 
 		TEST_METHOD(Part2)
