@@ -71,7 +71,7 @@ std::string Day14::Part1(int input)
 			}
 		}
 
-		for (auto si = scores.begin(); si != scores.end(); si++)
+		/*for (auto si = scores.begin(); si != scores.end(); si++)
 		{
 			if (elf1 == si)
 			{
@@ -87,7 +87,7 @@ std::string Day14::Part1(int input)
 			}
 		}
 
-		steps += "\r\n";
+		steps += "\r\n";*/
 	}
 
 	string nextTenScoresAfterInput("");
