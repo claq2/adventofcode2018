@@ -23,9 +23,13 @@ namespace MsUnitTest
 		TEST_METHOD(Part1)
 		{
 			Day14 day14;
-			string expected9("5158916779");
-			string actual = day14.Part1(9);
-			Assert::AreEqual(expected9, actual);
+			map<int, string> tests{ {9, "5158916779"}, {5, "0124515891"} };
+			for (auto const & test : tests)
+			{
+				string actual = day14.Part1(test.first);
+				Assert::AreEqual(test.second, actual);
+			}
+			
 		}
 
 		TEST_METHOD(Part2)
