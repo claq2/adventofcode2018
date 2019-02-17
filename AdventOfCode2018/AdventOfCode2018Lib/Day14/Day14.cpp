@@ -14,10 +14,10 @@ int Day14::ReadInput()
 std::string Day14::Part1(int input)
 {
 	auto scores = vector<int>{ 3,7 };
-	auto elf1 = scores.begin();
-	auto elf2 = scores.begin() + 1;
-	int elf1Index = 0;
-	int elf2Index = 1;
+	auto elf1{ scores.begin() };
+	auto elf2{ scores.begin() + 1 };
+	int elf1Index{ 0 };
+	int elf2Index{ 1 };
 	string steps{ "" };
 	for (size_t i = 1; scores.size() < input + 10; i++)
 	{
@@ -40,7 +40,7 @@ std::string Day14::Part1(int input)
 
 		elf1 = scores.begin() + elf1Index;
 		// move iterators
-		int elf1CurrentValue = *elf1;
+		int elf1CurrentValue{ *elf1 };
 		for (int i = 0; i < elf1CurrentValue + 1; i++)
 		{
 			if (elf1 == scores.end() - 1)
@@ -56,7 +56,7 @@ std::string Day14::Part1(int input)
 		}
 
 		elf2 = scores.begin() + elf2Index;
-		int elf2CurrentValue = *elf2;
+		int elf2CurrentValue{ *elf2 };
 		for (int i = 0; i < elf2CurrentValue + 1; i++)
 		{
 			if (elf2 == scores.end() - 1)
@@ -90,7 +90,7 @@ std::string Day14::Part1(int input)
 		steps += "\r\n";*/
 	}
 
-	string nextTenScoresAfterInput("");
+	string nextTenScoresAfterInput{ "" };
 	for (size_t i = input; i < 10 + input; i++)
 	{
 		nextTenScoresAfterInput += to_string(scores[i]);
