@@ -13,7 +13,7 @@ string Day14::ReadInput()
 
 std::string Day14::Part1(string input)
 {
-	auto scores = vector<int>{ 3,7 };
+	auto scores = vector<char>{ 3,7 };
 	auto elf1{ scores.begin() };
 	auto elf2{ scores.begin() + 1 };
 	int elf1Index{ 0 };
@@ -22,10 +22,10 @@ std::string Day14::Part1(string input)
 	int inputInt{ stoi(input) };
 	for (size_t i = 1; scores.size() < inputInt + 10; i++)
 	{
-		int newScore = *elf1 + *elf2;
+		char newScore = *elf1 + *elf2;
 		// get digits of new score
-		int onesDigit = newScore % 10;
-		int tensDigit(0);
+		char onesDigit = newScore % 10;
+		char tensDigit(0);
 		if (newScore >= 10)
 		{
 			tensDigit = (newScore - onesDigit) / 10;
@@ -41,8 +41,8 @@ std::string Day14::Part1(string input)
 
 		elf1 = scores.begin() + elf1Index;
 		// move iterators
-		int elf1CurrentValue{ *elf1 };
-		for (int i = 0; i < elf1CurrentValue + 1; i++)
+		char elf1CurrentValue{ *elf1 };
+		for (char i = 0; i < elf1CurrentValue + 1; i++)
 		{
 			if (elf1 == scores.end() - 1)
 			{
@@ -57,8 +57,8 @@ std::string Day14::Part1(string input)
 		}
 
 		elf2 = scores.begin() + elf2Index;
-		int elf2CurrentValue{ *elf2 };
-		for (int i = 0; i < elf2CurrentValue + 1; i++)
+		char elf2CurrentValue{ *elf2 };
+		for (char i = 0; i < elf2CurrentValue + 1; i++)
 		{
 			if (elf2 == scores.end() - 1)
 			{
@@ -108,33 +108,66 @@ std::string Day14::Part2(string input)
 	size_t elf1Index{ 0 };
 	size_t elf2Index{ 1 };
 	string steps{ "" };
+	vector<char> target;
+	for (auto const & i : input)
+	{
+		target.push_back(i - 48);
+	}
+
 	//string inputString = to_string(input);
 
-	int iterationCount{ 0 };
+	size_t iterationCount{ 0 };
 	// need scores to be at least inputString + 1 long before testing
 	while (true)
 	{
 		char newScore = *elf1 + *elf2;
 		// get digits of new score
-		char onesDigit = newScore % 10;
-		char tensDigit(0);
+		char onesDigit{ newScore };
+		char tensDigit{ 0 };
 		if (newScore >= 10)
 		{
-			tensDigit = (newScore - onesDigit) / 10;
+			tensDigit = 1;
+			onesDigit -= 10;
 		}
 
 		// append digits to scores
 		if (tensDigit != 0)
 		{
 			scores.push_back(tensDigit);
+			if (scores.size() >= input.size() + 1)
+			{
+				//		check end of vector for the input value
+				//		if found return vector location before value + 1
+				auto first = scores.end() - input.size();
+				auto last = scores.end();
+				vector<char> lastScores(first, last);
+				if (lastScores == target)
+				{
+					return to_string(scores.size() - input.size());
+
+				}
+			}
 		}
 
 		scores.push_back(onesDigit);
+		if (scores.size() >= input.size() + 1)
+		{
+			//		check end of vector for the input value
+			//		if found return vector location before value + 1
+			auto first = scores.end() - input.size();
+			auto last = scores.end();
+			vector<char> lastScores(first, last);
+			if (lastScores == target)
+			{
+				return to_string(scores.size() - input.size());
+
+			}
+		}
 
 		elf1 = scores.begin() + elf1Index;
 		// move iterators
-		char elf1CurrentValue{ *elf1 };
-		for (int j = 0; j < elf1CurrentValue + 1; j++)
+		char elf1MoveForward{ *elf1 + 1 };
+		for (int j = 0; j < elf1MoveForward; j++)
 		{
 			if (elf1 == scores.end() - 1)
 			{
@@ -149,8 +182,8 @@ std::string Day14::Part2(string input)
 		}
 
 		elf2 = scores.begin() + elf2Index;
-		char elf2CurrentValue{ *elf2 };
-		for (char j = 0; j < elf2CurrentValue + 1; j++)
+		char elf2MoveForward{ *elf2 + 1};
+		for (char j = 0; j < elf2MoveForward; j++)
 		{
 			if (elf2 == scores.end() - 1)
 			{
@@ -164,27 +197,14 @@ std::string Day14::Part2(string input)
 			}
 		}
 
-		//iterationCount++;
+		iterationCount++;
 		//if (iterationCount == 5000000)
 		//{
 		//	// Failsafe in case of bugs
 		//	return "failsafe";
 		//}
 
-		if (scores.size() >= input.size() + 1)
-		{
-			auto first = scores.end() - input.size();
-			auto last = scores.end();
-			vector<char> lastScores(first, last);
-			string lastScoresString{ "" };
-			for (auto const & ls : lastScores) lastScoresString += to_string(ls);
-			if (lastScoresString == input)
-			{
-				return to_string(scores.size() - input.size());
-			}
-			//		check end of vector for the input value
-			//		if found return vector location before value + 1
-		}
+
 
 		/*for (auto si = scores.begin(); si != scores.end(); si++)
 		{
