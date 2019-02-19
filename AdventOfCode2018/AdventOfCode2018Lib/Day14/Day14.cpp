@@ -102,11 +102,11 @@ std::string Day14::Part1(string input)
 
 std::string Day14::Part2(string input)
 {
-	auto scores = vector<int>{ 3,7 };
+	auto scores = vector<char>{ 3,7 };
 	auto elf1{ scores.begin() };
 	auto elf2{ scores.begin() + 1 };
-	int elf1Index{ 0 };
-	int elf2Index{ 1 };
+	size_t elf1Index{ 0 };
+	size_t elf2Index{ 1 };
 	string steps{ "" };
 	//string inputString = to_string(input);
 
@@ -114,10 +114,10 @@ std::string Day14::Part2(string input)
 	// need scores to be at least inputString + 1 long before testing
 	while (true)
 	{
-		int newScore = *elf1 + *elf2;
+		char newScore = *elf1 + *elf2;
 		// get digits of new score
-		int onesDigit = newScore % 10;
-		int tensDigit(0);
+		char onesDigit = newScore % 10;
+		char tensDigit(0);
 		if (newScore >= 10)
 		{
 			tensDigit = (newScore - onesDigit) / 10;
@@ -133,7 +133,7 @@ std::string Day14::Part2(string input)
 
 		elf1 = scores.begin() + elf1Index;
 		// move iterators
-		int elf1CurrentValue{ *elf1 };
+		char elf1CurrentValue{ *elf1 };
 		for (int j = 0; j < elf1CurrentValue + 1; j++)
 		{
 			if (elf1 == scores.end() - 1)
@@ -149,8 +149,8 @@ std::string Day14::Part2(string input)
 		}
 
 		elf2 = scores.begin() + elf2Index;
-		int elf2CurrentValue{ *elf2 };
-		for (int j = 0; j < elf2CurrentValue + 1; j++)
+		char elf2CurrentValue{ *elf2 };
+		for (char j = 0; j < elf2CurrentValue + 1; j++)
 		{
 			if (elf2 == scores.end() - 1)
 			{
@@ -175,7 +175,7 @@ std::string Day14::Part2(string input)
 		{
 			auto first = scores.end() - input.size();
 			auto last = scores.end();
-			vector<int> lastScores(first, last);
+			vector<char> lastScores(first, last);
 			string lastScoresString{ "" };
 			for (auto const & ls : lastScores) lastScoresString += to_string(ls);
 			if (lastScoresString == input)
