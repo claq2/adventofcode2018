@@ -28,27 +28,58 @@ vector<vector<char>> Day15::ReadInput()
 	return ReadMap(lines);
 }
 
-std::string Day15::Part1(vector<vector<char>> map)
+std::string Day15::Part1(vector<vector<char>> cavern)
+{
+	map<int, tuple<int, int, Creature>> creatresAndLocations(ExtractCreatures(cavern));
+	return "";
+}
+
+std::string Day15::Part2(vector<vector<char>> cavern)
 {
 	return "";
 }
 
-std::string Day15::Part2(vector<vector<char>> map)
-{
-	return "";
-}
-
-vector<vector<char>> Day15::ReadMap(vector<string> tracks)
+vector<vector<char>> Day15::ReadMap(vector<string> cavern)
 {
 	vector<vector<char>> result;
-	for (auto const & tl : tracks)
+	for (auto const & cl : cavern)
 	{
 		result.push_back(vector<char>());
-		for (auto const & c : tl)
+		for (auto const & c : cl)
 		{
 			result.back().push_back(c);
 		}
 	}
 
 	return result;
+}
+
+map<int, tuple<int, int, Day15::Creature>> Day15::ExtractCreatures(vector<vector<char>> &cavern)
+{
+	map<int, tuple<int, int, Creature>> creatures;
+	int x(0);
+	int y(0);
+	int creatureId(0);
+
+	// Populate initial creature locations.
+	// Replace creatures with cavern characters
+	for (auto & cl : cavern)
+	{
+		x = 0;
+		for (auto & cc : cl)
+		{
+			if (CreatureChars.count(cc) == 1)
+			{
+				creatures[creatureId] = { x, y, CreatureChars[cc]};
+				creatureId++;
+				cc = '.';
+			}
+
+			x++;
+		}
+
+		y++;
+	}
+
+	return creatures;
 }

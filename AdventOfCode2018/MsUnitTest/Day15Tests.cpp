@@ -27,7 +27,8 @@ namespace MsUnitTest
 		TEST_METHOD(Part1)
 		{
 			Day15 day15;
-			
+			auto value(day15.ReadInput());
+			auto actual(day15.Part1(value));
 
 		}
 

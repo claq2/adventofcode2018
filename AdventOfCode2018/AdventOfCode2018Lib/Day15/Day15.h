@@ -13,4 +13,17 @@ public:
 	std::string Part2(std::vector<std::vector<char>> input);
 
 	std::vector<std::vector<char>> ReadMap(std::vector<std::string> tracks);
+	enum Creature { Elf, Goblin };
+	std::map<char, Creature> CreatureChars
+	{
+		{ 'E', Creature::Elf },
+		{ 'G', Creature::Goblin },
+	};
+	std::map<int, std::tuple<int, int, Day15::Creature>> ExtractCreatures(std::vector<std::vector<char>> &tracks);
+	enum Ground { Wall, Cavern };
+	std::map<char, Ground> GroundChars
+	{
+		{ '#', Ground::Wall },
+		{ '.', Ground::Cavern },
+	};
 };
