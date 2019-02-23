@@ -30,7 +30,7 @@ vector<vector<char>> Day15::ReadInput()
 
 std::string Day15::Part1(vector<vector<char>> cavern)
 {
-	map<int, tuple<int, int, Creature>> creatresAndLocations(ExtractCreatures(cavern));
+	map<int, tuple<int, int, Creature, int>> creatresAndLocations(ExtractCreatures(cavern));
 	return "";
 }
 
@@ -54,9 +54,9 @@ vector<vector<char>> Day15::ReadMap(vector<string> cavern)
 	return result;
 }
 
-map<int, tuple<int, int, Day15::Creature>> Day15::ExtractCreatures(vector<vector<char>> &cavern)
+map<int, tuple<int, int, Day15::Creature, int>> Day15::ExtractCreatures(vector<vector<char>> &cavern)
 {
-	map<int, tuple<int, int, Creature>> creatures;
+	map<int, tuple<int, int, Creature, int>> creatures;
 	int x(0);
 	int y(0);
 	int creatureId(0);
@@ -70,7 +70,7 @@ map<int, tuple<int, int, Day15::Creature>> Day15::ExtractCreatures(vector<vector
 		{
 			if (CreatureChars.count(cc) == 1)
 			{
-				creatures[creatureId] = { x, y, CreatureChars[cc]};
+				creatures[creatureId] = { x, y, CreatureChars[cc], 200 }; // 200 hit points
 				creatureId++;
 				cc = '.';
 			}

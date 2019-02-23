@@ -19,7 +19,7 @@ public:
 		{ 'E', Creature::Elf },
 		{ 'G', Creature::Goblin },
 	};
-	std::map<int, std::tuple<int, int, Day15::Creature>> ExtractCreatures(std::vector<std::vector<char>> &tracks);
+	std::map<int, std::tuple<int, int, Day15::Creature, int>> ExtractCreatures(std::vector<std::vector<char>> &tracks);
 	enum Ground { Wall, Cavern };
 	std::map<char, Ground> GroundChars
 	{
